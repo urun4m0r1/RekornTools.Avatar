@@ -65,7 +65,8 @@ namespace Rekorn.VRCAvatarTools
         [SerializeField] private AvatarRig _cloth;
 
         [Header("Dress Settings")]
-        [SerializeField] private bool _unpackClothMeshes = true;
+        [SerializeField] private bool _backupCloth = false;
+        [SerializeField] private bool _unpackClothMeshes = false;
         [SerializeField] private bool _deleteLeftover = true;
         [SerializeField] private string _clothPrefix;
         [SerializeField] private string _clothSuffix;
@@ -87,10 +88,19 @@ namespace Rekorn.VRCAvatarTools
                 return;
             }
 
-            // if _clothRoot is prefab, unpack it
-            if (PrefabUtility.GetPrefabInstanceStatus(_cloth.Rig.gameObject) == PrefabInstanceStatus.Connected)
+            if (_backupCloth)
             {
-                PrefabUtility.UnpackPrefabInstance(_cloth.Rig.gameObject, PrefabUnpackMode.OutermostRoot, InteractionMode.UserAction);
+                var newClothRig = Instantiate(_cloth.Rig.gameObject);
+                Undo.RegisterCreatedObjectUndo(newClothRig, "Backup Cloth");
+                Undo.RecordObject(this, "Assign Backup Cloth");
+                _cloth.Rig = newClothRig.GetComponent<Animator>();
+            }
+            else
+            {
+                if (PrefabUtility.GetPrefabInstanceStatus(_cloth.Rig.gameObject) == PrefabInstanceStatus.Connected)
+                {
+                    PrefabUtility.UnpackPrefabInstance(_cloth.Rig.gameObject, PrefabUnpackMode.OutermostRoot, InteractionMode.UserAction);
+                }
             }
 
             var children = armature.GetComponentsInChildren<Transform>();
@@ -174,26 +184,29 @@ namespace Rekorn.VRCAvatarTools
             }
         }
 
+        [Button]
         public void ApplyCloth()
         {
+            ChangeNamingConvention();
+
+
             //find gameObject named "Armature" in _clothRoot and add all gameObject inside Armature prefix and suffix
             var armature = _cloth.Rig.transform.Find("Armature");
-            if (armature == null)
-            {
-                Debug.LogError("Can't find Armature in " + _cloth.Rig.name);
-                return;
-            }
 
-            // if _clothRoot is prefab, unpack it
-            if (PrefabUtility.GetPrefabInstanceStatus(_cloth.Rig.gameObject) == PrefabInstanceStatus.Connected)
-            {
-                Debug.LogWarning("Unpack " + _cloth.Rig.name + " prefab first!");
-                return;
-            }
+            var clothManagerGameObject = new GameObject($"{_cloth.Rig.name} Manager");
+            Undo.RegisterCreatedObjectUndo(clothManagerGameObject, "Apply Cloth");
+            Undo.SetTransformParent(clothManagerGameObject.transform, transform, "Cloth Manager");
+            var clothManager = Undo.AddComponent<ClothManager>(clothManagerGameObject);
+            clothManager.IsClothUnpacked = _unpackClothMeshes;
 
             var children = armature.GetComponentsInChildren<Transform>();
             foreach (var child in children)
             {
+                if (child == armature)
+                {
+                    continue;
+                }
+
                 var disableParenting = false;
 
                 foreach (var exception in _rigNameExceptions)
@@ -221,13 +234,17 @@ namespace Rekorn.VRCAvatarTools
                 {
                     Undo.SetTransformParent(child, newParent, "Parenting");
                 }
+
+                clothManager.ClothBones.Add(child);
             }
+
+            var clothMeshes = _cloth.Rig.GetComponentsInChildren<SkinnedMeshRenderer>();
+            clothManager.ClothMeshes.AddRange(clothMeshes);
 
             Undo.SetTransformParent(_cloth.Rig.transform, _avatar.Rig.transform, "Parenting");
 
             if (_unpackClothMeshes)
             {
-                var clothMeshes = _cloth.Rig.GetComponentsInChildren<SkinnedMeshRenderer>();
                 foreach (var clothMesh in clothMeshes)
                 {
                     Undo.SetTransformParent(clothMesh.gameObject.transform, _avatar.Rig.transform, "Parenting");

@@ -57,7 +57,8 @@ MonoBehaviour:
       Splitter: .
       ModifierLeft: L
       ModifierRight: R
-  _unpackClothMeshes: 1
+  _backupCloth: 0
+  _unpackClothMeshes: 0
   _deleteLeftover: 1
   _clothPrefix: 
   _clothSuffix: _Maid
