@@ -5,7 +5,7 @@ using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
 
-namespace Rekorn.VRCAvatarTools
+namespace VRCAvatarTools
 {
     public enum RigModifierPosition
     {
@@ -21,30 +21,24 @@ namespace Rekorn.VRCAvatarTools
         [SerializeField] public string ModifierLeft = "Left";
         [SerializeField] public string ModifierRight = "Right";
 
+        public string LeftFront => $"{ModifierLeft}{Splitter}";
+        public string RightFront => $"{ModifierRight}{Splitter}";
+        public string LeftEnd => $"{Splitter}{ModifierLeft}";
+        public string RightEnd => $"{Splitter}{ModifierRight}";
+
         public string PreviewText =>
             ModifierPosition == RigModifierPosition.Front
-                ? $"{ModifierLeft}{Splitter}Arm / " +
-                  $"{ModifierRight}{Splitter}Leg"
-                : $"Arm{Splitter}{ModifierLeft} / " +
-                  $"Leg{Splitter}{ModifierRight}";
-    }
-
-    [Serializable]
-    public class RigNamingCombination
-    {
-        [SerializeField] public RigNamingConvention NamingConvention;
-        public string LeftFront => $"{NamingConvention.ModifierLeft}{NamingConvention.Splitter}";
-        public string RightFront => $"{NamingConvention.ModifierRight}{NamingConvention.Splitter}";
-        public string LeftEnd => $"{NamingConvention.Splitter}{NamingConvention.ModifierLeft}";
-        public string RightEnd => $"{NamingConvention.Splitter}{NamingConvention.ModifierRight}";
-
-        public RigNamingCombination(RigNamingConvention namingConvention) => NamingConvention = namingConvention;
+                ? $"{LeftFront}Arm / {RightFront}Leg"
+                : $"Arm{LeftEnd} / Leg{RightEnd}";
     }
 
     [Serializable]
     public struct AvatarRig
     {
         [SerializeField] public Animator Rig;
+
+        private bool IsValid => Rig != null;
+        [ShowIf("IsValid"), AllowNesting]
         [SerializeField] public RigNamingConvention NamingConvention;
     }
 
@@ -56,9 +50,8 @@ namespace Rekorn.VRCAvatarTools
         [SerializeField] public string ClothBoneName;
     }
 
-
     [ExecuteInEditMode]
-    public sealed class AutoDresser : MonoBehaviour
+    public sealed partial class AutoDresser : MonoBehaviour
     {
         [Header("Rig Settings")]
         [SerializeField] private AvatarRig _avatar;
@@ -78,9 +71,72 @@ namespace Rekorn.VRCAvatarTools
         [ShowNativeProperty] private string ClothNamingPreview => _cloth.NamingConvention.PreviewText;
         [ShowNativeProperty] private string NewClothNamingPreview => $"{_clothPrefix}Hips{_clothSuffix}";
 
-        public void ChangeNamingConvention()
+        private string ChangeNamingConvention(string oldName)
         {
-            //find gameObject named "Armature" in _clothRoot and add all gameObject inside Armature prefix and suffix
+            var newName = oldName;
+
+            if (_cloth.NamingConvention.ModifierPosition == RigModifierPosition.Front)
+            {
+                var clothLeftFront = _cloth.NamingConvention.LeftFront;
+                var clothRightFront = _cloth.NamingConvention.RightFront;
+                if (!ReplaceAndRenameIfExist(clothLeftFront, RenameLeftNewName))
+                    ReplaceAndRenameIfExist(clothRightFront, RenameRightNewName);
+            }
+            else
+            {
+                var clothLeftEnd = _cloth.NamingConvention.LeftEnd;
+                var clothRightEnd = _cloth.NamingConvention.RightEnd;
+                if (!ReplaceAndRenameIfExist(clothLeftEnd, RenameLeftNewName))
+                    ReplaceAndRenameIfExist(clothRightEnd, RenameRightNewName);
+            }
+
+            foreach (var exception in _rigNameExceptions)
+            {
+                if (newName.Contains(exception.ClothBoneName))
+                {
+                    newName = newName.Replace(exception.ClothBoneName, exception.AvatarBoneName);
+                }
+            }
+
+            return newName;
+
+            bool ReplaceAndRenameIfExist(string str, Action renameAction)
+            {
+                if (newName.Contains(str))
+                {
+                    newName = newName.Replace(str, "");
+                    renameAction();
+                    return true;
+                }
+                return false;
+            }
+
+            void RenameLeftNewName()
+            {
+                var avatarLeftFront = _avatar.NamingConvention.LeftFront;
+                var avatarLeftEnd = _avatar.NamingConvention.LeftEnd;
+                SetNewName(avatarLeftFront, avatarLeftEnd);
+            }
+
+            void RenameRightNewName()
+            {
+                var avatarRightFront = _avatar.NamingConvention.RightFront;
+                var avatarRightEnd = _avatar.NamingConvention.RightEnd;
+                SetNewName(avatarRightFront, avatarRightEnd);
+            }
+
+            void SetNewName(string avatarFront, string avatarEnd)
+            {
+                if (_avatar.NamingConvention.ModifierPosition == RigModifierPosition.Front)
+                    newName = $"{avatarFront}{newName}";
+                else
+                    newName = $"{newName}{avatarEnd}";
+            }
+        }
+
+        [Button]
+        public void ApplyCloth()
+        {
             var armature = _cloth.Rig.transform.Find("Armature");
             if (armature == null)
             {
@@ -88,110 +144,8 @@ namespace Rekorn.VRCAvatarTools
                 return;
             }
 
-            if (_backupCloth)
-            {
-                var newClothRig = Instantiate(_cloth.Rig.gameObject);
-                Undo.RegisterCreatedObjectUndo(newClothRig, "Backup Cloth");
-                Undo.RecordObject(this, "Assign Backup Cloth");
-                _cloth.Rig = newClothRig.GetComponent<Animator>();
-            }
-            else
-            {
-                if (PrefabUtility.GetPrefabInstanceStatus(_cloth.Rig.gameObject) == PrefabInstanceStatus.Connected)
-                {
-                    PrefabUtility.UnpackPrefabInstance(_cloth.Rig.gameObject, PrefabUnpackMode.OutermostRoot, InteractionMode.UserAction);
-                }
-            }
-
-            var children = armature.GetComponentsInChildren<Transform>();
-            foreach (var child in children)
-            {
-                var newName = child.name;
-                var clothModifierPosition = _cloth.NamingConvention.ModifierPosition;
-                var avatarModifierPosition = _avatar.NamingConvention.ModifierPosition;
-
-                var clothCombination = new RigNamingCombination(_cloth.NamingConvention);
-                var avatarCombination = new RigNamingCombination(_avatar.NamingConvention);
-
-                if (clothModifierPosition == RigModifierPosition.Front)
-                {
-                    if (newName.Contains(clothCombination.LeftFront))
-                    {
-                        newName = newName.Replace(clothCombination.LeftFront, "");
-
-                        if (avatarModifierPosition == RigModifierPosition.Front)
-                        {
-                            newName = $"{avatarCombination.LeftFront}{newName}";
-                        }
-                        else
-                        {
-                            newName = $"{newName}{avatarCombination.LeftEnd}";
-                        }
-                    }
-                    else if (newName.Contains(clothCombination.RightFront))
-                    {
-                        newName = newName.Replace(clothCombination.RightFront, "");
-
-                        if (avatarModifierPosition == RigModifierPosition.Front)
-                        {
-                            newName = $"{avatarCombination.RightFront}{newName}";
-                        }
-                        else
-                        {
-                            newName = $"{newName}{avatarCombination.RightEnd}";
-                        }
-                    }
-                }
-                else
-                {
-                    if (newName.Contains(clothCombination.LeftEnd))
-                    {
-                        newName = newName.Replace(clothCombination.LeftEnd, "");
-
-                        if (avatarModifierPosition == RigModifierPosition.Front)
-                        {
-                            newName = $"{avatarCombination.LeftFront}{newName}";
-                        }
-                        else
-                        {
-                            newName = $"{newName}{avatarCombination.LeftEnd}";
-                        }
-                    }
-                    else if (newName.Contains(clothCombination.RightEnd))
-                    {
-                        newName = newName.Replace(clothCombination.RightEnd, "");
-
-                        if (avatarModifierPosition == RigModifierPosition.Front)
-                        {
-                            newName = $"{avatarCombination.RightFront}{newName}";
-                        }
-                        else
-                        {
-                            newName = $"{newName}{avatarCombination.RightEnd}";
-                        }
-                    }
-                }
-
-                foreach (var exception in _rigNameExceptions)
-                {
-                    if (newName.Contains(exception.ClothBoneName))
-                    {
-                        newName = newName.Replace(exception.ClothBoneName, exception.AvatarBoneName);
-                    }
-                }
-
-                child.name = newName;
-            }
-        }
-
-        [Button]
-        public void ApplyCloth()
-        {
-            ChangeNamingConvention();
-
-
-            //find gameObject named "Armature" in _clothRoot and add all gameObject inside Armature prefix and suffix
-            var armature = _cloth.Rig.transform.Find("Armature");
+            if (_backupCloth) BackupComponent(ref _cloth.Rig);
+            else UnpackPrefab(_cloth.Rig.gameObject);
 
             var clothManagerGameObject = new GameObject($"{_cloth.Rig.name} Manager");
             Undo.RegisterCreatedObjectUndo(clothManagerGameObject, "Apply Cloth");
@@ -202,38 +156,23 @@ namespace Rekorn.VRCAvatarTools
             var children = armature.GetComponentsInChildren<Transform>();
             foreach (var child in children)
             {
-                if (child == armature)
-                {
-                    continue;
-                }
+                if (child == armature) continue;
 
                 var disableParenting = false;
 
+                child.name = ChangeNamingConvention(child.name);
+
                 foreach (var exception in _rigNameExceptions)
-                {
                     if (child.name.Contains(exception.AvatarBoneName))
-                    {
                         disableParenting = exception.DisableParenting;
-                    }
-                }
 
                 var newParent = FindRecursive(_avatar.Rig.transform, child.name);
-                if (newParent == null)
-                {
-                    newParent = child.parent;
-                }
+                if (newParent == null) newParent = child.parent;
 
                 Undo.RecordObject(child.gameObject, "Apply Cloth");
                 child.name = $"{_clothPrefix}{child.name}{_clothSuffix}";
 
-                if (disableParenting)
-                {
-                    Undo.SetTransformParent(child, newParent.parent, "Parenting");
-                }
-                else
-                {
-                    Undo.SetTransformParent(child, newParent, "Parenting");
-                }
+                Undo.SetTransformParent(child, disableParenting ? newParent.parent : newParent, "Parenting");
 
                 clothManager.ClothBones.Add(child);
             }
@@ -244,26 +183,32 @@ namespace Rekorn.VRCAvatarTools
             Undo.SetTransformParent(_cloth.Rig.transform, _avatar.Rig.transform, "Parenting");
 
             if (_unpackClothMeshes)
-            {
                 foreach (var clothMesh in clothMeshes)
-                {
                     Undo.SetTransformParent(clothMesh.gameObject.transform, _avatar.Rig.transform, "Parenting");
-                }
-            }
 
             if (_deleteLeftover)
             {
                 Undo.DestroyObjectImmediate(armature.gameObject);
 
                 if (_unpackClothMeshes)
-                {
                     Undo.DestroyObjectImmediate(_cloth.Rig.gameObject);
-                }
                 else
-                {
                     Undo.DestroyObjectImmediate(_cloth.Rig);
-                }
             }
+        }
+
+        private void BackupComponent<T>(ref T component) where T : Component
+        {
+            var backup = Instantiate(component.gameObject);
+            Undo.RegisterCreatedObjectUndo(backup, "Backup Cloth");
+            Undo.RecordObject(this, "Assign Backup Cloth");
+            component = backup.GetComponent<T>();
+        }
+
+        private static void UnpackPrefab(GameObject prefab)
+        {
+            if (PrefabUtility.GetPrefabInstanceStatus(prefab) == PrefabInstanceStatus.Connected)
+                PrefabUtility.UnpackPrefabInstance(prefab, PrefabUnpackMode.OutermostRoot, InteractionMode.UserAction);
         }
 
         private static Transform FindRecursive(Transform root, string name)
@@ -276,10 +221,7 @@ namespace Rekorn.VRCAvatarTools
             foreach (Transform child in root)
             {
                 var result = FindRecursive(child, name);
-                if (result != null)
-                {
-                    return result;
-                }
+                if (result != null) return result;
             }
 
             return null;

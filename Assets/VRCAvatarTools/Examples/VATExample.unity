@@ -281,12 +281,22 @@ PrefabInstance:
         type: 3}
       propertyPath: _cloth.Rig
       value: 
-      objectReference: {fileID: 1990313630287057085}
+      objectReference: {fileID: 1934551472}
     - target: {fileID: 2405529468323369589, guid: 2f7eb30e1fb94b140bfd5bfd7b08da2c,
         type: 3}
       propertyPath: _avatar.Rig
       value: 
       objectReference: {fileID: 255359356}
+    - target: {fileID: 2405529468323369589, guid: 2f7eb30e1fb94b140bfd5bfd7b08da2c,
+        type: 3}
+      propertyPath: _rigNameExceptions.Array.data[0].DisableParenting
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2405529468323369589, guid: 2f7eb30e1fb94b140bfd5bfd7b08da2c,
+        type: 3}
+      propertyPath: _rigNameExceptions.Array.data[1].DisableParenting
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8150839103321071392, guid: 2f7eb30e1fb94b140bfd5bfd7b08da2c,
         type: 3}
       propertyPath: m_RootOrder
@@ -344,7 +354,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f7eb30e1fb94b140bfd5bfd7b08da2c, type: 3}
---- !u!95 &1990313630287057085 stripped
+--- !u!95 &1934551472 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 886386222, guid: 7baee34e33273334282a991e6d49618c,
     type: 3}

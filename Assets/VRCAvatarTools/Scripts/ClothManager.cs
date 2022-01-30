@@ -5,7 +5,7 @@ using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
 
-namespace Rekorn.VRCAvatarTools
+namespace VRCAvatarTools
 {
     [ExecuteInEditMode]
     public sealed class ClothManager : MonoBehaviour
