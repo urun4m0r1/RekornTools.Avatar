@@ -289,13 +289,23 @@ PrefabInstance:
       objectReference: {fileID: 255359356}
     - target: {fileID: 2405529468323369589, guid: 2f7eb30e1fb94b140bfd5bfd7b08da2c,
         type: 3}
+      propertyPath: _deleteLeftover
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2405529468323369589, guid: 2f7eb30e1fb94b140bfd5bfd7b08da2c,
+        type: 3}
+      propertyPath: _rigNameExceptions.Array.data[1].ClothBoneName
+      value: Oppai
+      objectReference: {fileID: 0}
+    - target: {fileID: 2405529468323369589, guid: 2f7eb30e1fb94b140bfd5bfd7b08da2c,
+        type: 3}
       propertyPath: _rigNameExceptions.Array.data[0].DisableParenting
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2405529468323369589, guid: 2f7eb30e1fb94b140bfd5bfd7b08da2c,
         type: 3}
       propertyPath: _rigNameExceptions.Array.data[1].DisableParenting
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8150839103321071392, guid: 2f7eb30e1fb94b140bfd5bfd7b08da2c,
         type: 3}

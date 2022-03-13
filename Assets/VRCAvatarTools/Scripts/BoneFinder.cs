@@ -8,12 +8,13 @@ using UnityEngine;
 namespace VRCAvatarTools
 {
     [ExecuteInEditMode]
-    public sealed class ClothManager : MonoBehaviour
+    public sealed class BoneFinder : MonoBehaviour
     {
         [Header("Cloth Settings")]
         [SerializeField] public List<SkinnedMeshRenderer> ClothMeshes = new List<SkinnedMeshRenderer>();
         [SerializeField] public List<Transform> ClothBones = new List<Transform>();
         [HideInInspector] public bool IsClothUnpacked = false;
+        [SerializeField] public string ClothName = "Cloth";
 
         [Button]
         public void RemoveCloth()
@@ -45,6 +46,42 @@ namespace VRCAvatarTools
             ClothBones.Clear();
 
             Undo.DestroyObjectImmediate(gameObject);
+        }
+
+        [Button]
+        public void FindActualBones()
+        {
+            Undo.RecordObject(this, "Remove Cloth");
+            ClothBones.Clear();
+            Undo.RecordObject(this, "Remove Cloth");
+            foreach (SkinnedMeshRenderer clothMesh in ClothMeshes)
+            {
+                foreach (Transform bone in clothMesh.bones)
+                {
+                    if (IsRealBone(clothMesh, bone))
+                    {
+                        if (!ClothBones.Contains(bone))
+                        {
+                            ClothBones.Add(bone);
+                        }
+                    }
+                }
+            }
+        }
+
+        bool IsRealBone(SkinnedMeshRenderer skinnedMeshRenderer, Transform bone)
+        {
+            if (bone == null)
+            {
+                return false;
+            }
+
+            if (skinnedMeshRenderer.bones.Contains(bone))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         [Button]
