@@ -4,6 +4,7 @@ using JetBrains.Annotations;
 using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
+using VRCAvatarTools;
 
 [ExecuteInEditMode]
 public sealed class ShaderHelper : MonoBehaviour
@@ -23,7 +24,7 @@ public sealed class ShaderHelper : MonoBehaviour
     {
         InitFields();
 
-        gameObjects = GetAllGameObjectsInScene.ToList();
+        gameObjects = GameObjectExtensions.GetAllGameObjectsInScene.ToList();
         if (gameObjects.Count < 1)
         {
             Debug.LogError("No GameObjects in scene!");
@@ -123,19 +124,8 @@ public sealed class ShaderHelper : MonoBehaviour
                 Debug.LogError($"Failed to set {emissiveTextureProperty} in {s.name}.");
                 continue;
             }
-
         }
 
         Debug.Log($"Successfully set all shaders main texture to emissive texture!");
-    }
-
-    static IEnumerable<GameObject> GetAllGameObjectsInScene => AllGameObjectsInProject.Where(IsEditableGameObjectInScene);
-    static IEnumerable<GameObject> AllGameObjectsInProject  => (GameObject[]) Resources.FindObjectsOfTypeAll(typeof(GameObject));
-
-    static bool IsEditableGameObjectInScene(GameObject go)
-    {
-        return !EditorUtility.IsPersistent(go.transform.root.gameObject) &&
-               !(go.hideFlags == HideFlags.NotEditable ||
-                 go.hideFlags == HideFlags.HideAndDontSave);
     }
 }

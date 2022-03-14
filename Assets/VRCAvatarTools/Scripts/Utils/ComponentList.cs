@@ -23,18 +23,17 @@ namespace VRCAvatarTools
         static readonly string TypeName  = typeof(T).Name;
         [NotNull]       string Header => $"[{ClassName}<{TypeName}>]";
 
-        void Log(string        message) => Debug.Log($"{Header} {message}");
-        void LogWarning(string message) => Debug.LogWarning($"{Header} {message}");
-        void LogError(string   message) => Debug.LogError($"{Header} {message}");
+        void ShowDialog(string message)
+        {
+            Debug.LogWarning($"{Header} {message}");
+            EditorUtility.DisplayDialog(
+                Header,
+                message,
+                "Confirm");
+        }
 
         public void DestroyItems()
         {
-            if (Count == 0)
-            {
-                LogWarning("Nothing to destroy.");
-                return;
-            }
-
             var toRemove             = new List<T>();
             var destroyFailedObjects = new StringBuilder();
 
@@ -58,8 +57,8 @@ namespace VRCAvatarTools
             if (destroyFailedObjects.Length > 0)
             {
                 string objectsList = destroyFailedObjects.ToString().TrimEnd(',', ' ');
-                LogWarning($"Failed to destroy following objects: {objectsList}");
-                Log("You might need to unpack prefabs before destroy them.");
+                ShowDialog($"Failed to destroy following objects: {objectsList}\n" +
+                           "You might need to unpack prefabs before destroy them.");
             }
 
             RemoveRange(toRemove);
@@ -80,26 +79,36 @@ namespace VRCAvatarTools
         public bool TryGetSelections([NotNull] out Object[] selections)
         {
             selections = this.Where(x => x).Select(x => x.gameObject as Object).ToArray();
-
-            bool isEmpty = selections.Length == 0;
-            if (isEmpty) LogWarning("There are no items to select.");
-
-            return !isEmpty;
+            return selections.Length != 0;
         }
 
-        public void InitializeFromName(Transform parent, [NotNull] string name = "")
+        public void Initialize(Transform parent, [NotNull] string keyword = "")
         {
-            if (!parent)
-            {
-                LogWarning("Parent is null.");
-                return;
-            }
-
             Clear();
 
-            T[] objects = parent.GetComponentsInChildren<T>();
+            T[] objects = { };
+
+            if (parent)
+            {
+                objects = parent.GetComponentsInChildren<T>();
+            }
+            else
+            {
+                if (typeof(T) == typeof(Transform) && !EditorUtility.DisplayDialog(
+                        "No parent selected",
+                        "You didn't select a parent\n"                                 +
+                        "Do you really want to search for all objects in the scene?\n" +
+                        "This operation might takes a while.",
+                        "Proceed",
+                        "Cancel")) return;
+
+                IEnumerable<GameObject> gameObjectsInScene = GameObjectExtensions.GetAllGameObjectsInScene;
+                objects = gameObjectsInScene.SelectMany(x => x.GetComponents<T>()).ToArray();
+            }
+
+
             foreach (T item in from o in objects
-                     where o.name.Contains(name)
+                     where o.name.Contains(keyword)
                      select o.GetComponent<T>()
                      into t
                      where t
@@ -107,9 +116,6 @@ namespace VRCAvatarTools
             {
                 Add(item);
             }
-
-            if (Count == 0) LogWarning($"There are no meshes with name '{name}'.");
-            else Log($"Found {Count} items.");
         }
 
         #region Interface

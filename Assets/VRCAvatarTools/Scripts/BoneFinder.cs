@@ -5,112 +5,109 @@ using JetBrains.Annotations;
 using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace VRCAvatarTools
 {
     [ExecuteInEditMode]
+    [RequireComponent(typeof(MeshBonePairs))]
     public sealed class BoneFinder : MonoBehaviour
     {
-        [field: SerializeField, Label(nameof(Target))] public Transform               Target { get; private set; }
-        [field: SerializeField, Label(nameof(Name))]   public string                  Name   { get; private set; }
-        [field: SerializeField, Label(nameof(Meshes))] public SkinnedMeshRendererList Meshes { get; private set; }
-        [field: SerializeField, Label(nameof(Bones))]  public TransformList           Bones  { get; private set; }
+        [field: SerializeField, Label(nameof(MeshParent))]  public Transform MeshParent  { get; set; }
+        [field: SerializeField, Label(nameof(BoneParent))]  public Transform BoneParent  { get; set; }
+        [field: SerializeField, Label(nameof(MeshKeyword))] public string    MeshKeyword { get; set; }
+        [field: SerializeField, Label(nameof(BoneKeyword))] public string    BoneKeyword { get; set; }
 
         const     string ClassName = nameof(BoneFinder);
         [NotNull] string GameObjectName => gameObject.name;
         [NotNull] string Header         => $"[{ClassName}({GameObjectName})]";
 
-        void Log(string        message) => Debug.Log($"{Header} {message}");
-        void LogWarning(string message) => Debug.LogWarning($"{Header} {message}");
-        void LogError(string   message) => Debug.LogError($"{Header} {message}");
-
-        [Button] void DestroyAll()
+        void ShowDialog(string message)
         {
-            Undo.RegisterCompleteObjectUndo(this, ClassName);
-            Meshes.DestroyItems();
-            Undo.RegisterCompleteObjectUndo(this, ClassName);
-            Bones.DestroyItems();
+            Debug.LogWarning($"{Header} {message}");
+            EditorUtility.DisplayDialog(
+                Header,
+                message,
+                "Confirm");
         }
 
-        [Button] public void SelectAll()
+        MeshBonePairs _meshBonePairs;
+
+        void Awake()
         {
-            if (Meshes.TryGetSelections(out Object[] meshSelections)
-                && Bones.TryGetSelections(out Object[] boneSelections))
-                Selection.objects = meshSelections.Concat(boneSelections).ToArray();
+            _meshBonePairs = GetComponent<MeshBonePairs>();
         }
 
-        [Button] public void InitializeFromTargetChildren()
+        public void FindMeshesFromTargetWithKeyword()
         {
-            Undo.RegisterCompleteObjectUndo(this, ClassName);
-            Meshes.InitializeFromName(Target);
-            Undo.RegisterCompleteObjectUndo(this, ClassName);
-            Bones.InitializeFromName(Target);
-
-            Undo.RegisterCompleteObjectUndo(this, ClassName);
-            Bones.RemoveRange(Meshes.Select(x => x.transform).ToList());
-            Undo.RegisterCompleteObjectUndo(this, ClassName);
-            Bones.Remove(Target);
+            Undo.RegisterCompleteObjectUndo(_meshBonePairs, ClassName);
+            {
+                _meshBonePairs.Meshes.Initialize(MeshParent, MeshKeyword);
+            }
+            if (_meshBonePairs.Meshes.Count == 0) ShowDialog("No objects found");
         }
 
-        [Button] public void InitializeFromTargetChildrenWithName()
+        public void FindBonesFromTargetWithKeyword()
         {
-            Undo.RegisterCompleteObjectUndo(this, ClassName);
-            Meshes.InitializeFromName(Target, Name);
-            Undo.RegisterCompleteObjectUndo(this, ClassName);
-            Bones.InitializeFromName(Target, Name);
-
-            Undo.RegisterCompleteObjectUndo(this, ClassName);
-            Bones.RemoveRange(Meshes.Select(x => x.transform).ToList());
-            Undo.RegisterCompleteObjectUndo(this, ClassName);
-            Bones.Remove(Target);
+            Undo.RegisterCompleteObjectUndo(_meshBonePairs, ClassName);
+            {
+                _meshBonePairs.Bones.Initialize(BoneParent, BoneKeyword);
+                _meshBonePairs.Bones.RemoveRange(_meshBonePairs.Meshes.Select(x => x.transform).ToList());
+                _meshBonePairs.Bones.Remove(BoneParent);
+            }
+            if (_meshBonePairs.Bones.Count == 0) ShowDialog("No objects found");
         }
 
-        [Button] void FindChildrenWithMeshes()
+        public void FindBonesFromMeshesWeightsIncludingChildren()
         {
-            FindBonesWithMeshes();
+            FindBonesFromMeshesWeights();
 
             var children = new List<Transform>();
 
             foreach (Transform child in
-                     from b in Bones
+                     from b in _meshBonePairs.Bones
                      from Transform c in b
-                     where c && !Bones.Contains(c) && !children.Contains(c)
+                     where c && !_meshBonePairs.Bones.Contains(c) && !children.Contains(c)
                      select c)
             {
                 children.Add(child);
             }
 
-            Undo.RegisterCompleteObjectUndo(this, ClassName);
-            Bones.AddRange(children);
+            Undo.RegisterCompleteObjectUndo(_meshBonePairs, ClassName);
+            {
+                _meshBonePairs.Bones.AddRange(children);
+            }
         }
 
-        [Button] void FindBonesWithMeshes()
+        public void FindBonesFromMeshesWeights()
         {
-            if (Meshes.Count == 0)
+            if (_meshBonePairs.Meshes.Count == 0)
             {
-                LogWarning("There are no meshes to find bones from.");
+                ShowDialog("There are no meshes to find bones from.");
                 return;
             }
 
-            Undo.RegisterCompleteObjectUndo(this, ClassName);
-            Bones.Clear();
-
-            foreach (Transform bone in
-                     from m in Meshes
-                     where m
-                     from b in m.bones
-                     where b && !Bones.Contains(b)
-                     select b)
+            Undo.RegisterCompleteObjectUndo(_meshBonePairs, ClassName);
             {
-                Undo.RegisterCompleteObjectUndo(this, ClassName);
-                Bones.Add(bone);
+                _meshBonePairs.Bones.Clear();
             }
 
-            if (Bones.Count == 0)
+            foreach (Transform bone in
+                     from m in _meshBonePairs.Meshes
+                     where m
+                     from b in m.bones
+                     where b && !_meshBonePairs.Bones.Contains(b)
+                     select b)
             {
-                LogWarning("Failed to find any bones from meshes.");
-                Log("You might need to check meshes is valid or bone weights are not set to zero.");
+                Undo.RegisterCompleteObjectUndo(_meshBonePairs, ClassName);
+                {
+                    _meshBonePairs.Bones.Add(bone);
+                }
+            }
+
+            if (_meshBonePairs.Bones.Count == 0)
+            {
+                ShowDialog("Failed to find any bones from meshes.\n" +
+                           "You might need to check meshes is valid or bone weights are not set to zero.");
             }
         }
     }
