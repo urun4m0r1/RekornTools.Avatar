@@ -35,6 +35,7 @@ namespace VRCAvatarTools
             list.drawElementCallback += (rect, index, isActive, isFocused) =>
             {
                 SerializedProperty elementProp = list.serializedProperty.GetArrayElementAtIndex(index);
+
                 if (elementProp.hasVisibleChildren)
                 {
                     EditorGUI.PropertyField(rect, elementProp, includeChildren: true);

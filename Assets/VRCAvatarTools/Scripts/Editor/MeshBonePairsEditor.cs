@@ -26,7 +26,13 @@ namespace VRCAvatarTools
                 {
                     EditorGUI.indentLevel++;
                     {
-                        EditorGUILayout.PropertyField(FindPropertyByAutoPropertyName(serializedObject, "Meshes"), true);
+                        EditorGUI.BeginChangeCheck();
+                        {
+                            EditorGUILayout.PropertyField(
+                                FindPropertyByAutoPropertyName(serializedObject, "Meshes"),
+                                true);
+                        }
+                        if (EditorGUI.EndChangeCheck()) serializedObject.ApplyModifiedProperties();
                     }
                     EditorGUI.indentLevel--;
                 }
@@ -36,7 +42,13 @@ namespace VRCAvatarTools
                 {
                     EditorGUI.indentLevel++;
                     {
-                        EditorGUILayout.PropertyField(FindPropertyByAutoPropertyName(serializedObject, "Bones"), true);
+                        EditorGUI.BeginChangeCheck();
+                        {
+                            EditorGUILayout.PropertyField(
+                                FindPropertyByAutoPropertyName(serializedObject, "Bones"),
+                                true);
+                        }
+                        if (EditorGUI.EndChangeCheck()) serializedObject.ApplyModifiedProperties();
                     }
                     EditorGUI.indentLevel--;
                 }
