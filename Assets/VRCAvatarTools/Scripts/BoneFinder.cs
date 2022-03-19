@@ -21,6 +21,9 @@ namespace VRCAvatarTools
         [NotNull] string GameObjectName => gameObject.name;
         [NotNull] string Header         => $"[{ClassName}({GameObjectName})]";
 
+        SkinnedMeshRendererList _meshList;
+        TransformList           _boneList;
+
         void ShowDialog(string message)
         {
             Debug.LogWarning($"{Header} {message}");
@@ -35,6 +38,8 @@ namespace VRCAvatarTools
         void Awake()
         {
             _meshBonePairs = GetComponent<MeshBonePairs>();
+            _meshList      = _meshBonePairs.Meshes; //TODO:  레퍼런스를 복사야야함
+            _boneList      = _meshBonePairs.Bones;
         }
 
         public void FindMeshesFromTargetWithKeyword()

@@ -12,26 +12,13 @@ namespace VRCAvatarTools
 {
     [Serializable] public class SkinnedMeshRendererList : ComponentList<SkinnedMeshRenderer> { }
 
+    [Serializable] public class RendererList : ComponentList<Renderer> { }
+
     [Serializable] public class TransformList : ComponentList<Transform> { }
 
     [Serializable]
-    public class ComponentList<T> : IList<T> where T : Component
+    public class ComponentList<T> : ObjectList<T> where T : Component
     {
-        [SerializeField] protected List<T> list = new List<T>();
-
-        const           string ClassName = nameof(ComponentList<T>);
-        static readonly string TypeName  = typeof(T).Name;
-        [NotNull]       string Header => $"[{ClassName}<{TypeName}>]";
-
-        void ShowDialog(string message)
-        {
-            Debug.LogWarning($"{Header} {message}");
-            EditorUtility.DisplayDialog(
-                Header,
-                message,
-                "Confirm");
-        }
-
         public void DestroyItems()
         {
             var toRemove             = new List<T>();
@@ -70,6 +57,7 @@ namespace VRCAvatarTools
 
             return PrefabUtility.GetPrefabInstanceStatus(o) == PrefabInstanceStatus.Connected;
         }
+
 
         public void SelectComponents()
         {
@@ -116,6 +104,25 @@ namespace VRCAvatarTools
             {
                 Add(item);
             }
+        }
+    }
+
+    [Serializable]
+    public class ObjectList<T> : IList<T>
+    {
+        [SerializeField] protected List<T> list = new List<T>();
+
+        static readonly string ClassName = nameof(ObjectList<T>);
+        static readonly string TypeName  = typeof(T).Name;
+        [NotNull]       string Header => $"[{ClassName}<{TypeName}>]";
+
+        protected void ShowDialog(string message)
+        {
+            Debug.LogWarning($"{Header} {message}");
+            EditorUtility.DisplayDialog(
+                Header,
+                message,
+                "Confirm");
         }
 
         #region Interface

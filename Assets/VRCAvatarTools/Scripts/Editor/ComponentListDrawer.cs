@@ -7,8 +7,8 @@ using UnityEngine;
 
 namespace VRCAvatarTools
 {
-    [CustomPropertyDrawer(typeof(ComponentList<>), true)]
-    public class ComponentListDrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof(ObjectList<>), true)]
+    public class ObjectListDrawer : PropertyDrawer
     {
         readonly Dictionary<string, ReorderableList> _listsPerProp = new Dictionary<string, ReorderableList>();
 
