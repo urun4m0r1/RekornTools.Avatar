@@ -15,7 +15,7 @@ namespace VRCAvatarTools
     }
 
     [Serializable]
-    public class TextureList : ObjectList<Texture> { }
+    public class TextureList : SerializedList<Texture> { }
 
     [Serializable]
     public class CustomTextureList
