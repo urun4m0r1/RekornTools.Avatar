@@ -8,11 +8,17 @@ using UnityEngine;
 namespace VRCAvatarTools
 {
     [Serializable]
-    public class SerializedList<T> : IList<T>
+    public class ImmutableSerializedList<T> : BaseSerializedList<T> { }
+
+    [Serializable]
+    public class SerializedList<T> : BaseSerializedList<T> { }
+
+    [Serializable]
+    public class BaseSerializedList<T> : IList<T>
     {
         [SerializeField] protected List<T> list = new List<T>();
 
-        static readonly string ClassName = nameof(SerializedList<T>);
+        static readonly string ClassName = nameof(BaseSerializedList<T>);
         static readonly string TypeName  = typeof(T).Name;
         [NotNull]       string Header => $"[{ClassName}<{TypeName}>]";
 

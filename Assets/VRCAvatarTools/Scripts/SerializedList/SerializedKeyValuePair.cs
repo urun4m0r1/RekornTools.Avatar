@@ -4,11 +4,17 @@ using System;
 
 namespace VRCAvatarTools
 {
+    public class SerializedKeyValuePair : SerializedKeyValuePair<object, object>
+    {
+        public static string KeyField   => nameof(Key);
+        public static string ValueField => nameof(Value);
+    }
+
     [Serializable]
     public class SerializedKeyValuePair<K, V>
     {
-        [SerializeField] public K Key;
-        [SerializeField] public V Value;
+        [field: SerializeField] public K Key   { get; private set; }
+        [field: SerializeField] public V Value { get; private set; }
 
         public SerializedKeyValuePair() { }
 

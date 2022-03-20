@@ -5,71 +5,62 @@ using UnityEngine.Rendering;
 
 namespace VRCAvatarTools
 {
+    [Serializable]
+    public class ShaderPropertiesTable : SerializedKeyValuePair<Shader, ShaderPropertyList> { }
+
+    [Serializable]
+    public class ShaderPropertyList : ImmutableSerializedList<ShaderProperty> { }
+
     [CreateAssetMenu(menuName = "VRCAvatarTools/ShaderPropertyTables")]
     public class ShaderPropertyTable : ScriptableObject
     {
-        [SerializeField] public ShaderPropertiesTables Tables = new ShaderPropertiesTables();
+        [SerializeField] public List<ShaderPropertiesTable> Tables = new List<ShaderPropertiesTable>();
+
+        private Shader _prevShader1;
+        private Shader _prevShader2;
 
         public void OnValidate()
         {
-            foreach (var table in Tables)
+            Shader shader1 = Tables[0].Key;
+            if (_prevShader1 != shader1)
             {
-                Shader shader = table.Key;
-                var propertiesTypes = table.Value = new List<ShaderPropertiesType>();
+                _prevShader1 = shader1;
+                UpdateShaders(Tables[0]);
+            }
 
-                if (shader)
+            Shader shader2 = Tables[1].Key;
+            if (_prevShader2 != shader2)
+            {
+                _prevShader2 = shader2;
+                UpdateShaders(Tables[1]);
+            }
+        }
+
+        public void UpdateShaders(ShaderPropertiesTable table)
+        {
+            Shader             shader          = table.Key;
+            ShaderPropertyList propertiesTypes = table.Value;
+
+            propertiesTypes.Clear();
+
+            if (shader)
+            {
+                int propertyCount = shader.GetPropertyCount();
+                if (propertyCount > 0)
                 {
-                    int propertyCount = shader.GetPropertyCount();
-                    if (propertyCount > 0)
+                    for (var i = 0; i < propertyCount; i++)
                     {
-                        foreach (ShaderPropertyType type in Enum.GetValues(typeof(ShaderPropertyType)))
-                        {
-                            var item = new ShaderPropertiesType
-                            {
-                                Key   = type,
-                                Value = new ShaderProperties(),
-                            };
+                        if (shader.GetPropertyFlags(i) == ShaderPropertyFlags.HideInInspector)
+                            continue;
 
-                            propertiesTypes.Add(item);
-                        }
+                        if (shader.GetPropertyType(i) != ShaderPropertyType.Texture)
+                            continue;
 
-                        for (var i = 0; i < propertyCount; i++)
-                        {
-                            var element = new ShaderProperty
-                            {
-                                Key   = i,
-                                Value = shader.GetPropertyName(i),
-                            };
-
-                            foreach (ShaderPropertiesType propertiesType in propertiesTypes)
-                            {
-                                if (shader.GetPropertyType(i) == propertiesType.Key)
-                                {
-                                    propertiesType.Value.Add(element);
-                                }
-                            }
-                        }
+                        var item = new ShaderProperty(shader, i, shader.GetPropertyName(i), shader.GetPropertyType(i));
+                        propertiesTypes.Add(item);
                     }
                 }
             }
         }
     }
-
-    [Serializable]
-    public class ShaderPropertiesTables : SerializedList<ShaderPropertiesTable> { }
-
-    [Serializable]
-    public class ShaderPropertiesTable : SerializedKeyValuePair<Shader, List<ShaderPropertiesType>> { }
-
-    [Serializable]
-    public class ShaderPropertiesTypes : List<ShaderPropertiesType> { }
-
-    [Serializable]
-    public class ShaderPropertiesType : SerializedKeyValuePair<ShaderPropertyType, ShaderProperties> { }
-
-    [Serializable]
-    public class ShaderProperties : SerializedList<ShaderProperty> { }
-
-    [Serializable]
-    public class ShaderProperty : SerializedKeyValuePair<int, string> { }
 }

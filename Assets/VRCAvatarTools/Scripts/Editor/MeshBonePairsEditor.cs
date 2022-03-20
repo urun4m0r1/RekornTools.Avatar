@@ -12,8 +12,6 @@ namespace VRCAvatarTools
 
         void OnEnable() => _target = (MeshBonePairs)target;
 
-        static SerializedProperty FindPropertyByAutoPropertyName(SerializedObject obj, string propName) =>
-            obj.FindProperty($"<{propName}>k__BackingField");
 
         public override void OnInspectorGUI()
         {
@@ -29,7 +27,7 @@ namespace VRCAvatarTools
                         EditorGUI.BeginChangeCheck();
                         {
                             EditorGUILayout.PropertyField(
-                                FindPropertyByAutoPropertyName(serializedObject, "Meshes"),
+                                serializedObject.FindPropertyWithAutoPropertyName("Meshes"),
                                 true);
                         }
                         if (EditorGUI.EndChangeCheck()) serializedObject.ApplyModifiedProperties();
@@ -45,7 +43,7 @@ namespace VRCAvatarTools
                         EditorGUI.BeginChangeCheck();
                         {
                             EditorGUILayout.PropertyField(
-                                FindPropertyByAutoPropertyName(serializedObject, "Bones"),
+                                serializedObject.FindPropertyWithAutoPropertyName("Bones"),
                                 true);
                         }
                         if (EditorGUI.EndChangeCheck()) serializedObject.ApplyModifiedProperties();
