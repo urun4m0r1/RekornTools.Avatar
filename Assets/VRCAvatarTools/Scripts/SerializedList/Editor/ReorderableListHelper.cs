@@ -52,6 +52,13 @@ namespace VRCAvatarTools
                 EditorGUI.PropertyField(rect, elementProp, GUIContent.none, true);
             };
 
+            //TODO: 성능 문제 해결
+            list.elementHeightCallback += index =>
+            {
+                SerializedProperty elementProp = list.serializedProperty.GetArrayElementAtIndex(index);
+                return EditorGUI.GetPropertyHeight(elementProp);
+            };
+
             _cache[listProperty.propertyPath] = list;
 
             return list;

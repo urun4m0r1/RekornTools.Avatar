@@ -6,6 +6,9 @@ using UnityEngine.Rendering;
 namespace VRCAvatarTools
 {
     [Serializable]
+    public class ShaderPropertiesTables : SerializedList<ShaderPropertiesTable> { }
+
+    [Serializable]
     public class ShaderPropertiesTable : SerializedKeyValuePair<Shader, ShaderPropertyList> { }
 
     [Serializable]
@@ -14,7 +17,8 @@ namespace VRCAvatarTools
     [CreateAssetMenu(menuName = "VRCAvatarTools/ShaderPropertyTables")]
     public class ShaderPropertyTable : ScriptableObject
     {
-        [SerializeField] public List<ShaderPropertiesTable> Tables = new List<ShaderPropertiesTable>();
+        [SerializeField] public ShaderPropertiesTables Tables = new ShaderPropertiesTables();
+        [SerializeField] public ShaderPropertiesTable  Table  = new ShaderPropertiesTable();
 
         private Shader _prevShader1;
         private Shader _prevShader2;
@@ -28,11 +32,11 @@ namespace VRCAvatarTools
                 UpdateShaders(Tables[0]);
             }
 
-            Shader shader2 = Tables[1].Key;
+            Shader shader2 = Table.Key;
             if (_prevShader2 != shader2)
             {
                 _prevShader2 = shader2;
-                UpdateShaders(Tables[1]);
+                UpdateShaders(Table);
             }
         }
 
