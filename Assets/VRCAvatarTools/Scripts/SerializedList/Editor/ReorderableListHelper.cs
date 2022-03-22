@@ -11,15 +11,12 @@ namespace VRCAvatarTools
         readonly Dictionary<string, ReorderableList> _cache = new Dictionary<string, ReorderableList>();
 
         readonly string _listName;
-        readonly bool   _isMutable;
-        readonly bool   _drawHeader;
 
-        public ReorderableListHelper(string listName, bool isMutable = true, bool drawHeader = true)
-        {
-            _listName   = listName;
-            _isMutable  = isMutable;
-            _drawHeader = drawHeader;
-        }
+        public ReorderableListHelper(string listName) => _listName = listName;
+
+        public string Header    { get; set; }
+        public bool   IsMutable { get; set; } = true;
+        public bool   IsSpan    { get; set; } = true;
 
         public float GetHeight(SerializedProperty prop) => GetList(prop)?.GetHeight() ?? 0f;
 
@@ -31,33 +28,48 @@ namespace VRCAvatarTools
 
             if (listProperty == null) return null;
 
+            Header    = PropertyUtility.GetAttribute<ListHeaderAttribute>(prop)?.Header;
+            IsMutable = PropertyUtility.GetAttribute<ListMutableAttribute>(prop)?.IsMutable == null;
+            IsSpan    = PropertyUtility.GetAttribute<ListSpanAttribute>(prop)?.IsSpan       == null;
+
             return _cache.TryGetValue(listProperty.propertyPath,
                 out ReorderableList cachedList)
                 ? cachedList
-                : CreateList(prop, listProperty);
+                : CreateList(listProperty);
         }
 
-        ReorderableList CreateList(SerializedProperty prop, SerializedProperty listProperty)
+        ReorderableList CreateList(SerializedProperty listProperty)
         {
             var list = new ReorderableList(listProperty.serializedObject, listProperty,
-                _isMutable, _drawHeader, _isMutable, _isMutable);
+                IsMutable, true, IsMutable, IsMutable);
 
-            if (!_drawHeader) list.headerHeight = 0f;
+            if (string.IsNullOrWhiteSpace(Header)) list.headerHeight = 0f;
 
-            list.drawHeaderCallback += rect => EditorGUI.LabelField(rect, PropertyUtility.GetLabel(prop));
+            list.drawHeaderCallback += rect => EditorGUI.LabelField(rect, Header);
+            list.drawElementCallback += (rect, index, isActive, isFocused) =>
+                EditorGUI.PropertyField(rect, listProperty.GetArrayElementAtIndex(index), GUIContent.none, true);
 
-            list.drawElementCallback += (rect, index, _, __) =>
+            if (!IsSpan)
             {
-                SerializedProperty elementProp = list.serializedProperty.GetArrayElementAtIndex(index);
-                EditorGUI.PropertyField(rect, elementProp, GUIContent.none, true);
-            };
-
-            //TODO: 성능 문제 해결
-            list.elementHeightCallback += index =>
+                list.elementHeightCallback += index =>
+                {
+                    SerializedProperty element = listProperty.GetArrayElementAtIndex(index);
+                    return EditorGUI.GetPropertyHeight(element, true);
+                };
+            }
+            else
             {
-                SerializedProperty elementProp = list.serializedProperty.GetArrayElementAtIndex(index);
-                return EditorGUI.GetPropertyHeight(elementProp);
-            };
+                if (listProperty.arraySize > 0)
+                {
+                    SerializedProperty element = listProperty.GetArrayElementAtIndex(0);
+                    list.elementHeight = EditorGUI.GetPropertyHeight(element, true) +
+                                         EditorGUIUtility.standardVerticalSpacing;
+                }
+                else
+                {
+                    list.elementHeight = EditorGUIUtilityExtensions.SingleItemHeight;
+                }
+            }
 
             _cache[listProperty.propertyPath] = list;
 

@@ -10,10 +10,10 @@ namespace VRCAvatarTools
     [ExecuteInEditMode]
     public sealed class MeshBonePairs : MonoBehaviour
     {
-        [field: SerializeField, Label(nameof(Meshes))]
+        [field: SerializeField]
         public SkinnedMeshRendererList Meshes { get; private set; } = new SkinnedMeshRendererList();
 
-        [field: SerializeField, Label(nameof(Bones))]
+        [field: SerializeField]
         public TransformList Bones { get; private set; } = new TransformList();
 
         const string ClassName = nameof(BoneFinder);

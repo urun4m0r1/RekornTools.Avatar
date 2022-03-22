@@ -39,7 +39,7 @@ namespace VRCAvatarTools
         {
             CustomLight.UseSkybox = useSkybox;
 
-            SceneView.lastActiveSceneView.sceneLighting = true;
+            if (SceneView.lastActiveSceneView != null) SceneView.lastActiveSceneView.sceneLighting = true;
 
             RenderSettings.skybox              = skybox;
             RenderSettings.sun                 = sun;

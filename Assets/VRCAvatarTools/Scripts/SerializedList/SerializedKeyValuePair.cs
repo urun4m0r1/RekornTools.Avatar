@@ -11,19 +11,19 @@ namespace VRCAvatarTools
     }
 
     [Serializable]
-    public class SerializedKeyValuePair<K, V>
+    public abstract class SerializedKeyValuePair<K, V>
     {
-        [field: SerializeField] public K Key   { get; private set; }
-        [field: SerializeField] public V Value { get; private set; }
+        [field: SerializeField]                     public virtual K Key   { get; protected set; }
+        [field: SerializeField, ListMutable(false)] public virtual V Value { get; protected set; }
 
-        public SerializedKeyValuePair() { }
+        protected SerializedKeyValuePair() { }
 
-        public SerializedKeyValuePair(K key, V value)
+        protected SerializedKeyValuePair(K key, V value)
         {
             Key   = key;
             Value = value;
         }
 
-        public SerializedKeyValuePair(KeyValuePair<K, V> pair) : this(pair.Key, pair.Value) { }
+        protected SerializedKeyValuePair(KeyValuePair<K, V> pair) : this(pair.Key, pair.Value) { }
     }
 }

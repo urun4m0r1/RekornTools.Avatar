@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -12,12 +11,12 @@ namespace VRCAvatarTools
     public class ShaderPropertiesTable : SerializedKeyValuePair<Shader, ShaderPropertyList> { }
 
     [Serializable]
-    public class ShaderPropertyList : ImmutableSerializedList<ShaderProperty> { }
+    public class ShaderPropertyList : SerializedList<ShaderProperty> { }
 
     [CreateAssetMenu(menuName = "VRCAvatarTools/ShaderPropertyTables")]
     public class ShaderPropertyTable : ScriptableObject
     {
-        [SerializeField] public ShaderPropertiesTables Tables = new ShaderPropertiesTables();
+        [SerializeField, ListSpan(false)] public ShaderPropertiesTables Tables = new ShaderPropertiesTables();
         [SerializeField] public ShaderPropertiesTable  Table  = new ShaderPropertiesTable();
 
         private Shader _prevShader1;
