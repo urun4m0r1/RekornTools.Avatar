@@ -17,12 +17,12 @@ namespace VRCAvatarTools
                 }
 
                 position.height = EditorGUI.GetPropertyHeight(key, true);
-                EditorGUI.PropertyField(position, key, GUIContent.none);
+                EditorGUI.PropertyField(position, key, GUIContent.none, true);
 
                 position.y      += position.height;
 
                 position.height =  EditorGUI.GetPropertyHeight(value, true);
-                EditorGUI.PropertyField(position, value, GUIContent.none);
+                EditorGUI.PropertyField(position, value, GUIContent.none, true);
             }
             EditorGUI.EndProperty();
         }

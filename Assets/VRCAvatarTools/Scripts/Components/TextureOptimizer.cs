@@ -5,18 +5,6 @@ using UnityEngine;
 
 namespace VRCAvatarTools
 {
-    public enum TextureType
-    {
-        None,
-        Default,
-        Opaque,
-        Alpha,
-        Emissive,
-        Normal,
-        Mask,
-        Sampler,
-    }
-
     [Serializable]
     public class TextureList : SerializedList<Texture> { }
 
@@ -26,7 +14,7 @@ namespace VRCAvatarTools
         [SerializeField] public TextureType Type;
         [SerializeField] public Shader      Shader;
         [SerializeField] public string      Property;
-        [SerializeField] public TextureList List = new TextureList();
+        [SerializeField, ListMutable(false)] public TextureList List = new TextureList();
     }
 
     [ExecuteInEditMode]
