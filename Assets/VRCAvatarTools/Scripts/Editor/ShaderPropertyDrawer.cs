@@ -58,8 +58,12 @@ namespace VRCAvatarTools
                 EditorGUI.EndDisabledGroup();
 
                 position.width = w5;
-                textureType.enumValueIndex =
-                    EditorGUI.Popup(position, textureType.enumValueIndex, textureType.enumDisplayNames);
+                EditorGUI.BeginChangeCheck();
+                {
+                    textureType.enumValueIndex =
+                        EditorGUI.Popup(position, textureType.enumValueIndex, textureType.enumDisplayNames);
+                }
+                EditorGUI.EndChangeCheck();
             }
             EditorGUI.EndProperty();
         }

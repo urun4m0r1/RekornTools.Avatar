@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using NaughtyAttributes;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace VRCAvatarTools
 {
@@ -8,61 +10,71 @@ namespace VRCAvatarTools
     public class ShaderPropertiesTables : SerializedList<ShaderPropertiesTable> { }
 
     [Serializable]
-    public class ShaderPropertiesTable : SerializedKeyValuePair<Shader, ShaderPropertyList> { }
+    public class ShaderPropertiesTable : SerializedKeyValuePair<Shader, ShaderPropertyList>
+    {
+        public ShaderPropertiesTable(Shader shader, ShaderPropertyList properties) : base(shader, properties) { }
+
+        public bool IsShaderInitialized => Key == Value?.Shader;
+
+        public void Initialize(Func<Shader, ShaderPropertyList> initializer)
+        {
+            if (IsShaderInitialized) return;
+
+            Value = initializer(Key);
+        }
+    }
 
     [Serializable]
-    public class ShaderPropertyList : SerializedList<ShaderProperty> { }
+    public class ShaderPropertyList : SerializedList<ShaderProperty>
+    {
+        public Shader Shader { get; private set; }
+        public ShaderPropertyList(Shader shader) => Shader = shader;
+    }
 
     [CreateAssetMenu(menuName = "VRCAvatarTools/ShaderPropertyTables")]
     public class ShaderPropertyTable : ScriptableObject
     {
-        [SerializeField, ListSpan(false)] public ShaderPropertiesTables Tables = new ShaderPropertiesTables();
-        [SerializeField] public ShaderPropertiesTable  Table  = new ShaderPropertiesTable();
+        [SerializeField, ListSpan(false), ListMutable(false)]
+        public ShaderPropertiesTables Tables = new ShaderPropertiesTables();
 
-        private Shader _prevShader1;
-        private Shader _prevShader2;
+        static readonly Func<Shader, ShaderPropertyList> TexturePropertyInitializer =
+            ShaderPropertyExtensions.GetTexturePropertyList;
 
-        public void OnValidate()
+        [Button]
+        public void UpdateShaders()
         {
-            Shader shader1 = Tables[0].Key;
-            if (_prevShader1 != shader1)
+            Undo.RecordObject(this, nameof(ShaderPropertyTable));
             {
-                _prevShader1 = shader1;
-                UpdateShaders(Tables[0]);
-            }
+                List<Shader> shaders = ShaderPropertyExtensions.GetUsedShadersInProject();
+                var          tables  = new ShaderPropertiesTables();
 
-            Shader shader2 = Table.Key;
-            if (_prevShader2 != shader2)
-            {
-                _prevShader2 = shader2;
-                UpdateShaders(Table);
+                foreach (ShaderPropertiesTable table in Tables)
+                {
+                    if (shaders.Contains(table.Key))
+                    {
+                        tables.Add(table);
+                        shaders.Remove(table.Key);
+                    }
+                }
+
+                foreach (Shader shader in shaders)
+                {
+                    var table = new ShaderPropertiesTable(shader, null);
+                    table.Initialize(TexturePropertyInitializer);
+                    tables.Add(table);
+                }
+
+                Tables = tables;
             }
         }
 
-        public void UpdateShaders(ShaderPropertiesTable table)
+        [Button]
+        public void Reset()
         {
-            Shader             shader          = table.Key;
-            ShaderPropertyList propertiesTypes = table.Value;
-
-            propertiesTypes.Clear();
-
-            if (shader)
+            Undo.RecordObject(this, nameof(ShaderPropertyTable));
             {
-                int propertyCount = shader.GetPropertyCount();
-                if (propertyCount > 0)
-                {
-                    for (var i = 0; i < propertyCount; i++)
-                    {
-                        if (shader.GetPropertyFlags(i) == ShaderPropertyFlags.HideInInspector)
-                            continue;
-
-                        if (shader.GetPropertyType(i) != ShaderPropertyType.Texture)
-                            continue;
-
-                        var item = new ShaderProperty(shader, i, shader.GetPropertyName(i), shader.GetPropertyType(i));
-                        propertiesTypes.Add(item);
-                    }
-                }
+                Tables.Clear();
+                UpdateShaders();
             }
         }
     }

@@ -17,7 +17,11 @@ namespace VRCAvatarTools
                 }
 
                 position.height = EditorGUI.GetPropertyHeight(key, true);
-                EditorGUI.PropertyField(position, key, GUIContent.none, true);
+                EditorGUI.BeginDisabledGroup(true);
+                {
+                    EditorGUI.PropertyField(position, key, GUIContent.none, true);
+                }
+                EditorGUI.EndDisabledGroup();
 
                 position.y      += position.height;
 

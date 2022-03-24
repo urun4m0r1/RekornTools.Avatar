@@ -14,15 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Tables:
     list:
+    - <Key>k__BackingField: 4
+      <Value>k__BackingField:
+        <Size>k__BackingField: 512
+        <CompressType>k__BackingField: 3
+        <IsCrunchCompress>k__BackingField: 1
+        <CrunchQuality>k__BackingField: 50
     - <Key>k__BackingField: 7
       <Value>k__BackingField:
-        Size: 0
-        crunchCompress: 0
-        compressType: 0
-        quality: 0
-    - <Key>k__BackingField: 0
+        <Size>k__BackingField: 512
+        <CompressType>k__BackingField: 3
+        <IsCrunchCompress>k__BackingField: 1
+        <CrunchQuality>k__BackingField: 50
+    - <Key>k__BackingField: 7
       <Value>k__BackingField:
-        Size: 0
-        crunchCompress: 0
-        compressType: 0
-        quality: 0
+        <Size>k__BackingField: 512
+        <CompressType>k__BackingField: 3
+        <IsCrunchCompress>k__BackingField: 1
+        <CrunchQuality>k__BackingField: 50
+    - <Key>k__BackingField: 7
+      <Value>k__BackingField:
+        <Size>k__BackingField: 512
+        <CompressType>k__BackingField: 3
+        <IsCrunchCompress>k__BackingField: 1
+        <CrunchQuality>k__BackingField: 50
