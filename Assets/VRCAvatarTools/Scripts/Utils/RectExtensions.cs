@@ -4,6 +4,20 @@ namespace VRCAvatarTools
 {
     public static class RectExtensions
     {
+        public const float IndentWidth = 15f;
+
+        public static void ApplyIndent(this ref Rect rect, int indent)
+        {
+            rect.x += indent * IndentWidth;
+            rect.width -= indent * IndentWidth;
+        }
+
+        public static void RevertIndent(this ref Rect rect, int indent)
+        {
+            rect.x -= indent * IndentWidth;
+            rect.width += indent * IndentWidth;
+        }
+
         public static void AppendWidth(this ref Rect rect, float width)
         {
             rect.x += rect.width;

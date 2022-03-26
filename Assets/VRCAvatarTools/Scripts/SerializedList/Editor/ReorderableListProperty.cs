@@ -41,6 +41,7 @@ namespace VRCAvatarTools
 
         public void Draw(Rect rect)
         {
+            rect.ApplyIndent(EditorGUI.indentLevel);
             if (_list == null)
             {
                 EditorGUI.LabelField(rect, "ERROR:", "SerializedProperty is null");
@@ -89,8 +90,11 @@ namespace VRCAvatarTools
 
             return list;
 
-            void OnDrawElement(Rect rect, int index, bool isActive, bool isFocused) =>
+            void OnDrawElement(Rect rect, int index, bool isActive, bool isFocused)
+            {
+                rect.RevertIndent(EditorGUI.indentLevel);
                 GetElement(index).SimplePropertyField(rect);
+            }
 
             float OnGetHeight(int index) => GetElement(index).GetPropertyHeight();
 
