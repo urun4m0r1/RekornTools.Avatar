@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Texture Importer Settings
   m_EditorClassIdentifier: 
   Presets:
-    list:
+    _items:
     - <Type>k__BackingField: 1
       <Preset>k__BackingField: {fileID: 2655988077585873504, guid: b022044b873e2544a9cca8f510093700,
         type: 2}
