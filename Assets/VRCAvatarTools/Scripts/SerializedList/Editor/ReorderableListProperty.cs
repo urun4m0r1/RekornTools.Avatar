@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -7,10 +8,18 @@ namespace VRCAvatarTools
 {
     public class ReorderableListProperty
     {
+        // Do not make this static, it will cause key collisions of cache dictionary.
+        readonly Dictionary<string, ReorderableList> _cache = new Dictionary<string, ReorderableList>();
+
         [NotNull] readonly string _listName;
 
         [CanBeNull] SerializedProperty _container;
+        [CanBeNull] SerializedProperty _listContainer;
         [CanBeNull] ReorderableList    _list;
+
+        [CanBeNull] string Header => _container.GetAttribute<ListHeaderAttribute>()?.Header;
+        bool IsMutable => _container.GetAttribute<ListMutableAttribute>()?.IsMutable ?? ListMutableAttribute.Default;
+        bool IsSpan => _container.GetAttribute<ListSpanAttribute>()?.IsSpan ?? ListSpanAttribute.Default;
 
         public ReorderableListProperty([NotNull] string listName) => _listName = listName;
 
@@ -20,12 +29,12 @@ namespace VRCAvatarTools
 
             _container = property;
 
-            string header = _container.GetAttribute<ListHeaderAttribute>()?.Header;
-            bool isMutable = _container.GetAttribute<ListMutableAttribute>()?.IsMutable ?? ListMutableAttribute.Default;
-            bool isSpan = _container.GetAttribute<ListSpanAttribute>()?.IsSpan ?? ListSpanAttribute.Default;
+            SerializedProperty listProperty = property?.FindPropertyRelative(_listName);
+            if (_listContainer == listProperty) return this;
 
-            SerializedProperty listProperty = _container?.FindPropertyRelative(_listName);
-            _list = CreateList(listProperty, header, isMutable, isSpan);
+            _listContainer = listProperty;
+
+            UpdateList();
 
             return this;
         }
@@ -43,16 +52,32 @@ namespace VRCAvatarTools
 
         public float GetHeight() => _list?.GetHeight() ?? EditorGUIExtensions.SingleItemHeight;
 
-        [CanBeNull]
-        static ReorderableList CreateList([CanBeNull] SerializedProperty property,
+        void UpdateList()
+        {
+            if (_listContainer?.propertyPath == null) return;
+
+            if (!_cache.ContainsKey(_listContainer.propertyPath))
+            {
+                _list = CreateList(_listContainer, Header, IsMutable, IsSpan);
+                _cache.Add(_listContainer.propertyPath, _list);
+            }
+            else
+            {
+                _list = _cache[_listContainer.propertyPath];
+            }
+        }
+
+        [NotNull] static ReorderableList CreateList([NotNull] SerializedProperty property,
             [CanBeNull] string header,
             bool isMutable,
             bool isSpan)
         {
-            if (property == null) return null;
-
-            var list = new ReorderableList(property.serializedObject, property,
-                isMutable, true, isMutable, isMutable);
+            var list = new ReorderableList(property.serializedObject, property)
+            {
+                draggable     = isMutable,
+                displayAdd    = isMutable,
+                displayRemove = isMutable,
+            };
 
             if (string.IsNullOrWhiteSpace(header)) list.headerHeight = 0f;
 

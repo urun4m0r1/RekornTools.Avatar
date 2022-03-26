@@ -6,16 +6,21 @@ namespace VRCAvatarTools
     [CustomPropertyDrawer(typeof(SerializedList<>), true)]
     public class SerializedListDrawer : PropertyDrawer
     {
-        static readonly ReorderableListProperty List = new ReorderableListProperty(SerializedList.ListName);
-        static readonly PropertyDrawerAction    Draw = DrawProperty;
+        // Do not make this static, it will cause key collisions of cache dictionary.
+        readonly ReorderableListProperty _list = new ReorderableListProperty(SerializedList.ListName);
 
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) =>
-            property.OnGUIProperty(position, label, Draw);
+        PropertyDrawerAction _draw;
 
-        static void DrawProperty(Rect rect, SerializedProperty property, GUIContent _) =>
-            List.Update(property).Draw(rect);
+        public override void OnGUI(Rect rect, SerializedProperty property, GUIContent label)
+        {
+            if (_draw == null) _draw = DrawProperty;
+            property.OnGUIProperty(rect, label, _draw);
+        }
+
+        void DrawProperty(Rect rect, SerializedProperty property, GUIContent _) =>
+            _list.Update(property).Draw(rect);
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent _) =>
-            List.Update(property).GetHeight();
+            _list.Update(property).GetHeight();
     }
 }

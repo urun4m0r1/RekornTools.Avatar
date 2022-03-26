@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using JetBrains.Annotations;
@@ -93,6 +94,8 @@ namespace VRCAvatarTools
 
         [NotNull] public static string GetBackingFieldName([NotNull] this string propertyName)
         {
+            if (propertyName.Contains("k__BackingField")) return propertyName;
+
             StringBuilder.Length = 0;
             StringBuilder.Append("<");
             StringBuilder.Append(propertyName);
