@@ -6,9 +6,6 @@ using UnityEngine;
 namespace VRCAvatarTools
 {
     [Serializable]
-    public class TextureList : SerializedList<Texture> { }
-
-    [Serializable]
     public class CustomTextureList
     {
         [SerializeField] public TextureType Type;

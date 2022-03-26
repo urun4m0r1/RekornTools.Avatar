@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace VRCAvatarTools
 {
-    [Serializable] public class SkinnedMeshRendererList : ComponentList<SkinnedMeshRenderer> { }
-
-    [Serializable] public class RendererList : ComponentList<Renderer> { }
-
-    [Serializable] public class TransformList : ComponentList<Transform> { }
-
-    [Serializable]
+    [System.Serializable]
     public class ComponentList<T> : SerializedList<T> where T : Component
     {
         public void DestroyItems()
@@ -73,7 +65,7 @@ namespace VRCAvatarTools
         {
             Clear();
 
-            T[] objects = { };
+            T[] objects;
 
             if (parent)
             {

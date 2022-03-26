@@ -5,9 +5,6 @@ using UnityEngine;
 namespace VRCAvatarTools
 {
     [Serializable]
-    public class TexturePresetTables : SerializedList<TexturePresetTable> { }
-
-    [Serializable]
     public class TexturePresetTable
     {
         public static string TypeFieldName   => nameof(Type);

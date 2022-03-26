@@ -9,13 +9,13 @@ namespace VRCAvatarTools
 {
     public class SerializedList : SerializedList<object>
     {
-        [NotNull] public static readonly string ListName = nameof(list);
+        [NotNull] public static readonly string ListName = nameof(_items);
     }
 
     [Serializable]
     public class SerializedList<T> : IList<T>
     {
-        [SerializeField, NotNull] protected List<T> list = new List<T>();
+        [SerializeField, NotNull] protected List<T> _items = new List<T>();
 
         static readonly string ClassName = nameof(SerializedList<T>);
         static readonly string TypeName  = typeof(T).Name;
@@ -32,28 +32,28 @@ namespace VRCAvatarTools
 
         #region Interface
 
-        public IEnumerator<T>   GetEnumerator() => list.GetEnumerator();
-        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)list).GetEnumerator();
+        public IEnumerator<T>   GetEnumerator() => _items.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)_items).GetEnumerator();
 
-        public void Add(T    item) => list.Add(item);
-        public bool Remove(T item) => list.Remove(item);
+        public void Add(T    item) => _items.Add(item);
+        public bool Remove(T item) => _items.Remove(item);
 
-        public bool Contains(T item) => list.Contains(item);
-        public int  IndexOf(T  item) => list.IndexOf(item);
+        public bool Contains(T item) => _items.Contains(item);
+        public int  IndexOf(T  item) => _items.IndexOf(item);
 
-        public void Insert(int   index, T item) => list.Insert(index, item);
-        public void RemoveAt(int index) => list.RemoveAt(index);
+        public void Insert(int   index, T item) => _items.Insert(index, item);
+        public void RemoveAt(int index) => _items.RemoveAt(index);
 
-        public void CopyTo(T[] array, int arrayIndex) => list.CopyTo(array, arrayIndex);
-        public void Clear() => list.Clear();
+        public void CopyTo(T[] array, int arrayIndex) => _items.CopyTo(array, arrayIndex);
+        public void Clear() => _items.Clear();
 
-        public int  Count      => list.Count;
+        public int  Count      => _items.Count;
         public bool IsReadOnly => false;
 
         public T this[int index]
         {
-            get => list[index];
-            set => list[index] = value;
+            get => _items[index];
+            set => _items[index] = value;
         }
 
         public void AddRange([NotNull] List<T> target)

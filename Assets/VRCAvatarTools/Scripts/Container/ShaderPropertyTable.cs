@@ -7,9 +7,6 @@ using UnityEngine;
 namespace VRCAvatarTools
 {
     [Serializable]
-    public class ShaderPropertiesTables : SerializedList<ShaderPropertiesTable> { }
-
-    [Serializable]
     public class ShaderPropertiesTable : SerializedKeyValue<Shader, ShaderPropertyList>
     {
         public ShaderPropertiesTable(Shader shader, ShaderPropertyList properties) : base(shader, properties) { }

@@ -1,9 +1,7 @@
 ﻿#if UNITY_EDITOR
 using System.Linq;
-using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace VRCAvatarTools
 {

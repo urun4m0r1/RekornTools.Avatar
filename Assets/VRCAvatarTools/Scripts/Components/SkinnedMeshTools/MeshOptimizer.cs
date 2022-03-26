@@ -1,5 +1,4 @@
-﻿using System;
-using NaughtyAttributes;
+﻿using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
 

@@ -2,7 +2,6 @@
 using System.Linq;
 using JetBrains.Annotations;
 using NaughtyAttributes;
-using UnityEditor;
 using UnityEngine;
 using VRCAvatarTools;
 
