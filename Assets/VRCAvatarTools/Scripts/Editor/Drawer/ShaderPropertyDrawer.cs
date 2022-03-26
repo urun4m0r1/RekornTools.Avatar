@@ -5,7 +5,7 @@ using UnityEngine;
 namespace VRCAvatarTools
 {
     [CustomPropertyDrawer(typeof(ShaderProperty))]
-    public class ShaderPropertyDrawer : UnityEditor.PropertyDrawer
+    public class ShaderPropertyDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, [NotNull] SerializedProperty property, GUIContent label)
         {
