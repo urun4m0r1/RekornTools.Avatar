@@ -11,8 +11,7 @@ namespace VRCAvatarTools
         [SerializeField] Transform               parent;
         [SerializeField] SkinnedMeshRendererList meshes = new SkinnedMeshRendererList();
         [SerializeField] Transform               anchorOverride;
-        [SerializeField] Vector3                 boundingBoxCenter = Vector3.zero;
-        [SerializeField] Vector3                 boundingBoxSize = Vector3.one;
+        [SerializeField] Bounds                  boundingBox;
 
         Transform _prevParent;
 
@@ -34,23 +33,37 @@ namespace VRCAvatarTools
         {
             foreach (SkinnedMeshRenderer mesh in meshes)
             {
-                Bounds bounds = mesh.bounds;
+                Bounds prevBounds = mesh.localBounds;
+                Bounds bounds     = mesh.bounds;
+
                 Gizmos.color = Color.yellow;
                 Gizmos.DrawWireCube(bounds.center, bounds.size);
+
+                mesh.localBounds = boundingBox;
+                RepaintRenderer(mesh);
+
+                bounds       = mesh.bounds;
+                Gizmos.color = Color.green;
+                Gizmos.DrawWireCube(bounds.center, bounds.size);
+
+                mesh.localBounds = prevBounds;
             }
         }
 
-        Vector3 InverseElement(Vector3 value) => new Vector3(1.0f / value.x, 1.0f / value.y, 1.0f / value.z);
+        static void RepaintRenderer<T>(T renderer) where T : Renderer
+        {
+            renderer.enabled = false;
+            renderer.enabled = true;
+        }
 
         [Button] void Optimize()
         {
-            var meshBounds = new Bounds(boundingBoxCenter, boundingBoxSize * 2f);
             foreach (SkinnedMeshRenderer mesh in meshes)
             {
                 Undo.RecordObject(mesh, nameof(MeshOptimizer));
                 {
                     mesh.probeAnchor               = anchorOverride;
-                    mesh.localBounds               = meshBounds;
+                    mesh.localBounds               = boundingBox;
                     mesh.updateWhenOffscreen       = false;
                     mesh.skinnedMotionVectors      = false;
                     mesh.allowOcclusionWhenDynamic = true;

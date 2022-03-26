@@ -1,33 +1,51 @@
 ﻿using System;
-using NaughtyAttributes;
-using UnityEditor;
+using UnityEditor.Presets;
 using UnityEngine;
 
 namespace VRCAvatarTools
 {
     [Serializable]
-    public class TextureOptionsTables : SerializedList<TextureOptionsTable> { }
+    public class TexturePresetTables : SerializedList<TexturePresetTable> { }
 
     [Serializable]
-    public class TextureOptionsTable : SerializedKeyValuePair<TextureType, TextureOptions> { }
-
-    [Serializable]
-    public class TextureOptions
+    public class TexturePresetTable
     {
-        [field: SerializeField] public int Size { get; private set; } = 512;
+        public static string TypeFieldName   => nameof(Type);
+        public static string PresetFieldName => nameof(Preset);
 
-        [field: SerializeField] public TextureImporterCompression CompressType { get; private set; } =
-            TextureImporterCompression.CompressedLQ;
+        [field: SerializeField] public TextureType Type   { get; private set; }
+        [field: SerializeField] public Preset      Preset { get; private set; }
 
-        [field: SerializeField] public bool IsCrunchCompress { get; private set; } = true;
+        public TexturePresetTable(TextureType type) => Type = type;
 
-        [field: SerializeField, Range(0, 100), ShowIf(nameof(IsCrunchCompress)), AllowNesting]
-        public int CrunchQuality { get; private set; } = 50;
+        public void ValidatePreset()
+        {
+            if (!Preset) return;
+
+            if (!Preset.GetPresetType().GetManagedTypeName().Equals("UnityEditor.TextureImporter"))
+                Preset = null;
+        }
     }
 
     [CreateAssetMenu(menuName = "VRCAvatarTools/TextureSettings")]
     public class TextureSettings : ScriptableObject
     {
-        [SerializeField, ListSpan(false)] public TextureOptionsTables Tables = new TextureOptionsTables();
+        [SerializeField, ListMutable(false)] public TexturePresetTables Presets = new TexturePresetTables();
+
+        public void OnValidate()
+        {
+            if (Presets.Count != Enum.GetValues(typeof(TextureType)).Length - 1)
+            {
+                Presets.Clear();
+                foreach (TextureType type in Enum.GetValues(typeof(TextureType)))
+                {
+                    if (type == TextureType.None) continue;
+
+                    Presets.Add(new TexturePresetTable(type));
+                }
+            }
+
+            foreach (TexturePresetTable preset in Presets) preset.ValidatePreset();
+        }
     }
 }

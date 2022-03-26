@@ -505,13 +505,13 @@ MonoBehaviour:
           <Index>k__BackingField: 76
           <Name>k__BackingField: _NormalMapForMatCap
           <Type>k__BackingField: 4
-          <TextureType>k__BackingField: 0
+          <TextureType>k__BackingField: 5
         - <Shader>k__BackingField: {fileID: 4800000, guid: 97b7edb5fc0f5744c9b264c2224a0b1e,
             type: 3}
           <Index>k__BackingField: 81
           <Name>k__BackingField: _Set_MatcapMask
           <Type>k__BackingField: 4
-          <TextureType>k__BackingField: 0
+          <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 97b7edb5fc0f5744c9b264c2224a0b1e,
             type: 3}
           <Index>k__BackingField: 86

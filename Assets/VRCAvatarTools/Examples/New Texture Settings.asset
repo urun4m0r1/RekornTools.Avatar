@@ -12,29 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f4698d610241f38d8d77c8b50f9520, type: 3}
   m_Name: New Texture Settings
   m_EditorClassIdentifier: 
-  Tables:
-    list:
-    - <Key>k__BackingField: 4
-      <Value>k__BackingField:
-        <Size>k__BackingField: 512
-        <CompressType>k__BackingField: 3
-        <IsCrunchCompress>k__BackingField: 1
-        <CrunchQuality>k__BackingField: 50
-    - <Key>k__BackingField: 7
-      <Value>k__BackingField:
-        <Size>k__BackingField: 512
-        <CompressType>k__BackingField: 3
-        <IsCrunchCompress>k__BackingField: 1
-        <CrunchQuality>k__BackingField: 50
-    - <Key>k__BackingField: 7
-      <Value>k__BackingField:
-        <Size>k__BackingField: 512
-        <CompressType>k__BackingField: 3
-        <IsCrunchCompress>k__BackingField: 1
-        <CrunchQuality>k__BackingField: 50
-    - <Key>k__BackingField: 7
-      <Value>k__BackingField:
-        <Size>k__BackingField: 512
-        <CompressType>k__BackingField: 3
-        <IsCrunchCompress>k__BackingField: 1
-        <CrunchQuality>k__BackingField: 50
+  Presets:
+    list: []
