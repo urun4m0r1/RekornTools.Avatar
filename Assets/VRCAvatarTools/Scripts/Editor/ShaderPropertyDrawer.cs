@@ -5,7 +5,7 @@ using UnityEngine;
 namespace VRCAvatarTools
 {
     [CustomPropertyDrawer(typeof(ShaderProperty))]
-    public class ShaderPropertyDrawer : PropertyDrawer
+    public class ShaderPropertyDrawer : UnityEditor.PropertyDrawer
     {
         public override void OnGUI(Rect position, [NotNull] SerializedProperty property, GUIContent label)
         {
@@ -69,6 +69,6 @@ namespace VRCAvatarTools
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label) =>
-            EditorGUIUtilityExtensions.SingleItemHeight;
+            EditorGUIExtensions.SingleItemHeight;
     }
 }

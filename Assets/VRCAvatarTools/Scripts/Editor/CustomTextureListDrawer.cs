@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 namespace VRCAvatarTools
 {
     [CustomPropertyDrawer(typeof(CustomTextureList))]
-    public class CustomTextureListDrawer : PropertyDrawer
+    public class CustomTextureListDrawer : UnityEditor.PropertyDrawer
     {
         readonly float _itemHeight = EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
 

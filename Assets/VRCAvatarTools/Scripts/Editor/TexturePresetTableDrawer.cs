@@ -4,7 +4,7 @@ using UnityEngine;
 namespace VRCAvatarTools
 {
     [CustomPropertyDrawer(typeof(TexturePresetTable))]
-    public class TexturePresetTableDrawer : SerializedKeyValuePairDrawer
+    public class TexturePresetTableDrawer : SerializedKeyValueDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -39,6 +39,6 @@ namespace VRCAvatarTools
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label) =>
-            EditorGUIUtilityExtensions.SingleItemHeight;
+            EditorGUIExtensions.SingleItemHeight;
     }
 }

@@ -7,10 +7,15 @@ using UnityEngine;
 
 namespace VRCAvatarTools
 {
+    public class SerializedList : SerializedList<object>
+    {
+        [NotNull] public static readonly string ListName = nameof(list);
+    }
+
     [Serializable]
     public class SerializedList<T> : IList<T>
     {
-        [SerializeField] protected List<T> list = new List<T>();
+        [SerializeField, NotNull] protected List<T> list = new List<T>();
 
         static readonly string ClassName = nameof(SerializedList<T>);
         static readonly string TypeName  = typeof(T).Name;

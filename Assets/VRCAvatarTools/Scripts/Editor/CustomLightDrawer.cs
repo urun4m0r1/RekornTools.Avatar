@@ -4,7 +4,7 @@ using UnityEngine;
 namespace VRCAvatarTools
 {
     [CustomPropertyDrawer(typeof(CustomLight))]
-    public class CustomLightDrawer : PropertyDrawer
+    public class CustomLightDrawer : UnityEditor.PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
