@@ -31,7 +31,7 @@ namespace VRCAvatarTools
         public ShaderPropertyList(Shader shader) => Shader = shader;
     }
 
-    [CreateAssetMenu(menuName = "VRCAvatarTools/ShaderPropertyTables")]
+    [CreateAssetMenu(menuName = "VRC Avatar Tools/Shader Property Tables")]
     public class ShaderPropertyTable : ScriptableObject
     {
         [SerializeField, ListSpan(false), ListMutable(false)]

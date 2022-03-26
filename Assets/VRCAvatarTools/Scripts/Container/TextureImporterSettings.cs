@@ -27,8 +27,8 @@ namespace VRCAvatarTools
         }
     }
 
-    [CreateAssetMenu(menuName = "VRCAvatarTools/TextureSettings")]
-    public class TextureSettings : ScriptableObject
+    [CreateAssetMenu(menuName = "VRC Avatar Tools/Texture Importer Settings")]
+    public class TextureImporterSettings : ScriptableObject
     {
         [SerializeField, ListMutable(false)] public TexturePresetTables Presets = new TexturePresetTables();
 
