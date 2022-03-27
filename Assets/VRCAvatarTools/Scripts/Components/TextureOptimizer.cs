@@ -1,26 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace VRCAvatarTools
 {
-    [Serializable]
-    public class CustomTextureList
-    {
-        [SerializeField] public TextureType Type;
-        [SerializeField] public Shader      Shader;
-        [SerializeField] public string      Property;
-        [SerializeField, ListMutable(false)] public TextureList List = new TextureList();
-    }
 
     [ExecuteInEditMode]
     public class TextureOptimizer : MonoBehaviour
     {
-        [SerializeField] Transform    parent;
-        [SerializeField] RendererList meshes = new RendererList();
+        [SerializeField] TextureImporterSettings settings;
+        [SerializeField] ShaderPropertyTable     shaderPropertyTable;
+        [SerializeField] Transform               parent;
+        [SerializeField] RendererList            meshes = new RendererList();
 
-        [SerializeField, ReorderableList] List<CustomTextureList> textures = new List<CustomTextureList>();
+        [SerializeField, ListMutable(false), ListSpan(false)] TexturePropertyMapList texturePropertyMapList = new TexturePropertyMapList();
 
         Transform _prevParent;
 
@@ -35,30 +31,67 @@ namespace VRCAvatarTools
             {
                 _prevParent = parent;
                 meshes.Initialize(parent);
-            }
 
-            foreach (CustomTextureList list in textures)
-            {
-                list.List.Clear();
+                texturePropertyMapList.Clear();
 
-                foreach (Renderer r in meshes)
+                foreach (var type in Enum.GetValues(typeof(TextureType)))
                 {
-                    foreach (Material m in r.sharedMaterials)
+                    if ((TextureType)type == TextureType.None) continue;
+                    var map = new TexturePropertyMap
                     {
-                        if (m.shader != list.Shader) continue;
+                        Key = (TextureType)type,
+                        Value = new TextureList(),
+                    };
+                    texturePropertyMapList.Add(map);
+                }
 
-                        int id = Shader.PropertyToID(list.Property);
-                        if (!m.HasProperty(id)) continue;
+                foreach (var table in shaderPropertyTable.Tables)
+                {
+                    if (table.Value == null) continue;
+                    foreach (var property in table.Value)
+                    {
+                        if (property.Type != ShaderPropertyType.Texture) continue;
+                        if (property.TextureType == TextureType.None) continue;
 
-                        Texture tex = m.GetTexture(id);
-                        if (tex == null) continue;
+                        foreach (TexturePropertyMap t in texturePropertyMapList)
+                        {
+                            if (t.Key == property.TextureType)
+                            {
+                                var textureList = GetTextureList(property);
+                                if (textureList?.Count == 0) continue;
 
-                        if (list.List.Contains(tex)) continue;
-
-                        list.List.Add(tex);
+                                t.Value.AddRange(textureList);
+                            }
+                        }
                     }
                 }
             }
+        }
+
+        List<Texture> GetTextureList(ShaderProperty property)
+        {
+            var list = new List<Texture>();
+            foreach (var r in meshes)
+            {
+                var material = r.sharedMaterial;
+                if (!material) continue;
+                var shader = material.shader;
+                if (!shader) continue;
+
+                if (property.Shader != shader) continue;
+
+                if (material.HasProperty(property.Name))
+                {
+                    var texture = material.GetTexture(property.Name);
+                    if (!texture) continue;
+                    if (list.Contains(texture)) continue;
+                    if (texturePropertyMapList.Count(t => t.Value?.Contains(texture) == true) > 0) continue;
+
+                    list.Add(texture);
+                }
+            }
+
+            return list;
         }
 
         [Button] void Optimize() { }

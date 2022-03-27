@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
 namespace VRCAvatarTools
 {
@@ -29,5 +30,8 @@ namespace VRCAvatarTools
             rect.y += rect.height;
             rect.height = height;
         }
+
+        public static void AppendHeight(this ref Rect rect, SerializedProperty property) =>
+            rect.AppendHeight(property.GetPropertyHeight());
     }
 }

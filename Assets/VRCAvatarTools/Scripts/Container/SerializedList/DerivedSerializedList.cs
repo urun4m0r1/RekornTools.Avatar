@@ -5,6 +5,8 @@ namespace VRCAvatarTools
 {
     #region SerializedList
 
+    [Serializable] public class TexturePropertyMapList : SerializedList<TexturePropertyMap> { }
+
     [Serializable] public class TextureList : SerializedList<Texture> { }
 
     [Serializable] public class ShaderPropertiesTables : SerializedList<ShaderPropertiesTable> { }
@@ -22,4 +24,7 @@ namespace VRCAvatarTools
     [Serializable] public class TransformList : ComponentList<Transform> { }
 
     #endregion ComponentList
+
+    [Serializable]
+    public class TexturePropertyMap : SerializedKeyValue<TextureType, TextureList> { }
 }
