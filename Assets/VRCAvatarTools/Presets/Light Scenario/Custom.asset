@@ -17,7 +17,7 @@ MonoBehaviour:
   <UseShadow>k__BackingField: 1
   <ReflectionIntensity>k__BackingField: 0.5
   <SunDirection>k__BackingField: {x: -0.5, y: -1, z: 1}
-  <SyncColor>k__BackingField: 1
+  <SyncColor>k__BackingField: 0
   <SunColor>k__BackingField: {r: 1, g: 1, b: 1, a: 0}
   <SunIntensity>k__BackingField: 2.88
   <UseSkyboxColor>k__BackingField: 0

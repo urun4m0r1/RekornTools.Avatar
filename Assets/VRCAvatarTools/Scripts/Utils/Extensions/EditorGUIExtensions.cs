@@ -28,15 +28,15 @@ namespace VRCAvatarTools
             EndProperty();
         }
 
-        public static bool SimpleDisabledPropertyField([CanBeNull] this SerializedProperty obj, Rect rect, bool isDisabled = true)
+        public static bool DisabledPropertyField([CanBeNull] this SerializedProperty obj, Rect rect, bool isDisabled = true)
         {
             BeginDisabledGroup(isDisabled);
-            bool result = obj.SimplePropertyField(rect);
+            bool result = obj.PropertyField(rect);
             EndDisabledGroup();
             return result;
         }
 
-        public static bool SimplePropertyField([CanBeNull] this SerializedProperty obj, Rect rect)
+        public static bool PropertyField([CanBeNull] this SerializedProperty obj, Rect rect, string title = null)
         {
             if (obj == null)
             {
@@ -44,7 +44,7 @@ namespace VRCAvatarTools
                 return false;
             }
 
-            return PropertyField(rect, obj, GUIContent.none, true);
+            return EditorGUI.PropertyField(rect, obj, title != null ? new GUIContent(title) : GUIContent.none, true);
         }
 
         public static float GetHeight([CanBeNull] this SerializedProperty obj) =>

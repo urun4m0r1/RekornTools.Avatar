@@ -22,10 +22,10 @@ namespace VRCAvatarTools
             rect.height = 0f;
 
             rect.AppendHeight(typeProp);
-            typeProp.SimpleDisabledPropertyField(rect);
+            typeProp.DisabledPropertyField(rect);
 
             rect.AppendHeight(texturesProp);
-            texturesProp.SimplePropertyField(rect);
+            texturesProp.PropertyField(rect);
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent _)

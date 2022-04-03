@@ -41,12 +41,12 @@ namespace VRCAvatarTools
 
             rect.AppendHeight(KeyHeight);
             {
-                Key.SimpleDisabledPropertyField(rect, keyDisabled);
+                Key.DisabledPropertyField(rect, keyDisabled);
             }
 
             rect.AppendHeight(ValueHeight);
             {
-                Value.SimpleDisabledPropertyField(rect, valueDisabled);
+                Value.DisabledPropertyField(rect, valueDisabled);
             }
         }
 
@@ -62,12 +62,12 @@ namespace VRCAvatarTools
 
             rect.AppendWidth(keyWidth);
             {
-                Key.SimpleDisabledPropertyField(rect, keyDisabled);
+                Key.DisabledPropertyField(rect, keyDisabled);
             }
 
             rect.AppendWidth(valueWidth);
             {
-                Value.SimpleDisabledPropertyField(rect, valueDisabled);
+                Value.DisabledPropertyField(rect, valueDisabled);
             }
         }
 

@@ -93,7 +93,7 @@ namespace VRCAvatarTools
             void OnDrawElement(Rect rect, int index, bool isActive, bool isFocused)
             {
                 rect.RevertIndent(EditorGUI.indentLevel);
-                GetElement(index).SimplePropertyField(rect);
+                GetElement(index).PropertyField(rect);
             }
 
             float OnGetHeight(int index) => GetElement(index).GetHeight();
