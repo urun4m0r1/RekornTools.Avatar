@@ -27,7 +27,7 @@ namespace VRCAvatarTools
                         EditorGUI.BeginChangeCheck();
                         {
                             EditorGUILayout.PropertyField(
-                                serializedObject.FindPropertyWithAutoPropertyName("Meshes"),
+                                SerializationExtensions.ResolveProperty(serializedObject, "Meshes"),
                                 true);
                         }
                         if (EditorGUI.EndChangeCheck()) serializedObject.ApplyModifiedProperties();
@@ -43,7 +43,7 @@ namespace VRCAvatarTools
                         EditorGUI.BeginChangeCheck();
                         {
                             EditorGUILayout.PropertyField(
-                                serializedObject.FindPropertyWithAutoPropertyName("Bones"),
+                                SerializationExtensions.ResolveProperty(serializedObject, "Bones"),
                                 true);
                         }
                         if (EditorGUI.EndChangeCheck()) serializedObject.ApplyModifiedProperties();

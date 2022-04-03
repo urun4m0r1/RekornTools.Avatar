@@ -33,7 +33,7 @@ namespace VRCAvatarTools
             var typeProp     = property.FindPropertyRelative("Type");
             var texturesProp = property.FindPropertyRelative("Textures");
 
-            return typeProp.GetPropertyHeight() + texturesProp.GetPropertyHeight();
+            return typeProp.GetHeight() + texturesProp.GetHeight();
         }
     }
 }

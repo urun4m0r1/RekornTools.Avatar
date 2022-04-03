@@ -96,7 +96,7 @@ namespace VRCAvatarTools
                 GetElement(index).SimplePropertyField(rect);
             }
 
-            float OnGetHeight(int index) => GetElement(index).GetPropertyHeight();
+            float OnGetHeight(int index) => GetElement(index).GetHeight();
 
             SerializedProperty GetElement(int index) => property.GetArrayElementAtIndex(index);
 

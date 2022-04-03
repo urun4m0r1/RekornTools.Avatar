@@ -11,12 +11,12 @@ namespace VRCAvatarTools
         {
             EditorGUI.BeginProperty(position, label, property);
             {
-                SerializedProperty shader = property.FindPropertyWithAutoPropertyName(ShaderProperty.ShaderField);
-                SerializedProperty index  = property.FindPropertyWithAutoPropertyName(ShaderProperty.IndexField);
-                SerializedProperty name   = property.FindPropertyWithAutoPropertyName(ShaderProperty.NameField);
-                SerializedProperty type   = property.FindPropertyWithAutoPropertyName(ShaderProperty.TypeField);
+                SerializedProperty shader = property.ResolveProperty(ShaderProperty.ShaderField);
+                SerializedProperty index  = property.ResolveProperty(ShaderProperty.IndexField);
+                SerializedProperty name   = property.ResolveProperty(ShaderProperty.NameField);
+                SerializedProperty type   = property.ResolveProperty(ShaderProperty.TypeField);
                 SerializedProperty textureType =
-                    property.FindPropertyWithAutoPropertyName(ShaderProperty.TextureTypeField);
+                    property.ResolveProperty(ShaderProperty.TextureTypeField);
 
 
                 if (shader == null || index == null || name == null || type == null || textureType == null)

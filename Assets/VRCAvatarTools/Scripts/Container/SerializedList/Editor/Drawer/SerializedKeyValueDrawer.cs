@@ -1,16 +1,13 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using static VRCAvatarTools.SerializedKeyValue;
 
 namespace VRCAvatarTools
 {
     [CustomPropertyDrawer(typeof(SerializedKeyValue<,>), true)]
     public class SerializedKeyValueDrawer : PropertyDrawer
     {
-        static readonly string KeyName   = SerializedKeyValue.KeyField.GetBackingFieldName();
-        static readonly string ValueName = SerializedKeyValue.ValueField.GetBackingFieldName();
-
-        static readonly SerializedKeyValueProperty
-            KeyValueProperty = new SerializedKeyValueProperty(KeyName, ValueName);
+        static readonly SerializedKeyValueProperty KeyValueProperty = new SerializedKeyValueProperty(KeyField, ValueField);
 
         static readonly PropertyDrawerAction Draw = DrawProperty;
 

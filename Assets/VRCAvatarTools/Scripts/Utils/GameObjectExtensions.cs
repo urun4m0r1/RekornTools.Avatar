@@ -1,21 +1,29 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 
 namespace VRCAvatarTools
 {
-    public class GameObjectExtensions
+    public static class GameObjectExtensions
     {
-        public static IEnumerable<GameObject> GetAllGameObjectsInScene =>
-            AllGameObjectsInProject.Where(IsEditableGameObjectInScene);
+        [CanBeNull] public static IEnumerable<GameObject> GetAllGameObjectsInScene =>
+            AllGameObjectsInProject?.Where(IsEditableSceneObject);
 
-        static IEnumerable<GameObject> AllGameObjectsInProject =>
-            (GameObject[])Resources.FindObjectsOfTypeAll(typeof(GameObject));
+        [CanBeNull] static IEnumerable<GameObject> AllGameObjectsInProject =>
+            Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[];
 
-        static bool IsEditableGameObjectInScene(GameObject go) =>
-            !EditorUtility.IsPersistent(go.transform.root.gameObject) &&
-            !(go.hideFlags == HideFlags.NotEditable ||
-              go.hideFlags == HideFlags.HideAndDontSave);
+        static bool IsEditableSceneObject([CanBeNull] GameObject go)
+        {
+            if (!go) return false;
+
+            var root        = go.transform.root;
+            if (!root) root = go.transform;
+
+            return !EditorUtility.IsPersistent(root.gameObject) &&
+                   !(go.hideFlags == HideFlags.NotEditable
+                  || go.hideFlags == HideFlags.HideAndDontSave);
+        }
     }
 }

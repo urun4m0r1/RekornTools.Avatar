@@ -16,8 +16,8 @@ namespace VRCAvatarTools
 
         public SerializedKeyValueProperty([NotNull] string keyName, [NotNull] string valueName)
         {
-            _keyName   = keyName;
-            _valueName = valueName;
+            _keyName   = ReflectionExtensions.ResolveFieldName(keyName);
+            _valueName = ReflectionExtensions.ResolveFieldName(valueName);
         }
 
         [NotNull] public SerializedKeyValueProperty Update([CanBeNull] SerializedProperty property)
@@ -26,8 +26,8 @@ namespace VRCAvatarTools
 
             _container = property;
 
-            Key   = property?.FindPropertyRelative(_keyName);
-            Value = property?.FindPropertyRelative(_valueName);
+            Key   = property?.ResolveProperty(_keyName);
+            Value = property?.ResolveProperty(_valueName);
 
             return this;
         }
@@ -71,15 +71,15 @@ namespace VRCAvatarTools
             }
         }
 
-        public float KeyHeight   => Key.GetPropertyHeight();
-        public float ValueHeight => Value.GetPropertyHeight();
+        public float KeyHeight   => Key.GetHeight();
+        public float ValueHeight => Value.GetHeight();
 
         public float MaxHeight
         {
             get
             {
-                float keyHeight   = Key.GetPropertyHeight();
-                float valueHeight = Value.GetPropertyHeight();
+                float keyHeight   = Key.GetHeight();
+                float valueHeight = Value.GetHeight();
 
                 return Mathf.Max(keyHeight, valueHeight);
             }
@@ -89,8 +89,8 @@ namespace VRCAvatarTools
         {
             get
             {
-                float keyHeight   = Key.GetPropertyHeight();
-                float valueHeight = Value.GetPropertyHeight();
+                float keyHeight   = Key.GetHeight();
+                float valueHeight = Value.GetHeight();
 
                 return keyHeight + valueHeight;
             }

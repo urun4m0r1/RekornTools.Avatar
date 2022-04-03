@@ -18,8 +18,8 @@ namespace VRCAvatarTools
 
                     string             typeName       = TexturePresetTable.TypeFieldName;
                     string             presetName     = TexturePresetTable.PresetFieldName;
-                    SerializedProperty typeProperty   = property.FindPropertyWithAutoPropertyName(typeName);
-                    SerializedProperty presetProperty = property.FindPropertyWithAutoPropertyName(presetName);
+                    SerializedProperty typeProperty   = property.ResolveProperty(typeName);
+                    SerializedProperty presetProperty = property.ResolveProperty(presetName);
 
                     EditorGUI.BeginDisabledGroup(true);
                     {
