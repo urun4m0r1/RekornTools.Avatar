@@ -1,5 +1,4 @@
 ﻿#if UNITY_EDITOR
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -41,7 +40,7 @@ namespace VRCAvatarTools
             Undo.RegisterCompleteObjectUndo(_meshBonePairs, ClassName);
             {
                 Bones.Initialize(BoneParent, BoneKeyword);
-                Bones.RemoveRange(Meshes.Select(x => x ? x.transform : null).ToList());
+                Bones.RemoveRange(Meshes.Select(x => x ? x.transform : null));
                 Bones.Remove(BoneParent);
             }
             if (Bones.Count == 0) this.ShowConfirmDialog("No objects found");

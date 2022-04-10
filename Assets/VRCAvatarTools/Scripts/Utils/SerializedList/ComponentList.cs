@@ -71,7 +71,7 @@ namespace VRCAvatarTools
 
             if (!string.IsNullOrWhiteSpace(keyword)) objects = objects?.Where(x => x && x.name.Contains(keyword));
 
-            Initialize(objects?.Where(x => x).ToList() ?? new List<T>());
+            Initialize(objects?.Where(x => x));
         }
     }
 }

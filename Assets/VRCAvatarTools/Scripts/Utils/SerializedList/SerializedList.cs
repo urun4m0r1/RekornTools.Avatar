@@ -42,17 +42,21 @@ namespace VRCAvatarTools
         }
 #endregion // Interface
 
-        public void AddRange([NotNull] List<T> target)
+        public void AddRange([CanBeNull] IEnumerable<T> target)
         {
+            if (target == null) return;
+
             foreach (var item in target) Add(item);
         }
 
-        public void RemoveRange([NotNull] List<T> target)
+        public void RemoveRange([CanBeNull] IEnumerable<T> target)
         {
+            if (target == null) return;
+
             foreach (var item in target) Remove(item);
         }
 
-        public void Initialize([NotNull] List<T> target)
+        public void Initialize([CanBeNull] IEnumerable<T> target)
         {
             Clear();
             AddRange(target);
