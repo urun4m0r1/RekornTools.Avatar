@@ -9,7 +9,7 @@ namespace VRCAvatarTools
     public static class EditorGUILayoutExtensions
     {
 #region Decorator
-        public static void HorizontalLine() => LabelField("", GUI.skin.horizontalSlider);
+        public static void HorizontalLine() => LabelField("", GUI.skin ? GUI.skin.horizontalSlider : GUIStyle.none);
 #endregion
 
 #region Extensions

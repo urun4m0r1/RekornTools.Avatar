@@ -11,7 +11,7 @@ namespace VRCAvatarTools
     /// </summary>
     public class ReorderableListHelper
     {
-        private readonly Dictionary<string, ReorderableList> _cache = new Dictionary<string, ReorderableList>();
+        [NotNull] private readonly Dictionary<string, ReorderableList> _cache = new Dictionary<string, ReorderableList>();
 
         [NotNull] private readonly string _listName;
 

@@ -59,7 +59,7 @@ namespace VRCAvatarTools
 
         public bool TryGetSelections([NotNull] out Object[] selections)
         {
-            selections = this.Where(x => x).Select(x => x.gameObject as Object).ToArray();
+            selections = this.Select(x => x ? x.gameObject as Object : null).Where(x => x).ToArray();
             return selections.Length != 0;
         }
 
@@ -67,11 +67,11 @@ namespace VRCAvatarTools
         {
             var objects = parent
                 ? parent.GetComponentsInChildren<T>()
-                : GameObjectExtensions.GetAllGameObjectsInScene?.SelectMany(x => x.GetComponents<T>());
+                : GameObjectExtensions.GetAllGameObjectsInScene?.SelectMany(x => x ? x.GetComponents<T>() : null);
 
-            if (!string.IsNullOrWhiteSpace(keyword)) objects = objects?.Where(x => x.name.Contains(keyword));
+            if (!string.IsNullOrWhiteSpace(keyword)) objects = objects?.Where(x => x && x.name.Contains(keyword));
 
-            Initialize(objects?.ToList() ?? new List<T>());
+            Initialize(objects?.Where(x => x).ToList() ?? new List<T>());
         }
     }
 }

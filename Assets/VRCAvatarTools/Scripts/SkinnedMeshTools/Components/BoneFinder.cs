@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -17,36 +18,22 @@ namespace VRCAvatarTools
         [field: SerializeField, Label(nameof(MeshKeyword))] public string    MeshKeyword { get; set; }
         [field: SerializeField, Label(nameof(BoneKeyword))] public string    BoneKeyword { get; set; }
 
-        private const     string ClassName = nameof(BoneFinder);
-        [NotNull] private string GameObjectName => gameObject.name;
-        [NotNull] private string Header         => $"[{ClassName}({GameObjectName})]";
+        private const string ClassName = nameof(BoneFinder);
 
-        private SkinnedMeshRenderers Meshes => _meshBonePairs.Meshes;
-        private Transforms           Bones  => _meshBonePairs.Bones;
+        [NotNull] private SkinnedMeshRenderers Meshes =>
+            _meshBonePairs ? _meshBonePairs.Meshes : throw new NullReferenceException();
 
-        private void ShowDialog(string message)
-        {
-            Debug.LogWarning($"{Header} {message}");
-            EditorUtility.DisplayDialog(
-                Header,
-                message,
-                "Confirm");
-        }
+        [NotNull] private Transforms Bones =>
+            _meshBonePairs ? _meshBonePairs.Bones : throw new NullReferenceException();
 
-        private MeshBonePairs _meshBonePairs;
+        [CanBeNull] private MeshBonePairs _meshBonePairs;
 
-        private void Awake()
-        {
-            _meshBonePairs = GetComponent<MeshBonePairs>();
-        }
+        private void Awake() => _meshBonePairs = GetComponent<MeshBonePairs>();
 
         public void FindMeshesFromTargetWithKeyword()
         {
-            Undo.RegisterCompleteObjectUndo(_meshBonePairs, ClassName);
-            {
-                Meshes.Initialize(MeshParent, MeshKeyword);
-            }
-            if (Meshes.Count == 0) ShowDialog("No objects found");
+            _meshBonePairs.UndoableAction(ClassName, () => Meshes.Initialize(MeshParent, MeshKeyword));
+            if (Meshes.Count == 0) this.ShowConfirmDialog("No objects found");
         }
 
         public void FindBonesFromTargetWithKeyword()
@@ -57,7 +44,7 @@ namespace VRCAvatarTools
                 Bones.RemoveRange(Meshes.Select(x => x.transform).ToList());
                 Bones.Remove(BoneParent);
             }
-            if (Bones.Count == 0) ShowDialog("No objects found");
+            if (Bones.Count == 0) this.ShowConfirmDialog("No objects found");
         }
 
         public void FindBonesFromMeshesWeightsIncludingChildren()
@@ -85,7 +72,7 @@ namespace VRCAvatarTools
         {
             if (Meshes.Count == 0)
             {
-                ShowDialog("There are no meshes to find bones from.");
+                this.ShowConfirmDialog("There are no meshes to find bones from.");
                 return;
             }
 
@@ -109,8 +96,8 @@ namespace VRCAvatarTools
 
             if (Bones.Count == 0)
             {
-                ShowDialog("Failed to find any bones from meshes.\n" +
-                           "You might need to check meshes is valid or bone weights are not set to zero.");
+                this.ShowConfirmDialog("Failed to find any bones from meshes.\n" +
+                                       "You might need to check meshes is valid or bone weights are not set to zero.");
             }
         }
     }

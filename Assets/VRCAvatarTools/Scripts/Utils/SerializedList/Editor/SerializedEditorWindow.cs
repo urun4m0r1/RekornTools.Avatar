@@ -6,7 +6,7 @@ namespace VRCAvatarTools
 {
     public abstract class SerializedEditorWindow<T> : EditorWindow
     {
-        [NotNull] private static string PrefPath => Application.identifier + "/" + typeof(T).Name;
+        [NotNull] private static string PrefPath => Application.identifier + "/" + typeof(T);
 
         private Vector2 _scrollPosition = Vector2.zero;
         private bool    _isSerializedFieldsReady;

@@ -9,12 +9,6 @@ namespace VRCAvatarTools
         [CanBeNull] public SerializedProperty Key   { get; private set; }
         [CanBeNull] public SerializedProperty Value { get; private set; }
 
-        public float KeyHeight   => Key.GetHeight();
-        public float ValueHeight => Value.GetHeight();
-
-        public float MaxHeight   => Mathf.Max(Key.GetHeight(), Value.GetHeight());
-        public float TotalHeight => Key.GetHeight() + Value.GetHeight();
-
         [NotNull] private readonly string _keyName;
         [NotNull] private readonly string _valueName;
 
@@ -38,6 +32,12 @@ namespace VRCAvatarTools
 
             return this;
         }
+
+        public float KeyHeight   => Key.GetHeight();
+        public float ValueHeight => Value.GetHeight();
+
+        public float MaxHeight   => Mathf.Max(Key.GetHeight(), Value.GetHeight());
+        public float TotalHeight => Key.GetHeight() + Value.GetHeight();
 
         public void DrawVertical(Rect rect, bool keyDisabled = false, bool valueDisabled = false)
         {

@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,11 +9,9 @@ namespace VRCAvatarTools
     [ExecuteInEditMode]
     public sealed class MeshBonePairs : MonoBehaviour
     {
-        [field: SerializeField]
-        public SkinnedMeshRenderers Meshes { get; private set; } = new SkinnedMeshRenderers();
+        [field: SerializeField] [NotNull] public SkinnedMeshRenderers Meshes { get; private set; } = new SkinnedMeshRenderers();
 
-        [field: SerializeField]
-        public Transforms Bones { get; private set; } = new Transforms();
+        [field: SerializeField] [NotNull] public Transforms Bones { get; private set; } = new Transforms();
 
         private const string ClassName = nameof(BoneFinder);
 

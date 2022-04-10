@@ -6,8 +6,8 @@ namespace VRCAvatarTools.Editor
 {
     public class TextureOptimizer : SerializedEditorWindow<TextureOptimizer>
     {
-        [SerializeField] private TexturePresetSettings _presetSettings;
-        [SerializeField] private ShaderPropertiesTable _shaderPropertiesTable;
+        [SerializeField] [CanBeNull] private TexturePresetSettings _presetSettings;
+        [SerializeField] [CanBeNull] private ShaderPropertiesTable _shaderPropertiesTable;
 
         [MenuItem("Tools/VRC Avatar Tools/Texture Optimizer")]
         private static void OnWindowOpen() => GetWindow<TextureOptimizer>("Texture Optimizer")?.Show();
