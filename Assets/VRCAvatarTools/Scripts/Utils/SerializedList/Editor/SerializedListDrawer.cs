@@ -8,7 +8,6 @@ namespace VRCAvatarTools
     [CustomPropertyDrawer(typeof(SerializedList<>), true)]
     public class SerializedListDrawer : SerializedPropertyDrawer
     {
-        // Do not make this static, it will cause key collisions of cache dictionary.
         private readonly ReorderableListHelper _list = new ReorderableListHelper(SerializedList.ListName);
 
         protected override void DrawProperty(Rect rect, SerializedProperty property, GUIContent _) =>

@@ -6,9 +6,11 @@ using UnityEngine;
 
 namespace VRCAvatarTools
 {
+    /// <summary>
+    /// Do not create static class of this, it will cause key collisions of cache dictionary.
+    /// </summary>
     public class ReorderableListHelper
     {
-        // Do not make this static, it will cause key collisions of cache dictionary.
         private readonly Dictionary<string, ReorderableList> _cache = new Dictionary<string, ReorderableList>();
 
         [NotNull] private readonly string _listName;
@@ -23,18 +25,20 @@ namespace VRCAvatarTools
 
         public ReorderableListHelper([NotNull] string listName) => _listName = listName;
 
-        [NotNull] public ReorderableListHelper Update([CanBeNull] SerializedProperty property)
+        [NotNull] public ReorderableListHelper Update([CanBeNull] SerializedProperty container)
         {
-            if (_container == property) return this;
+            if (_container != container)
+            {
+                _container = container;
 
-            _container = property;
+                var listContainer = container?.ResolveProperty(_listName);
+                if (_listContainer != listContainer)
+                {
+                    _listContainer = listContainer;
 
-            var listProperty = property?.FindPropertyRelative(_listName);
-            if (_listContainer == listProperty) return this;
-
-            _listContainer = listProperty;
-
-            UpdateList();
+                    UpdateList();
+                }
+            }
 
             return this;
         }
@@ -57,22 +61,19 @@ namespace VRCAvatarTools
         {
             if (_listContainer?.propertyPath == null) return;
 
-            if (!_cache.ContainsKey(_listContainer.propertyPath))
+            if (_cache.ContainsKey(_listContainer.propertyPath))
+            {
+                _list = _cache[_listContainer.propertyPath];
+            }
+            else
             {
                 _list = CreateList(_listContainer, Header, IsMutable, IsSpan);
                 _cache.Add(_listContainer.propertyPath, _list);
             }
-            else
-            {
-                _list = _cache[_listContainer.propertyPath];
-            }
         }
 
-        [NotNull]
-        private static ReorderableList CreateList([NotNull] SerializedProperty property,
-                                                  [CanBeNull] string header,
-                                                  bool isMutable,
-                                                  bool isSpan)
+        [NotNull] private static ReorderableList CreateList(
+            [NotNull] SerializedProperty property, [CanBeNull] string header, bool isMutable, bool isSpan)
         {
             var list = new ReorderableList(property.serializedObject, property)
             {
