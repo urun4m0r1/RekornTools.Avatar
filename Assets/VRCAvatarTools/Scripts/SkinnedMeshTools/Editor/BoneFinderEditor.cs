@@ -1,10 +1,10 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace VRCAvatarTools
+namespace VRCAvatarTools.Editor
 {
     [CustomEditor(typeof(BoneFinder))]
-    public class BoneFinderEditor : Editor
+    public class BoneFinderEditor : UnityEditor.Editor
     {
         BoneFinder _target;
 

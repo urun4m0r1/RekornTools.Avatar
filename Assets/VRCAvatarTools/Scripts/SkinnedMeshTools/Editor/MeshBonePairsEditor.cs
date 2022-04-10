@@ -1,10 +1,10 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace VRCAvatarTools
+namespace VRCAvatarTools.Editor
 {
     [CustomEditor(typeof(MeshBonePairs))]
-    public class MeshBonePairsEditor : Editor
+    public class MeshBonePairsEditor : UnityEditor.Editor
     {
         MeshBonePairs _target;
         bool          _meshesFoldout = true;

@@ -1,4 +1,5 @@
-﻿using NaughtyAttributes;
+﻿#if UNITY_EDITOR
+using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
 
@@ -71,3 +72,4 @@ namespace VRCAvatarTools
         }
     }
 }
+#endif

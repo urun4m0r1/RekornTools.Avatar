@@ -1,12 +1,13 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace VRCAvatarTools
 {
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public class ListHeaderAttribute : Attribute
     {
         public string Header { get; }
 
-        public ListHeaderAttribute(string header) => Header = header;
+        public ListHeaderAttribute([NotNull] string header) => Header = header;
     }
 }

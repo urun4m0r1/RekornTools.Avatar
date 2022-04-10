@@ -15,7 +15,7 @@ namespace VRCAvatarTools
             var toRemove             = new List<T>();
             var destroyFailedObjects = new StringBuilder();
 
-            foreach (T o in this)
+            foreach (var o in this)
             {
                 if (!o)
                 {
@@ -34,7 +34,7 @@ namespace VRCAvatarTools
 
             if (destroyFailedObjects.Length > 0)
             {
-                string objectsList = destroyFailedObjects.ToString().TrimEnd(',', ' ');
+                var objectsList = destroyFailedObjects.ToString().TrimEnd(',', ' ');
                 ShowDialog($"Failed to destroy following objects: {objectsList}\n" +
                            "You might need to unpack prefabs before destroy them.");
             }
@@ -86,12 +86,12 @@ namespace VRCAvatarTools
             }
 
 
-            foreach (T item in from o in objects
-                     where o.name.Contains(keyword)
-                     select o.GetComponent<T>()
-                     into t
-                     where t
-                     select t)
+            foreach (var item in from o in objects
+                                 where o.name.Contains(keyword)
+                                 select o.GetComponent<T>()
+                                 into t
+                                 where t
+                                 select t)
             {
                 Add(item);
             }

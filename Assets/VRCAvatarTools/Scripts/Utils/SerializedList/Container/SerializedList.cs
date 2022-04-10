@@ -30,8 +30,7 @@ namespace VRCAvatarTools
                 "Confirm");
         }
 
-        #region Interface
-
+#region Interface
         public IEnumerator<T>   GetEnumerator() => _items.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)_items).GetEnumerator();
 
@@ -71,7 +70,6 @@ namespace VRCAvatarTools
             Clear();
             AddRange(target);
         }
-
-        #endregion
+#endregion
     }
 }

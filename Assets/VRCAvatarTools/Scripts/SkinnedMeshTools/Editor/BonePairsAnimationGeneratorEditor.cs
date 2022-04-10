@@ -1,10 +1,10 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace VRCAvatarTools
+namespace VRCAvatarTools.Editor
 {
     [CustomEditor(typeof(BonePairsAnimationGenerator))]
-    public class BonePairsAnimationGeneratorEditor : Editor
+    public class BonePairsAnimationGeneratorEditor : UnityEditor.Editor
     {
         BonePairsAnimationGenerator _target;
 
