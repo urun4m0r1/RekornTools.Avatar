@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using UnityEditor;
 using UnityEngine;
 
 namespace VRCAvatarTools
 {
     public static class GameObjectExtensions
     {
-        [CanBeNull]
-        private static IEnumerable<GameObject> AllGameObjectsInProject =>
+        [CanBeNull] private static IEnumerable<GameObject> AllGameObjectsInProject =>
             Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[];
 
         [CanBeNull] public static IEnumerable<GameObject> GetAllGameObjectsInScene =>
@@ -21,8 +21,8 @@ namespace VRCAvatarTools
             var root        = go.transform.root;
             if (!root) root = go.transform;
 
-            return !(root.hideFlags == HideFlags.NotEditable
-                  || root.hideFlags == HideFlags.HideAndDontSave);
+            return !EditorUtility.IsPersistent(root) &&
+                   !(root.hideFlags == HideFlags.NotEditable || root.hideFlags == HideFlags.HideAndDontSave);
         }
     }
 }

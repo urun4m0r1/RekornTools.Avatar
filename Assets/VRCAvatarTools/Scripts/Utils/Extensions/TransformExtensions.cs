@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
 namespace VRCAvatarTools
 {
     public static class TransformExtensions
     {
-        public static Bounds TransformBounds(this Transform transform, Bounds localBounds)
+        public static Bounds TransformBounds([NotNull] this Transform transform, Bounds localBounds)
         {
             var center = transform.TransformPoint(localBounds.center);
 
@@ -20,7 +21,7 @@ namespace VRCAvatarTools
             return new Bounds { center = center, extents = extents };
         }
 
-        public static Bounds InverseTransformBounds(this Transform transform, Bounds localBounds)
+        public static Bounds InverseTransformBounds([NotNull] this Transform transform, Bounds localBounds)
         {
             var center = transform.InverseTransformPoint(localBounds.center);
 

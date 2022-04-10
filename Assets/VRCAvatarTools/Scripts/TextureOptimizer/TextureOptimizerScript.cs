@@ -37,7 +37,7 @@ namespace VRCAvatarTools
                     if ((TextureType)type == TextureType.None) continue;
                     var map = new TexturePropertyMap
                     {
-                        Key = (TextureType)type,
+                        Key   = (TextureType)type,
                         Value = new TextureList(),
                     };
                     texturePropertyMapList.Add(map);

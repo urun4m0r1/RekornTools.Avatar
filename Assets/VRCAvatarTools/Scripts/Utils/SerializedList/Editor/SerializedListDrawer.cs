@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 namespace VRCAvatarTools
 {
-    [CustomPropertyDrawer(typeof(List<>),           true)]
     [CustomPropertyDrawer(typeof(SerializedList<>), true)]
     public class SerializedListDrawer : SerializedPropertyDrawer
     {

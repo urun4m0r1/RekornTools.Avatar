@@ -9,7 +9,7 @@ namespace VRCAvatarTools
 {
     public class SerializedList : SerializedList<object>
     {
-        [NotNull] public static readonly string ListName = nameof(_items);
+        [NotNull] public const string ListName = nameof(_items);
     }
 
     [Serializable]
