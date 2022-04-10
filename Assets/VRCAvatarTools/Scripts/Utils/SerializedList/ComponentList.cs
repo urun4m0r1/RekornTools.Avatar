@@ -69,7 +69,7 @@ namespace VRCAvatarTools
                 ? parent.GetComponentsInChildren<T>()
                 : GameObjectExtensions.GetAllGameObjectsInScene?.SelectMany(x => x.GetComponents<T>());
 
-            if (string.IsNullOrWhiteSpace(keyword)) objects = objects?.Where(x => x.name.Contains(keyword));
+            if (!string.IsNullOrWhiteSpace(keyword)) objects = objects?.Where(x => x.name.Contains(keyword));
 
             Initialize(objects?.ToList() ?? new List<T>());
         }

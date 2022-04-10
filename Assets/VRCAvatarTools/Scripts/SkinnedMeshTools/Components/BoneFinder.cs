@@ -21,8 +21,8 @@ namespace VRCAvatarTools
         [NotNull] private string GameObjectName => gameObject.name;
         [NotNull] private string Header         => $"[{ClassName}({GameObjectName})]";
 
-        private SkinnedMeshRenderers _meshList;
-        private Transforms           _boneList;
+        private SkinnedMeshRenderers Meshes => _meshBonePairs.Meshes;
+        private Transforms           Bones  => _meshBonePairs.Bones;
 
         private void ShowDialog(string message)
         {
@@ -38,28 +38,26 @@ namespace VRCAvatarTools
         private void Awake()
         {
             _meshBonePairs = GetComponent<MeshBonePairs>();
-            _meshList      = _meshBonePairs.Meshes; //TODO:  레퍼런스를 복사야야함
-            _boneList      = _meshBonePairs.Bones;
         }
 
         public void FindMeshesFromTargetWithKeyword()
         {
             Undo.RegisterCompleteObjectUndo(_meshBonePairs, ClassName);
             {
-                _meshBonePairs.Meshes.Initialize(MeshParent, MeshKeyword);
+                Meshes.Initialize(MeshParent, MeshKeyword);
             }
-            if (_meshBonePairs.Meshes.Count == 0) ShowDialog("No objects found");
+            if (Meshes.Count == 0) ShowDialog("No objects found");
         }
 
         public void FindBonesFromTargetWithKeyword()
         {
             Undo.RegisterCompleteObjectUndo(_meshBonePairs, ClassName);
             {
-                _meshBonePairs.Bones.Initialize(BoneParent, BoneKeyword);
-                _meshBonePairs.Bones.RemoveRange(_meshBonePairs.Meshes.Select(x => x.transform).ToList());
-                _meshBonePairs.Bones.Remove(BoneParent);
+                Bones.Initialize(BoneParent, BoneKeyword);
+                Bones.RemoveRange(Meshes.Select(x => x.transform).ToList());
+                Bones.Remove(BoneParent);
             }
-            if (_meshBonePairs.Bones.Count == 0) ShowDialog("No objects found");
+            if (Bones.Count == 0) ShowDialog("No objects found");
         }
 
         public void FindBonesFromMeshesWeightsIncludingChildren()
@@ -69,9 +67,9 @@ namespace VRCAvatarTools
             var children = new List<Transform>();
 
             foreach (var child in
-                     from b in _meshBonePairs.Bones
+                     from b in Bones
                      from Transform c in b
-                     where c && !_meshBonePairs.Bones.Contains(c) && !children.Contains(c)
+                     where c && !Bones.Contains(c) && !children.Contains(c)
                      select c)
             {
                 children.Add(child);
@@ -79,13 +77,13 @@ namespace VRCAvatarTools
 
             Undo.RegisterCompleteObjectUndo(_meshBonePairs, ClassName);
             {
-                _meshBonePairs.Bones.AddRange(children);
+                Bones.AddRange(children);
             }
         }
 
         public void FindBonesFromMeshesWeights()
         {
-            if (_meshBonePairs.Meshes.Count == 0)
+            if (Meshes.Count == 0)
             {
                 ShowDialog("There are no meshes to find bones from.");
                 return;
@@ -93,23 +91,23 @@ namespace VRCAvatarTools
 
             Undo.RegisterCompleteObjectUndo(_meshBonePairs, ClassName);
             {
-                _meshBonePairs.Bones.Clear();
+                Bones.Clear();
             }
 
             foreach (var bone in
-                     from m in _meshBonePairs.Meshes
+                     from m in Meshes
                      where m
                      from b in m.bones
-                     where b && !_meshBonePairs.Bones.Contains(b)
+                     where b && !Bones.Contains(b)
                      select b)
             {
                 Undo.RegisterCompleteObjectUndo(_meshBonePairs, ClassName);
                 {
-                    _meshBonePairs.Bones.Add(bone);
+                    Bones.Add(bone);
                 }
             }
 
-            if (_meshBonePairs.Bones.Count == 0)
+            if (Bones.Count == 0)
             {
                 ShowDialog("Failed to find any bones from meshes.\n" +
                            "You might need to check meshes is valid or bone weights are not set to zero.");
