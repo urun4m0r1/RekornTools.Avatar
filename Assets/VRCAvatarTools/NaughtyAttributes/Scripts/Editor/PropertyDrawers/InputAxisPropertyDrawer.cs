@@ -41,11 +41,11 @@ namespace NaughtyAttributes.Editor
 
 				var axes = axesSet.ToArray();
 
-				string propertyString = property.stringValue;
-				int index = 0;
+				var propertyString = property.stringValue;
+				var index = 0;
 				// check if there is an entry that matches the entry and get the index
 				// we skip index 0 as that is a special custom case
-				for (int i = 1; i < axes.Length; i++)
+				for (var i = 1; i < axes.Length; i++)
 				{
 					if (axes[i].Equals(propertyString, System.StringComparison.Ordinal))
 					{
@@ -55,10 +55,10 @@ namespace NaughtyAttributes.Editor
 				}
 
 				// Draw the popup box with the current selected index
-				int newIndex = EditorGUI.Popup(rect, label.text, index, axes);
+				var newIndex = EditorGUI.Popup(rect, label.text, index, axes);
 
 				// Adjust the actual string value of the property based on the selection
-				string newValue = newIndex > 0 ? axes[newIndex] : string.Empty;
+				var newValue = newIndex > 0 ? axes[newIndex] : string.Empty;
 
 				if (!property.stringValue.Equals(newValue, System.StringComparison.Ordinal))
 				{
@@ -67,7 +67,7 @@ namespace NaughtyAttributes.Editor
 			}
 			else
 			{
-				string message = string.Format("{0} supports only string fields", typeof(InputAxisAttribute).Name);
+				var message = string.Format("{0} supports only string fields", typeof(InputAxisAttribute).Name);
 				DrawDefaultPropertyAndHelpBox(rect, property, message, MessageType.Warning);
 			}
 

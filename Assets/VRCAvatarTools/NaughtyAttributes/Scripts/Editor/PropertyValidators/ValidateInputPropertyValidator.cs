@@ -8,15 +8,15 @@ namespace NaughtyAttributes.Editor
 	{
 		public override void ValidateProperty(SerializedProperty property)
 		{
-			ValidateInputAttribute validateInputAttribute = PropertyUtility.GetAttribute<ValidateInputAttribute>(property);
-			object target = PropertyUtility.GetTargetObjectWithProperty(property);
+			var validateInputAttribute = PropertyUtility.GetAttribute<ValidateInputAttribute>(property);
+			var target = PropertyUtility.GetTargetObjectWithProperty(property);
 
-			MethodInfo validationCallback = ReflectionUtility.GetMethod(target, validateInputAttribute.CallbackName);
+			var validationCallback = ReflectionUtility.GetMethod(target, validateInputAttribute.CallbackName);
 
 			if (validationCallback != null &&
 				validationCallback.ReturnType == typeof(bool))
 			{
-				ParameterInfo[] callbackParameters = validationCallback.GetParameters();
+				var callbackParameters = validationCallback.GetParameters();
 
 				if (callbackParameters.Length == 0) {
 					if (!(bool)validationCallback.Invoke(target, null))
@@ -35,9 +35,9 @@ namespace NaughtyAttributes.Editor
 				}
 				else if (callbackParameters.Length == 1)
 				{
-					FieldInfo fieldInfo = ReflectionUtility.GetField(target, property.name);
-					Type fieldType = fieldInfo.FieldType;
-					Type parameterType = callbackParameters[0].ParameterType;
+					var fieldInfo = ReflectionUtility.GetField(target, property.name);
+					var fieldType = fieldInfo.FieldType;
+					var parameterType = callbackParameters[0].ParameterType;
 
 					if (fieldType == parameterType)
 					{
@@ -57,13 +57,13 @@ namespace NaughtyAttributes.Editor
 					}
 					else
 					{
-						string warning = "The field type is not the same as the callback's parameter type";
+						var warning = "The field type is not the same as the callback's parameter type";
 						NaughtyEditorGUI.HelpBox_Layout(warning, MessageType.Warning, context: property.serializedObject.targetObject);
 					}
 				}
 				else
 				{
-					string warning =
+					var warning =
 						validateInputAttribute.GetType().Name +
 						" needs a callback with boolean return type and an optional single parameter of the same type as the field";
 

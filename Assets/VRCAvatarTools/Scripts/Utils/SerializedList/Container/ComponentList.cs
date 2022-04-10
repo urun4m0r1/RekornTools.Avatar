@@ -52,7 +52,7 @@ namespace VRCAvatarTools
 
         public void SelectComponents()
         {
-            if (TryGetSelections(out Object[] selections)) Selection.objects = selections;
+            if (TryGetSelections(out var selections)) Selection.objects = selections;
         }
 
         public bool TryGetSelections([NotNull] out Object[] selections)
@@ -81,7 +81,7 @@ namespace VRCAvatarTools
                         "Proceed",
                         "Cancel")) return;
 
-                IEnumerable<GameObject> gameObjectsInScene = GameObjectExtensions.GetAllGameObjectsInScene;
+                var gameObjectsInScene = GameObjectExtensions.GetAllGameObjectsInScene;
                 objects = gameObjectsInScene.SelectMany(x => x.GetComponents<T>()).ToArray();
             }
 

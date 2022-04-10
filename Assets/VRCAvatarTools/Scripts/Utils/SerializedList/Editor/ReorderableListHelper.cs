@@ -29,7 +29,7 @@ namespace VRCAvatarTools
 
             _container = property;
 
-            SerializedProperty listProperty = property?.FindPropertyRelative(_listName);
+            var listProperty = property?.FindPropertyRelative(_listName);
             if (_listContainer == listProperty) return this;
 
             _listContainer = listProperty;

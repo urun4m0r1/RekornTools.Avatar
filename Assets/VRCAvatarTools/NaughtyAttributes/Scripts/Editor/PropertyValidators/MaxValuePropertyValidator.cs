@@ -7,7 +7,7 @@ namespace NaughtyAttributes.Editor
 	{
 		public override void ValidateProperty(SerializedProperty property)
 		{
-			MaxValueAttribute maxValueAttribute = PropertyUtility.GetAttribute<MaxValueAttribute>(property);
+			var maxValueAttribute = PropertyUtility.GetAttribute<MaxValueAttribute>(property);
 
 			if (property.propertyType == SerializedPropertyType.Integer)
 			{
@@ -45,7 +45,7 @@ namespace NaughtyAttributes.Editor
 			}
 			else
 			{
-				string warning = maxValueAttribute.GetType().Name + " can be used only on int, float, Vector or VectorInt fields";
+				var warning = maxValueAttribute.GetType().Name + " can be used only on int, float, Vector or VectorInt fields";
 				Debug.LogWarning(warning, property.serializedObject.targetObject);
 			}
 		}

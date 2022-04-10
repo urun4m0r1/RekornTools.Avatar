@@ -16,13 +16,13 @@ namespace NaughtyAttributes.Editor
 				yield break;
 			}
 
-			List<Type> types = GetSelfAndBaseTypes(target);
+			var types = GetSelfAndBaseTypes(target);
 
-			for (int i = types.Count - 1; i >= 0; i--)
+			for (var i = types.Count - 1; i >= 0; i--)
 			{
-				IEnumerable<FieldInfo> fieldInfos = types[i]
-					.GetFields(BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly)
-					.Where(predicate);
+				var fieldInfos = types[i]
+				                .GetFields(BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly)
+				                .Where(predicate);
 
 				foreach (var fieldInfo in fieldInfos)
 				{
@@ -39,13 +39,13 @@ namespace NaughtyAttributes.Editor
 				yield break;
 			}
 
-			List<Type> types = GetSelfAndBaseTypes(target);
+			var types = GetSelfAndBaseTypes(target);
 
-			for (int i = types.Count - 1; i >= 0; i--)
+			for (var i = types.Count - 1; i >= 0; i--)
 			{
-				IEnumerable<PropertyInfo> propertyInfos = types[i]
-					.GetProperties(BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly)
-					.Where(predicate);
+				var propertyInfos = types[i]
+				                   .GetProperties(BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly)
+				                   .Where(predicate);
 
 				foreach (var propertyInfo in propertyInfos)
 				{
@@ -62,13 +62,13 @@ namespace NaughtyAttributes.Editor
 				yield break;
 			}
 
-			List<Type> types = GetSelfAndBaseTypes(target);
+			var types = GetSelfAndBaseTypes(target);
 
-			for (int i = types.Count - 1; i >= 0; i--)
+			for (var i = types.Count - 1; i >= 0; i--)
 			{
-				IEnumerable<MethodInfo> methodInfos = types[i]
-					.GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly)
-					.Where(predicate);
+				var methodInfos = types[i]
+				                 .GetMethods(BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.DeclaredOnly)
+				                 .Where(predicate);
 
 				foreach (var methodInfo in methodInfos)
 				{
@@ -112,7 +112,7 @@ namespace NaughtyAttributes.Editor
 		/// <returns></returns>
 		private static List<Type> GetSelfAndBaseTypes(object target)
 		{
-			List<Type> types = new List<Type>()
+			var types = new List<Type>()
 			{
 				target.GetType()
 			};

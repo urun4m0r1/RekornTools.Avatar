@@ -12,14 +12,14 @@ namespace VRCAvatarTools.Editor
             {
                 EditorGUI.BeginChangeCheck();
                 {
-                    float w  = position.width;
-                    float w1 = w * 0.3f;
-                    float w2 = w * 0.7f;
+                    var w  = position.width;
+                    var w1 = w * 0.3f;
+                    var w2 = w * 0.7f;
 
-                    string             typeName       = TexturePresetTable.TypeFieldName;
-                    string             presetName     = TexturePresetTable.PresetFieldName;
-                    SerializedProperty typeProperty   = property.ResolveProperty(typeName);
-                    SerializedProperty presetProperty = property.ResolveProperty(presetName);
+                    var             typeName       = TexturePresetTable.TypeFieldName;
+                    var             presetName     = TexturePresetTable.PresetFieldName;
+                    var typeProperty   = property.ResolveProperty(typeName);
+                    var presetProperty = property.ResolveProperty(presetName);
 
                     EditorGUI.BeginDisabledGroup(true);
                     {

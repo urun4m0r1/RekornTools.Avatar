@@ -32,7 +32,7 @@ namespace VRCAvatarTools
                 return;
             }
 
-            foreach (Renderer result in
+            foreach (var result in
                      from g in gameObjects
                      from r in g.GetComponents<Renderer>()
                      where !renderers.Contains(r)
@@ -43,7 +43,7 @@ namespace VRCAvatarTools
                 return;
             }
 
-            foreach (Material result in
+            foreach (var result in
                      from r in renderers
                      from m in r.sharedMaterials
                      where !materials.Contains(m)
@@ -54,14 +54,14 @@ namespace VRCAvatarTools
                 return;
             }
 
-            Shader shader = Shader.Find(shaderPath);
+            var shader = Shader.Find(shaderPath);
             if (shader == null)
             {
                 Debug.LogError($"Failed to find shader with name: {shaderPath}");
                 return;
             }
 
-            foreach (Material result in
+            foreach (var result in
                      from r in materials
                      where r.shader == shader
                      select r) shaders.Add(result);
@@ -94,7 +94,7 @@ namespace VRCAvatarTools
             var emissiveTextureID = Shader.PropertyToID(emissiveTextureProperty);
 
 
-            foreach (Material s in shaders)
+            foreach (var s in shaders)
             {
                 if (ignoreShaders.Contains(s)) continue;
 
@@ -110,7 +110,7 @@ namespace VRCAvatarTools
                     continue;
                 }
 
-                Texture mainTexture = s.GetTexture(mainTextureID);
+                var mainTexture = s.GetTexture(mainTextureID);
 
                 if (mainTexture == null)
                 {

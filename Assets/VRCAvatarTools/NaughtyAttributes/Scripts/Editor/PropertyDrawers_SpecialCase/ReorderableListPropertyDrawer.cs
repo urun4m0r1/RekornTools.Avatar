@@ -33,9 +33,9 @@ namespace NaughtyAttributes.Editor
 		{
 			if (property.isArray)
 			{
-				string key = GetPropertyKeyName(property);
+				var key = GetPropertyKeyName(property);
 
-				if (_reorderableListsByPropertyName.TryGetValue(key, out ReorderableList reorderableList) == false)
+				if (_reorderableListsByPropertyName.TryGetValue(key, out var reorderableList) == false)
 				{
 					return 0;
 				}
@@ -50,7 +50,7 @@ namespace NaughtyAttributes.Editor
 		{
 			if (property.isArray)
 			{
-				string key = GetPropertyKeyName(property);
+				var key = GetPropertyKeyName(property);
 
 				ReorderableList reorderableList = null;
 				if (!_reorderableListsByPropertyName.ContainsKey(key))
@@ -65,7 +65,7 @@ namespace NaughtyAttributes.Editor
 
 						drawElementCallback = (Rect r, int index, bool isActive, bool isFocused) =>
 						{
-							SerializedProperty element = property.GetArrayElementAtIndex(index);
+							var element = property.GetArrayElementAtIndex(index);
 							r.y += 1.0f;
 							r.x += 10.0f;
 							r.width -= 10.0f;
@@ -95,7 +95,7 @@ namespace NaughtyAttributes.Editor
 			}
 			else
 			{
-				string message = typeof(ReorderableListAttribute).Name + " can be used only on arrays or lists";
+				var message = typeof(ReorderableListAttribute).Name + " can be used only on arrays or lists";
 				NaughtyEditorGUI.HelpBox_Layout(message, MessageType.Warning, context: property.serializedObject.targetObject);
 				EditorGUILayout.PropertyField(property, true);
 			}
@@ -108,15 +108,15 @@ namespace NaughtyAttributes.Editor
 
 		private Object GetAssignableObject(Object obj, ReorderableList list)
 		{
-			System.Type listType = PropertyUtility.GetPropertyType(list.serializedProperty);
-			System.Type elementType = ReflectionUtility.GetListElementType(listType);
+			var listType = PropertyUtility.GetPropertyType(list.serializedProperty);
+			var elementType = ReflectionUtility.GetListElementType(listType);
 
 			if (elementType == null)
 			{
 				return null;
 			}
 
-			System.Type objType = obj.GetType();
+			var objType = obj.GetType();
 
 			if (elementType.IsAssignableFrom(objType))
 			{
@@ -127,10 +127,10 @@ namespace NaughtyAttributes.Editor
 			{
 				if (typeof(Transform).IsAssignableFrom(elementType))
 				{
-					Transform transform = ((GameObject)obj).transform;
+					var transform = ((GameObject)obj).transform;
 					if (elementType == typeof(RectTransform))
 					{
-						RectTransform rectTransform = transform as RectTransform;
+						var rectTransform = transform as RectTransform;
 						return rectTransform;
 					}
 					else
@@ -167,18 +167,18 @@ namespace NaughtyAttributes.Editor
 					if (rect.Contains(currentEvent.mousePosition) && GUI.enabled)
 					{
 						// Check each single object, so we can add multiple objects in a single drag.
-						bool didAcceptDrag = false;
-						Object[] references = DragAndDrop.objectReferences;
-						foreach (Object obj in references)
+						var didAcceptDrag = false;
+						var references = DragAndDrop.objectReferences;
+						foreach (var obj in references)
 						{
-							Object assignableObject = GetAssignableObject(obj, list);
+							var assignableObject = GetAssignableObject(obj, list);
 							if (assignableObject != null)
 							{
 								DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
 								if (currentEvent.type == EventType.DragPerform)
 								{
 									list.serializedProperty.arraySize++;
-									int arrayEnd = list.serializedProperty.arraySize - 1;
+									var arrayEnd = list.serializedProperty.arraySize - 1;
 									list.serializedProperty.GetArrayElementAtIndex(arrayEnd).objectReferenceValue = assignableObject;
 									didAcceptDrag = true;
 								}

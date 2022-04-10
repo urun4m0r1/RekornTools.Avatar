@@ -28,8 +28,8 @@ namespace NaughtyAttributes.Test
 		[Button("StartCoroutine")]
 		private IEnumerator IncrementMyIntCoroutine()
 		{
-			int seconds = 5;
-			for (int i = 0; i < seconds; i++)
+			var seconds = 5;
+			for (var i = 0; i < seconds; i++)
 			{
 				myInt++;
 				yield return new WaitForSeconds(1.0f);

@@ -68,7 +68,7 @@ namespace VRCAvatarTools
 
             var children = new List<Transform>();
 
-            foreach (Transform child in
+            foreach (var child in
                      from b in _meshBonePairs.Bones
                      from Transform c in b
                      where c && !_meshBonePairs.Bones.Contains(c) && !children.Contains(c)
@@ -96,7 +96,7 @@ namespace VRCAvatarTools
                 _meshBonePairs.Bones.Clear();
             }
 
-            foreach (Transform bone in
+            foreach (var bone in
                      from m in _meshBonePairs.Meshes
                      where m
                      from b in m.bones

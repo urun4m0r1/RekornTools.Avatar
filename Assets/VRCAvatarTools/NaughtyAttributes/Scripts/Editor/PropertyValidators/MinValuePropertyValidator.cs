@@ -7,7 +7,7 @@ namespace NaughtyAttributes.Editor
 	{
 		public override void ValidateProperty(SerializedProperty property)
 		{
-			MinValueAttribute minValueAttribute = PropertyUtility.GetAttribute<MinValueAttribute>(property);
+			var minValueAttribute = PropertyUtility.GetAttribute<MinValueAttribute>(property);
 
 			if (property.propertyType == SerializedPropertyType.Integer)
 			{
@@ -45,7 +45,7 @@ namespace NaughtyAttributes.Editor
 			}
 			else
 			{
-				string warning = minValueAttribute.GetType().Name + " can be used only on int, float, Vector or VectorInt fields";
+				var warning = minValueAttribute.GetType().Name + " can be used only on int, float, Vector or VectorInt fields";
 				Debug.LogWarning(warning, property.serializedObject.targetObject);
 			}
 		}

@@ -31,10 +31,10 @@ namespace VRCAvatarTools
 
         private void OnDrawGizmosSelected()
         {
-            foreach (SkinnedMeshRenderer mesh in meshes)
+            foreach (var mesh in meshes)
             {
-                Bounds prevBounds = mesh.localBounds;
-                Bounds bounds     = mesh.bounds;
+                var prevBounds = mesh.localBounds;
+                var bounds     = mesh.bounds;
 
                 Gizmos.color = Color.yellow;
                 Gizmos.DrawWireCube(bounds.center, bounds.size);
@@ -59,7 +59,7 @@ namespace VRCAvatarTools
         [Button]
         private void Optimize()
         {
-            foreach (SkinnedMeshRenderer mesh in meshes)
+            foreach (var mesh in meshes)
             {
                 Undo.RecordObject(mesh, nameof(MeshOptimizer));
                 {

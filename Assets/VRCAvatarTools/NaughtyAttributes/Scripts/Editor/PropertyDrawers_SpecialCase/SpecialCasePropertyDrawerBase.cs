@@ -10,14 +10,14 @@ namespace NaughtyAttributes.Editor
 		public void OnGUI(Rect rect, SerializedProperty property)
 		{
 			// Check if visible
-			bool visible = PropertyUtility.IsVisible(property);
+			var visible = PropertyUtility.IsVisible(property);
 			if (!visible)
 			{
 				return;
 			}
 
 			// Validate
-			ValidatorAttribute[] validatorAttributes = PropertyUtility.GetAttributes<ValidatorAttribute>(property);
+			var validatorAttributes = PropertyUtility.GetAttributes<ValidatorAttribute>(property);
 			foreach (var validatorAttribute in validatorAttributes)
 			{
 				validatorAttribute.GetValidator().ValidateProperty(property);
@@ -25,7 +25,7 @@ namespace NaughtyAttributes.Editor
 
 			// Check if enabled and draw
 			EditorGUI.BeginChangeCheck();
-			bool enabled = PropertyUtility.IsEnabled(property);
+			var enabled = PropertyUtility.IsEnabled(property);
 
 			using (new EditorGUI.DisabledScope(disabled: !enabled))
 			{

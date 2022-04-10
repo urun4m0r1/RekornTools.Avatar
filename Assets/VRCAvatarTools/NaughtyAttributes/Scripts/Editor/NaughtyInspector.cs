@@ -37,7 +37,7 @@ namespace NaughtyAttributes.Editor
 		{
 			GetSerializedProperties(ref _serializedProperties);
 
-			bool anyNaughtyAttribute = _serializedProperties.Any(p => PropertyUtility.GetAttribute<INaughtyAttribute>(p) != null);
+			var anyNaughtyAttribute = _serializedProperties.Any(p => PropertyUtility.GetAttribute<INaughtyAttribute>(p) != null);
 			if (!anyNaughtyAttribute)
 			{
 				DrawDefaultInspector();
@@ -91,7 +91,7 @@ namespace NaughtyAttributes.Editor
 			// Draw grouped serialized properties
 			foreach (var group in GetGroupedProperties(_serializedProperties))
 			{
-				IEnumerable<SerializedProperty> visibleProperties = group.Where(p => PropertyUtility.IsVisible(p));
+				var visibleProperties = group.Where(p => PropertyUtility.IsVisible(p));
 				if (!visibleProperties.Any())
 				{
 					continue;
@@ -109,7 +109,7 @@ namespace NaughtyAttributes.Editor
 			// Draw foldout serialized properties
 			foreach (var group in GetFoldoutProperties(_serializedProperties))
 			{
-				IEnumerable<SerializedProperty> visibleProperties = group.Where(p => PropertyUtility.IsVisible(p));
+				var visibleProperties = group.Where(p => PropertyUtility.IsVisible(p));
 				if (!visibleProperties.Any())
 				{
 					continue;
@@ -211,7 +211,7 @@ namespace NaughtyAttributes.Editor
 
 		private static GUIStyle GetHeaderGUIStyle()
 		{
-			GUIStyle style = new GUIStyle(EditorStyles.centeredGreyMiniLabel);
+			var style = new GUIStyle(EditorStyles.centeredGreyMiniLabel);
 			style.fontStyle = FontStyle.Bold;
 			style.alignment = TextAnchor.UpperCenter;
 

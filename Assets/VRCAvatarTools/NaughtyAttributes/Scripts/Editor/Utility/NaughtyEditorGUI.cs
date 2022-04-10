@@ -25,7 +25,7 @@ namespace NaughtyAttributes.Editor
 
 		public static void PropertyField_Layout(SerializedProperty property, bool includeChildren)
 		{
-			Rect dummyRect = new Rect();
+			var dummyRect = new Rect();
 			PropertyField_Implementation(dummyRect, property, includeChildren, DrawPropertyField_Layout);
 		}
 
@@ -41,7 +41,7 @@ namespace NaughtyAttributes.Editor
 
 		private static void PropertyField_Implementation(Rect rect, SerializedProperty property, bool includeChildren, PropertyFieldFunction propertyFieldFunction)
 		{
-			SpecialCaseDrawerAttribute specialCaseAttribute = PropertyUtility.GetAttribute<SpecialCaseDrawerAttribute>(property);
+			var specialCaseAttribute = PropertyUtility.GetAttribute<SpecialCaseDrawerAttribute>(property);
 			if (specialCaseAttribute != null)
 			{
 				specialCaseAttribute.GetDrawer().OnGUI(rect, property);
@@ -49,14 +49,14 @@ namespace NaughtyAttributes.Editor
 			else
 			{
 				// Check if visible
-				bool visible = PropertyUtility.IsVisible(property);
+				var visible = PropertyUtility.IsVisible(property);
 				if (!visible)
 				{
 					return;
 				}
 
 				// Validate
-				ValidatorAttribute[] validatorAttributes = PropertyUtility.GetAttributes<ValidatorAttribute>(property);
+				var validatorAttributes = PropertyUtility.GetAttributes<ValidatorAttribute>(property);
 				foreach (var validatorAttribute in validatorAttributes)
 				{
 					validatorAttribute.GetValidator().ValidateProperty(property);
@@ -64,7 +64,7 @@ namespace NaughtyAttributes.Editor
 
 				// Check if enabled and draw
 				EditorGUI.BeginChangeCheck();
-				bool enabled = PropertyUtility.IsEnabled(property);
+				var enabled = PropertyUtility.IsEnabled(property);
 
 				using (new EditorGUI.DisabledScope(disabled: !enabled))
 				{
@@ -81,8 +81,8 @@ namespace NaughtyAttributes.Editor
 
 		public static float GetIndentLength(Rect sourceRect)
 		{
-			Rect indentRect = EditorGUI.IndentedRect(sourceRect);
-			float indentLength = indentRect.x - sourceRect.x;
+			var indentRect = EditorGUI.IndentedRect(sourceRect);
+			var indentLength = indentRect.x - sourceRect.x;
 
 			return indentLength;
 		}
@@ -118,10 +118,10 @@ namespace NaughtyAttributes.Editor
 		{
 			EditorGUI.BeginChangeCheck();
 
-			int newIndex = EditorGUI.Popup(rect, label, selectedValueIndex, displayOptions);
-			object newValue = values[newIndex];
+			var newIndex = EditorGUI.Popup(rect, label, selectedValueIndex, displayOptions);
+			var newValue = values[newIndex];
 
-			object dropdownValue = dropdownField.GetValue(target);
+			var dropdownValue = dropdownField.GetValue(target);
 			if (dropdownValue == null || !dropdownValue.Equals(newValue))
 			{
 				Undo.RecordObject(serializedObject.targetObject, "Dropdown");
@@ -134,7 +134,7 @@ namespace NaughtyAttributes.Editor
 
 		public static void Button(UnityEngine.Object target, MethodInfo methodInfo)
 		{
-			bool visible = ButtonUtility.IsVisible(target, methodInfo);
+			var visible = ButtonUtility.IsVisible(target, methodInfo);
 			if (!visible)
 			{
 				return;
@@ -142,18 +142,18 @@ namespace NaughtyAttributes.Editor
 
 			if (methodInfo.GetParameters().All(p => p.IsOptional))
 			{
-				ButtonAttribute buttonAttribute = (ButtonAttribute)methodInfo.GetCustomAttributes(typeof(ButtonAttribute), true)[0];
-				string buttonText = string.IsNullOrEmpty(buttonAttribute.Text) ? ObjectNames.NicifyVariableName(methodInfo.Name) : buttonAttribute.Text;
+				var buttonAttribute = (ButtonAttribute)methodInfo.GetCustomAttributes(typeof(ButtonAttribute), true)[0];
+				var buttonText = string.IsNullOrEmpty(buttonAttribute.Text) ? ObjectNames.NicifyVariableName(methodInfo.Name) : buttonAttribute.Text;
 
-				bool buttonEnabled = ButtonUtility.IsEnabled(target, methodInfo);
+				var buttonEnabled = ButtonUtility.IsEnabled(target, methodInfo);
 
-				EButtonEnableMode mode = buttonAttribute.SelectedEnableMode;
+				var mode = buttonAttribute.SelectedEnableMode;
 				buttonEnabled &=
 					mode == EButtonEnableMode.Always ||
 					mode == EButtonEnableMode.Editor && !Application.isPlaying ||
 					mode == EButtonEnableMode.Playmode && Application.isPlaying;
 
-				bool methodIsCoroutine = methodInfo.ReturnType == typeof(IEnumerator);
+				var methodIsCoroutine = methodInfo.ReturnType == typeof(IEnumerator);
 				if (methodIsCoroutine)
 				{
 					buttonEnabled &= (Application.isPlaying ? true : false);
@@ -163,15 +163,15 @@ namespace NaughtyAttributes.Editor
 
 				if (GUILayout.Button(buttonText, _buttonStyle))
 				{
-					object[] defaultParams = methodInfo.GetParameters().Select(p => p.DefaultValue).ToArray();
-					IEnumerator methodResult = methodInfo.Invoke(target, defaultParams) as IEnumerator;
+					var defaultParams = methodInfo.GetParameters().Select(p => p.DefaultValue).ToArray();
+					var methodResult = methodInfo.Invoke(target, defaultParams) as IEnumerator;
 
 					if (!Application.isPlaying)
 					{
 						// Set target object and scene dirty to serialize changes to disk
 						EditorUtility.SetDirty(target);
 
-						PrefabStage stage = PrefabStageUtility.GetCurrentPrefabStage();
+						var stage = PrefabStageUtility.GetCurrentPrefabStage();
 						if (stage != null)
 						{
 							// Prefab mode
@@ -193,39 +193,39 @@ namespace NaughtyAttributes.Editor
 			}
 			else
 			{
-				string warning = typeof(ButtonAttribute).Name + " works only on methods with no parameters";
+				var warning = typeof(ButtonAttribute).Name + " works only on methods with no parameters";
 				HelpBox_Layout(warning, MessageType.Warning, context: target, logToConsole: true);
 			}
 		}
 
 		public static void NativeProperty_Layout(UnityEngine.Object target, PropertyInfo property)
 		{
-			object value = property.GetValue(target, null);
+			var value = property.GetValue(target, null);
 
 			if (value == null)
 			{
-				string warning = string.Format("{0} is null. {1} doesn't support reference types with null value", property.Name, typeof(ShowNativePropertyAttribute).Name);
+				var warning = string.Format("{0} is null. {1} doesn't support reference types with null value", property.Name, typeof(ShowNativePropertyAttribute).Name);
 				HelpBox_Layout(warning, MessageType.Warning, context: target);
 			}
 			else if (!Field_Layout(value, property.Name))
 			{
-				string warning = string.Format("{0} doesn't support {1} types", typeof(ShowNativePropertyAttribute).Name, property.PropertyType.Name);
+				var warning = string.Format("{0} doesn't support {1} types", typeof(ShowNativePropertyAttribute).Name, property.PropertyType.Name);
 				HelpBox_Layout(warning, MessageType.Warning, context: target);
 			}
 		}
 
 		public static void NonSerializedField_Layout(UnityEngine.Object target, FieldInfo field)
 		{
-			object value = field.GetValue(target);
+			var value = field.GetValue(target);
 
 			if (value == null)
 			{
-				string warning = string.Format("{0} is null. {1} doesn't support reference types with null value", field.Name, typeof(ShowNonSerializedFieldAttribute).Name);
+				var warning = string.Format("{0} is null. {1} doesn't support reference types with null value", field.Name, typeof(ShowNonSerializedFieldAttribute).Name);
 				HelpBox_Layout(warning, MessageType.Warning, context: target);
 			}
 			else if (!Field_Layout(value, field.Name))
 			{
-				string warning = string.Format("{0} doesn't support {1} types", typeof(ShowNonSerializedFieldAttribute).Name, field.FieldType.Name);
+				var warning = string.Format("{0} doesn't support {1} types", typeof(ShowNonSerializedFieldAttribute).Name, field.FieldType.Name);
 				HelpBox_Layout(warning, MessageType.Warning, context: target);
 			}
 		}
@@ -260,8 +260,8 @@ namespace NaughtyAttributes.Editor
 		{
 			using (new EditorGUI.DisabledScope(disabled: true))
 			{
-				bool isDrawn = true;
-				Type valueType = value.GetType();
+				var isDrawn = true;
+				var valueType = value.GetType();
 
 				if (valueType == typeof(bool))
 				{

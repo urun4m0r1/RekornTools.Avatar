@@ -46,7 +46,7 @@ namespace VRCAvatarTools
                 }
             }
 
-            foreach (TexturePresetTable preset in Presets) preset.ValidatePreset();
+            foreach (var preset in Presets) preset.ValidatePreset();
         }
     }
 }

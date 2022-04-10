@@ -12,11 +12,11 @@ namespace NaughtyAttributes.Editor
 	{
 		protected override float GetPropertyHeight_Internal(SerializedProperty property, GUIContent label)
 		{
-			DropdownAttribute dropdownAttribute = (DropdownAttribute)attribute;
-			object values = GetValues(property, dropdownAttribute.ValuesName);
-			FieldInfo fieldInfo = ReflectionUtility.GetField(PropertyUtility.GetTargetObjectWithProperty(property), property.name);
+			var dropdownAttribute = (DropdownAttribute)attribute;
+			var values = GetValues(property, dropdownAttribute.ValuesName);
+			var fieldInfo = ReflectionUtility.GetField(PropertyUtility.GetTargetObjectWithProperty(property), property.name);
 
-			float propertyHeight = AreValuesValid(values, fieldInfo)
+			var propertyHeight = AreValuesValid(values, fieldInfo)
 				? GetPropertyHeight(property)
 				: GetPropertyHeight(property) + GetHelpBoxHeight();
 
@@ -27,33 +27,33 @@ namespace NaughtyAttributes.Editor
 		{
 			EditorGUI.BeginProperty(rect, label, property);
 
-			DropdownAttribute dropdownAttribute = (DropdownAttribute)attribute;
-			object target = PropertyUtility.GetTargetObjectWithProperty(property);
+			var dropdownAttribute = (DropdownAttribute)attribute;
+			var target = PropertyUtility.GetTargetObjectWithProperty(property);
 
-			object valuesObject = GetValues(property, dropdownAttribute.ValuesName);
-			FieldInfo dropdownField = ReflectionUtility.GetField(target, property.name);
+			var valuesObject = GetValues(property, dropdownAttribute.ValuesName);
+			var dropdownField = ReflectionUtility.GetField(target, property.name);
 
 			if (AreValuesValid(valuesObject, dropdownField))
 			{
 				if (valuesObject is IList && dropdownField.FieldType == GetElementType(valuesObject))
 				{
 					// Selected value
-					object selectedValue = dropdownField.GetValue(target);
+					var selectedValue = dropdownField.GetValue(target);
 
 					// Values and display options
-					IList valuesList = (IList)valuesObject;
-					object[] values = new object[valuesList.Count];
-					string[] displayOptions = new string[valuesList.Count];
+					var valuesList = (IList)valuesObject;
+					var values = new object[valuesList.Count];
+					var displayOptions = new string[valuesList.Count];
 
-					for (int i = 0; i < values.Length; i++)
+					for (var i = 0; i < values.Length; i++)
 					{
-						object value = valuesList[i];
+						var value = valuesList[i];
 						values[i] = value;
 						displayOptions[i] = value == null ? "<null>" : value.ToString();
 					}
 
 					// Selected value index
-					int selectedValueIndex = Array.IndexOf(values, selectedValue);
+					var selectedValueIndex = Array.IndexOf(values, selectedValue);
 					if (selectedValueIndex < 0)
 					{
 						selectedValueIndex = 0;
@@ -65,22 +65,22 @@ namespace NaughtyAttributes.Editor
 				else if (valuesObject is IDropdownList)
 				{
 					// Current value
-					object selectedValue = dropdownField.GetValue(target);
+					var selectedValue = dropdownField.GetValue(target);
 
 					// Current value index, values and display options
-					int index = -1;
-					int selectedValueIndex = -1;
-					List<object> values = new List<object>();
-					List<string> displayOptions = new List<string>();
-					IDropdownList dropdown = (IDropdownList)valuesObject;
+					var index = -1;
+					var selectedValueIndex = -1;
+					var values = new List<object>();
+					var displayOptions = new List<string>();
+					var dropdown = (IDropdownList)valuesObject;
 
-					using (IEnumerator<KeyValuePair<string, object>> dropdownEnumerator = dropdown.GetEnumerator())
+					using (var dropdownEnumerator = dropdown.GetEnumerator())
 					{
 						while (dropdownEnumerator.MoveNext())
 						{
 							index++;
 
-							KeyValuePair<string, object> current = dropdownEnumerator.Current;
+							var current = dropdownEnumerator.Current;
 							if (current.Value?.Equals(selectedValue) == true)
 							{
 								selectedValueIndex = index;
@@ -114,8 +114,8 @@ namespace NaughtyAttributes.Editor
 			}
 			else
 			{
-				string message = string.Format("Invalid values with name '{0}' provided to '{1}'. Either the values name is incorrect or the types of the target field and the values field/property/method don't match",
-					dropdownAttribute.ValuesName, dropdownAttribute.GetType().Name);
+				var message = string.Format("Invalid values with name '{0}' provided to '{1}'. Either the values name is incorrect or the types of the target field and the values field/property/method don't match",
+				                            dropdownAttribute.ValuesName, dropdownAttribute.GetType().Name);
 
 				DrawDefaultPropertyAndHelpBox(rect, property, message, MessageType.Warning);
 			}
@@ -125,21 +125,21 @@ namespace NaughtyAttributes.Editor
 
 		private object GetValues(SerializedProperty property, string valuesName)
 		{
-			object target = PropertyUtility.GetTargetObjectWithProperty(property);
+			var target = PropertyUtility.GetTargetObjectWithProperty(property);
 
-			FieldInfo valuesFieldInfo = ReflectionUtility.GetField(target, valuesName);
+			var valuesFieldInfo = ReflectionUtility.GetField(target, valuesName);
 			if (valuesFieldInfo != null)
 			{
 				return valuesFieldInfo.GetValue(target);
 			}
 
-			PropertyInfo valuesPropertyInfo = ReflectionUtility.GetProperty(target, valuesName);
+			var valuesPropertyInfo = ReflectionUtility.GetProperty(target, valuesName);
 			if (valuesPropertyInfo != null)
 			{
 				return valuesPropertyInfo.GetValue(target);
 			}
 
-			MethodInfo methodValuesInfo = ReflectionUtility.GetMethod(target, valuesName);
+			var methodValuesInfo = ReflectionUtility.GetMethod(target, valuesName);
 			if (methodValuesInfo != null &&
 				methodValuesInfo.ReturnType != typeof(void) &&
 				methodValuesInfo.GetParameters().Length == 0)
@@ -168,8 +168,8 @@ namespace NaughtyAttributes.Editor
 
 		private Type GetElementType(object values)
 		{
-			Type valuesType = values.GetType();
-			Type elementType = ReflectionUtility.GetListElementType(valuesType);
+			var valuesType = values.GetType();
+			var elementType = ReflectionUtility.GetListElementType(valuesType);
 
 			return elementType;
 		}

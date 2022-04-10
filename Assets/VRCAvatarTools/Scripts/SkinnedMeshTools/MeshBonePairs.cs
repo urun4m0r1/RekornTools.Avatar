@@ -20,9 +20,9 @@ namespace VRCAvatarTools
         {
             Object[] selection = { };
 
-            if (Meshes.TryGetSelections(out Object[] meshSelections))
+            if (Meshes.TryGetSelections(out var meshSelections))
                 selection = selection.Concat(meshSelections).ToArray();
-            if (Bones.TryGetSelections(out Object[] boneSelections))
+            if (Bones.TryGetSelections(out var boneSelections))
                 selection = selection.Concat(boneSelections).ToArray();
 
             if (selection.Length > 0) Selection.objects = selection;

@@ -12,10 +12,10 @@ namespace VRCAvatarTools
         {
             var shaders = new List<Shader>();
 
-            foreach (Shader shader in AllMaterialsInProject
-                                     .Where(x => x)
-                                     .Select(x => x.shader)
-                                     .Where(shader => !shaders.Contains(shader)))
+            foreach (var shader in AllMaterialsInProject
+                                  .Where(x => x)
+                                  .Select(x => x.shader)
+                                  .Where(shader => !shaders.Contains(shader)))
                 shaders.Add(shader);
 
             return shaders;

@@ -56,8 +56,8 @@ namespace VRCAvatarTools
             bool keyDisabled = false,
             bool valueDisabled = false)
         {
-            float keyWidth   = rect.width * keyWeight;
-            float valueWidth = rect.width - keyWidth;
+            var keyWidth   = rect.width * keyWeight;
+            var valueWidth = rect.width - keyWidth;
             rect.width = 0f;
 
             rect.AppendWidth(keyWidth);
@@ -78,8 +78,8 @@ namespace VRCAvatarTools
         {
             get
             {
-                float keyHeight   = Key.GetHeight();
-                float valueHeight = Value.GetHeight();
+                var keyHeight   = Key.GetHeight();
+                var valueHeight = Value.GetHeight();
 
                 return Mathf.Max(keyHeight, valueHeight);
             }
@@ -89,8 +89,8 @@ namespace VRCAvatarTools
         {
             get
             {
-                float keyHeight   = Key.GetHeight();
-                float valueHeight = Value.GetHeight();
+                var keyHeight   = Key.GetHeight();
+                var valueHeight = Value.GetHeight();
 
                 return keyHeight + valueHeight;
             }

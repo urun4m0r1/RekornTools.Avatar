@@ -57,12 +57,12 @@ namespace VRCAvatarTools
 
         public void AddRange([NotNull] List<T> target)
         {
-            foreach (T item in target) Add(item);
+            foreach (var item in target) Add(item);
         }
 
         public void RemoveRange([NotNull] List<T> target)
         {
-            foreach (T item in target) Remove(item);
+            foreach (var item in target) Remove(item);
         }
 
         public void Initialize([NotNull] List<T> target)

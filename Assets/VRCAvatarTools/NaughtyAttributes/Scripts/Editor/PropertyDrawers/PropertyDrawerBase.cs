@@ -8,14 +8,14 @@ namespace NaughtyAttributes.Editor
 		public sealed override void OnGUI(Rect rect, SerializedProperty property, GUIContent label)
 		{
 			// Check if visible
-			bool visible = PropertyUtility.IsVisible(property);
+			var visible = PropertyUtility.IsVisible(property);
 			if (!visible)
 			{
 				return;
 			}
 
 			// Validate
-			ValidatorAttribute[] validatorAttributes = PropertyUtility.GetAttributes<ValidatorAttribute>(property);
+			var validatorAttributes = PropertyUtility.GetAttributes<ValidatorAttribute>(property);
 			foreach (var validatorAttribute in validatorAttributes)
 			{
 				validatorAttribute.GetValidator().ValidateProperty(property);
@@ -23,7 +23,7 @@ namespace NaughtyAttributes.Editor
 
 			// Check if enabled and draw
 			EditorGUI.BeginChangeCheck();
-			bool enabled = PropertyUtility.IsEnabled(property);
+			var enabled = PropertyUtility.IsEnabled(property);
 
 			using (new EditorGUI.DisabledScope(disabled: !enabled))
 			{
@@ -41,7 +41,7 @@ namespace NaughtyAttributes.Editor
 
 		sealed override public float GetPropertyHeight(SerializedProperty property, GUIContent label)
 		{
-			bool visible = PropertyUtility.IsVisible(property);
+			var visible = PropertyUtility.IsVisible(property);
 			if (!visible)
 			{
 				return 0.0f;
@@ -57,7 +57,7 @@ namespace NaughtyAttributes.Editor
 
 		protected float GetPropertyHeight(SerializedProperty property)
 		{
-			SpecialCaseDrawerAttribute specialCaseAttribute = PropertyUtility.GetAttribute<SpecialCaseDrawerAttribute>(property);
+			var specialCaseAttribute = PropertyUtility.GetAttribute<SpecialCaseDrawerAttribute>(property);
 			if (specialCaseAttribute != null)
 			{
 				return specialCaseAttribute.GetDrawer().GetPropertyHeight(property);
@@ -73,8 +73,8 @@ namespace NaughtyAttributes.Editor
 
 		public void DrawDefaultPropertyAndHelpBox(Rect rect, SerializedProperty property, string message, MessageType messageType)
 		{
-			float indentLength = NaughtyEditorGUI.GetIndentLength(rect);
-			Rect helpBoxRect = new Rect(
+			var indentLength = NaughtyEditorGUI.GetIndentLength(rect);
+			var helpBoxRect = new Rect(
 				rect.x + indentLength,
 				rect.y,
 				rect.width - indentLength,
@@ -82,7 +82,7 @@ namespace NaughtyAttributes.Editor
 
 			NaughtyEditorGUI.HelpBox(helpBoxRect, message, MessageType.Warning, context: property.serializedObject.targetObject);
 
-			Rect propertyRect = new Rect(
+			var propertyRect = new Rect(
 				rect.x,
 				rect.y + GetHelpBoxHeight(),
 				rect.width,

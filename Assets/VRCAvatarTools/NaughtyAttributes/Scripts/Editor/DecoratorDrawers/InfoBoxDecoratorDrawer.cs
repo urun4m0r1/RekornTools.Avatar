@@ -13,10 +13,10 @@ namespace NaughtyAttributes.Editor
 
 		public override void OnGUI(Rect rect)
 		{
-			InfoBoxAttribute infoBoxAttribute = (InfoBoxAttribute)attribute;
+			var infoBoxAttribute = (InfoBoxAttribute)attribute;
 
-			float indentLength = NaughtyEditorGUI.GetIndentLength(rect);
-			Rect infoBoxRect = new Rect(
+			var indentLength = NaughtyEditorGUI.GetIndentLength(rect);
+			var infoBoxRect = new Rect(
 				rect.x + indentLength,
 				rect.y,
 				rect.width - indentLength,
@@ -27,17 +27,17 @@ namespace NaughtyAttributes.Editor
 
 		private float GetHelpBoxHeight()
 		{
-			InfoBoxAttribute infoBoxAttribute = (InfoBoxAttribute)attribute;
-			float minHeight = EditorGUIUtility.singleLineHeight * 2.0f;
-			float desiredHeight = GUI.skin.box.CalcHeight(new GUIContent(infoBoxAttribute.Text), EditorGUIUtility.currentViewWidth);
-			float height = Mathf.Max(minHeight, desiredHeight);
+			var infoBoxAttribute = (InfoBoxAttribute)attribute;
+			var minHeight = EditorGUIUtility.singleLineHeight * 2.0f;
+			var desiredHeight = GUI.skin.box.CalcHeight(new GUIContent(infoBoxAttribute.Text), EditorGUIUtility.currentViewWidth);
+			var height = Mathf.Max(minHeight, desiredHeight);
 
 			return height;
 		}
 
 		private void DrawInfoBox(Rect rect, string infoText, EInfoBoxType infoBoxType)
 		{
-			MessageType messageType = MessageType.None;
+			var messageType = MessageType.None;
 			switch (infoBoxType)
 			{
 				case EInfoBoxType.Normal:
