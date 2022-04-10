@@ -9,7 +9,7 @@ namespace VRCAvatarTools
     public class SerializedListDrawer : SerializedPropertyDrawer
     {
         // Do not make this static, it will cause key collisions of cache dictionary.
-        readonly ReorderableListProperty _list = new ReorderableListProperty(SerializedList.ListName);
+        private readonly ReorderableListHelper _list = new ReorderableListHelper(SerializedList.ListName);
 
         protected override void DrawProperty(Rect rect, SerializedProperty property, GUIContent _) =>
             _list.Update(property).Draw(rect);

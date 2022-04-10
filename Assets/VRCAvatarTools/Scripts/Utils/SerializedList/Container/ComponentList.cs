@@ -42,7 +42,7 @@ namespace VRCAvatarTools
             RemoveRange(toRemove);
         }
 
-        static bool IsObjectPrefab([NotNull] Object o)
+        private static bool IsObjectPrefab([NotNull] Object o)
         {
             if (!o) return false;
 

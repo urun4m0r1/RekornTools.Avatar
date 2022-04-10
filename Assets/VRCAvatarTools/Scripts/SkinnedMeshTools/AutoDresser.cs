@@ -38,7 +38,7 @@ namespace VRCAvatarTools
     {
         [SerializeField] public Transform Rig;
 
-        bool IsValid => Rig != null;
+        private bool IsValid => Rig != null;
 
         [ShowIf("IsValid"), AllowNesting]
         [SerializeField] public RigNamingConvention NamingConvention;
@@ -57,28 +57,28 @@ namespace VRCAvatarTools
     {
         [Header("Rig Settings")]
         [SerializeField]
-        AvatarRig _avatar;
+        private AvatarRig _avatar;
 
-        [SerializeField] AvatarRig _cloth;
+        [SerializeField] private AvatarRig _cloth;
 
         [Header("Dress Settings")]
         [SerializeField]
-        bool _backupCloth = false;
+        private bool _backupCloth = false;
 
-        [SerializeField] bool              _unpackClothMeshes = false;
-        [SerializeField] bool              _deleteLeftover    = true;
-        [SerializeField] string            _clothPrefix;
-        [SerializeField] string            _clothSuffix;
-        [SerializeField] List<RigNamePair> _rigNameExceptions;
+        [SerializeField] private bool              _unpackClothMeshes = false;
+        [SerializeField] private bool              _deleteLeftover    = true;
+        [SerializeField] private string            _clothPrefix;
+        [SerializeField] private string            _clothSuffix;
+        [SerializeField] private List<RigNamePair> _rigNameExceptions;
 
         [Header("Debug Info")]
         [ReadOnly] public bool DebugEnabled = true;
 
-        [ShowNativeProperty] string AvatarNamingPreview   => _avatar.NamingConvention.PreviewText;
-        [ShowNativeProperty] string ClothNamingPreview    => _cloth.NamingConvention.PreviewText;
-        [ShowNativeProperty] string NewClothNamingPreview => $"{_clothPrefix}Hips{_clothSuffix}";
+        [ShowNativeProperty] private string AvatarNamingPreview   => _avatar.NamingConvention.PreviewText;
+        [ShowNativeProperty] private string ClothNamingPreview    => _cloth.NamingConvention.PreviewText;
+        [ShowNativeProperty] private string NewClothNamingPreview => $"{_clothPrefix}Hips{_clothSuffix}";
 
-        static string ConvertNamingConvention(string name, RigNamingConvention src, RigNamingConvention dst)
+        private static string ConvertNamingConvention(string name, RigNamingConvention src, RigNamingConvention dst)
         {
             var newName = name;
 
@@ -193,7 +193,7 @@ namespace VRCAvatarTools
             }
         }
 
-        string ConvertNameExceptions(string str, ref bool disableParenting)
+        private string ConvertNameExceptions(string str, ref bool disableParenting)
         {
             foreach (var exception in _rigNameExceptions.Where(exception => str.Contains(exception.ClothBoneName)))
             {
@@ -204,7 +204,7 @@ namespace VRCAvatarTools
             return str;
         }
 
-        void BackupComponent<T>(ref T component) where T : Component
+        private void BackupComponent<T>(ref T component) where T : Component
         {
             var backup = Instantiate(component.gameObject);
             Undo.RegisterCreatedObjectUndo(backup, "Backup Cloth");
@@ -212,13 +212,13 @@ namespace VRCAvatarTools
             component = backup.GetComponent<T>();
         }
 
-        static void UnpackPrefab(GameObject prefab)
+        private static void UnpackPrefab(GameObject prefab)
         {
             if (PrefabUtility.GetPrefabInstanceStatus(prefab) == PrefabInstanceStatus.Connected)
                 PrefabUtility.UnpackPrefabInstance(prefab, PrefabUnpackMode.OutermostRoot, InteractionMode.UserAction);
         }
 
-        static Transform FindRecursive(Transform root, string name)
+        private static Transform FindRecursive(Transform root, string name)
         {
             if (root.name == name)
             {
@@ -234,7 +234,7 @@ namespace VRCAvatarTools
             return null;
         }
 
-        static void Rename(ref string str, string a, string b)
+        private static void Rename(ref string str, string a, string b)
         {
             str = str.Replace(a, b);
         }

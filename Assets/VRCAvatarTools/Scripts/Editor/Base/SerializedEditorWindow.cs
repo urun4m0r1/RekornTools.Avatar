@@ -6,11 +6,11 @@ namespace VRCAvatarTools
 {
     public abstract class SerializedEditorWindow<T> : EditorWindow
     {
-        [NotNull] string PrefPath => Application.identifier + "/" + typeof(T).Name;
+        [NotNull] private static string PrefPath => Application.identifier + "/" + typeof(T).Name;
 
-        bool _isSerializedFieldsReady;
+        private bool _isSerializedFieldsReady;
 
-        void OnEnable()
+        private void OnEnable()
         {
             var data = EditorPrefs.GetString(PrefPath, EditorJsonUtility.ToJson(this, false));
             EditorJsonUtility.FromJsonOverwrite(data, this);
@@ -18,7 +18,7 @@ namespace VRCAvatarTools
             _isSerializedFieldsReady = true;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             var data = EditorJsonUtility.ToJson(this, false);
             EditorPrefs.SetString(PrefPath, data);

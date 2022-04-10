@@ -35,7 +35,7 @@ namespace VRCAvatarTools
                 TextureType = AssumeTextureType(name);
         }
 
-        static TextureType AssumeTextureType([NotNull] string name)
+        private static TextureType AssumeTextureType([NotNull] string name)
         {
             var token = name.ToLower();
 

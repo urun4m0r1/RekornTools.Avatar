@@ -10,18 +10,18 @@ namespace VRCAvatarTools
     [ExecuteInEditMode]
     public sealed class ShaderHelper : MonoBehaviour
     {
-        [SerializeField]           string           shaderPath              = "UnityChanToonShader/Toon_DoubleShadeWithFeather";
-        [SerializeField]           string           mainTextureProperty     = "_MainTex";
-        [SerializeField]           string           emissiveTextureProperty = "_Emissive_Tex";
-        [SerializeField, ReadOnly] List<GameObject> gameObjects;
-        [SerializeField, ReadOnly] List<Renderer>   renderers;
-        [SerializeField, ReadOnly] List<Material>   materials;
-        [SerializeField, ReadOnly] List<Material>   shaders;
-        [SerializeField]           List<Material>   ignoreShaders = new List<Material>();
+        [SerializeField]           private string           shaderPath              = "UnityChanToonShader/Toon_DoubleShadeWithFeather";
+        [SerializeField]           private string           mainTextureProperty     = "_MainTex";
+        [SerializeField]           private string           emissiveTextureProperty = "_Emissive_Tex";
+        [SerializeField, ReadOnly] private List<GameObject> gameObjects;
+        [SerializeField, ReadOnly] private List<Renderer>   renderers;
+        [SerializeField, ReadOnly] private List<Material>   materials;
+        [SerializeField, ReadOnly] private List<Material>   shaders;
+        [SerializeField]           private List<Material>   ignoreShaders = new List<Material>();
 
         [Button]
         [UsedImplicitly]
-        void UpdateShaders()
+        private void UpdateShaders()
         {
             InitFields();
 
@@ -72,7 +72,7 @@ namespace VRCAvatarTools
             }
         }
 
-        void InitFields()
+        private void InitFields()
         {
             gameObjects = null;
             renderers   = new List<Renderer>();
@@ -82,7 +82,7 @@ namespace VRCAvatarTools
 
         [Button]
         [UsedImplicitly]
-        void SetEmissiveTextureFromMainTexture()
+        private void SetEmissiveTextureFromMainTexture()
         {
             if (shaders.Count < 1)
             {

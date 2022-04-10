@@ -6,12 +6,11 @@ namespace VRCAvatarTools.Editor
 {
     public class TextureOptimizer : SerializedEditorWindow<TextureOptimizer>
     {
-        [SerializeField] Vector2                 _scrollPosition = Vector2.zero;
-        [SerializeField] TextureImporterSettings _settings;
-        [SerializeField] ShaderPropertyObject    _obj;
+        [SerializeField] private Vector2                 _scrollPosition = Vector2.zero;
+        [SerializeField] private TextureImporterSettings _settings;
+        [SerializeField] private ShaderPropertyObject    _obj;
 
-        [MenuItem("Tools/VRC Avatar Tools/Texture Optimizer")]
-        static void OnWindowOpen() => GetWindow<TextureOptimizer>("Texture Optimizer")?.Show();
+        [MenuItem("Tools/VRC Avatar Tools/Texture Optimizer")] private static void OnWindowOpen() => GetWindow<TextureOptimizer>("Texture Optimizer")?.Show();
 
         protected override void Draw()
         {
@@ -26,7 +25,7 @@ namespace VRCAvatarTools.Editor
             GUILayout.EndScrollView();
         }
 
-        static void DrawShaderPropertyMap([NotNull] ShaderPropertyObject shaderPropertyObject)
+        private static void DrawShaderPropertyMap([NotNull] ShaderPropertyObject shaderPropertyObject)
         {
             GUILayout.BeginHorizontal();
             {

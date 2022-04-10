@@ -5,8 +5,6 @@ using static UnityEditor.EditorGUI;
 
 namespace VRCAvatarTools
 {
-    public delegate void PropertyDrawerAction(Rect rect, SerializedProperty property, GUIContent label);
-
     public static class EditorGUIExtensions
     {
         public static readonly float SingleItemHeight = EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;

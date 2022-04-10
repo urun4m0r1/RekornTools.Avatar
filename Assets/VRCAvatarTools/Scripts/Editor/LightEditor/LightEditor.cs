@@ -7,11 +7,11 @@ using static VRCAvatarTools.EditorGUILayoutExtensions;
 
 namespace VRCAvatarTools.Editor
 {
-    sealed class LightEditor : SerializedEditorWindow<LightEditor>
+    internal sealed class LightEditor : SerializedEditorWindow<LightEditor>
     {
-        [SerializeField] bool          _ignoreLighting;
-        [SerializeField] Light         _sun;
-        [SerializeField] LightScenario _scenario;
+        [SerializeField] private bool          _ignoreLighting;
+        [SerializeField] private Light         _sun;
+        [SerializeField] private LightScenario _scenario;
 
         protected override void Enable()
         {
@@ -24,17 +24,16 @@ namespace VRCAvatarTools.Editor
             EditorSceneManager.activeSceneChangedInEditMode -= OnSceneChanged;
         }
 
-        void OnSceneChanged(Scene prev, Scene current) => FindSun();
+        private void OnSceneChanged(Scene prev, Scene current) => FindSun();
 
-        void FindSun()
+        private void FindSun()
         {
             const string sunName = "Directional Light";
             _sun = GameObject.Find(sunName)?.GetComponent<Light>();
             if (_sun == null) _sun = new GameObject(sunName).AddComponent<Light>();
         }
 
-        [MenuItem("Tools/VRC Avatar Tools/Light Editor")]
-        static void OnWindowOpen() => GetWindow<LightEditor>("Light Editor")?.Show();
+        [MenuItem("Tools/VRC Avatar Tools/Light Editor")] private static void OnWindowOpen() => GetWindow<LightEditor>("Light Editor")?.Show();
 
         protected override void Draw()
         {
@@ -47,7 +46,7 @@ namespace VRCAvatarTools.Editor
             DrawLightScenario();
         }
 
-        void DrawLightScenario()
+        private void DrawLightScenario()
         {
             EditorGUI.BeginDisabledGroup(_ignoreLighting);
             {
@@ -62,7 +61,7 @@ namespace VRCAvatarTools.Editor
             _scenario.Apply(_sun);
         }
 
-        static void SetCurrentSceneViewLighting(bool isEnable)
+        private static void SetCurrentSceneViewLighting(bool isEnable)
         {
             var sceneViews = SceneView.sceneViews;
             if (sceneViews == null) return;

@@ -5,10 +5,10 @@ using static VRCAvatarTools.EditorGUILayoutExtensions;
 
 namespace VRCAvatarTools.Editor
 {
-    partial class LightScenario
+    internal partial class LightScenario
     {
         [CustomEditor(typeof(LightScenario))]
-        sealed class LightScenarioDrawer : UnityEditor.Editor
+        private sealed class LightScenarioDrawer : UnityEditor.Editor
         {
             public override void OnInspectorGUI()
             {

@@ -14,7 +14,7 @@ namespace VRCAvatarTools
         [field: SerializeField]
         public TransformList Bones { get; private set; } = new TransformList();
 
-        const string ClassName = nameof(BoneFinder);
+        private const string ClassName = nameof(BoneFinder);
 
         public void SelectAll()
         {

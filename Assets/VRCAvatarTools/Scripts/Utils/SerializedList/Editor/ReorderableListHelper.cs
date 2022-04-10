@@ -6,24 +6,24 @@ using UnityEngine;
 
 namespace VRCAvatarTools
 {
-    public class ReorderableListProperty
+    public class ReorderableListHelper
     {
         // Do not make this static, it will cause key collisions of cache dictionary.
-        readonly Dictionary<string, ReorderableList> _cache = new Dictionary<string, ReorderableList>();
+        private readonly Dictionary<string, ReorderableList> _cache = new Dictionary<string, ReorderableList>();
 
-        [NotNull] readonly string _listName;
+        [NotNull] private readonly string _listName;
 
-        [CanBeNull] SerializedProperty _container;
-        [CanBeNull] SerializedProperty _listContainer;
-        [CanBeNull] ReorderableList    _list;
+        [CanBeNull] private SerializedProperty _container;
+        [CanBeNull] private SerializedProperty _listContainer;
+        [CanBeNull] private ReorderableList    _list;
 
-        [CanBeNull] string Header => _container.GetAttribute<ListHeaderAttribute>()?.Header;
-        bool IsMutable => _container.GetAttribute<ListMutableAttribute>()?.IsMutable ?? ListMutableAttribute.Default;
-        bool IsSpan => _container.GetAttribute<ListSpanAttribute>()?.IsSpan ?? ListSpanAttribute.Default;
+        [CanBeNull] private string Header    => _container.GetAttribute<ListHeaderAttribute>()?.Header;
+        private             bool   IsMutable => _container.GetAttribute<ListMutableAttribute>()?.IsMutable ?? ListMutableAttribute.Default;
+        private             bool   IsSpan    => _container.GetAttribute<ListSpanAttribute>()?.IsSpan       ?? ListSpanAttribute.Default;
 
-        public ReorderableListProperty([NotNull] string listName) => _listName = listName;
+        public ReorderableListHelper([NotNull] string listName) => _listName = listName;
 
-        [NotNull] public ReorderableListProperty Update([CanBeNull] SerializedProperty property)
+        [NotNull] public ReorderableListHelper Update([CanBeNull] SerializedProperty property)
         {
             if (_container == property) return this;
 
@@ -53,7 +53,7 @@ namespace VRCAvatarTools
 
         public float GetHeight() => _list?.GetHeight() ?? EditorGUIExtensions.SingleItemHeight;
 
-        void UpdateList()
+        private void UpdateList()
         {
             if (_listContainer?.propertyPath == null) return;
 
@@ -68,10 +68,11 @@ namespace VRCAvatarTools
             }
         }
 
-        [NotNull] static ReorderableList CreateList([NotNull] SerializedProperty property,
-            [CanBeNull] string header,
-            bool isMutable,
-            bool isSpan)
+        [NotNull]
+        private static ReorderableList CreateList([NotNull] SerializedProperty property,
+                                                  [CanBeNull] string header,
+                                                  bool isMutable,
+                                                  bool isSpan)
         {
             var list = new ReorderableList(property.serializedObject, property)
             {

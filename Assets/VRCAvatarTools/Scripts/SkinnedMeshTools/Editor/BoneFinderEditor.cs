@@ -6,11 +6,11 @@ namespace VRCAvatarTools.Editor
     [CustomEditor(typeof(BoneFinder))]
     public class BoneFinderEditor : UnityEditor.Editor
     {
-        BoneFinder _target;
+        private BoneFinder _target;
 
-        const string ClassName = nameof(BoneFinder);
+        private const string ClassName = nameof(BoneFinder);
 
-        void OnEnable() => _target = (BoneFinder)target;
+        private void OnEnable() => _target = (BoneFinder)target;
 
         public override void OnInspectorGUI()
         {

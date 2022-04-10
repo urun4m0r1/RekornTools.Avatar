@@ -30,7 +30,7 @@ namespace VRCAvatarTools
         [SerializeField, ListSpan(false), ListMutable(false)]
         public ShaderPropertiesTables Tables = new ShaderPropertiesTables();
 
-        static readonly Func<Shader, ShaderPropertyList> TexturePropertyInitializer =
+        private static readonly Func<Shader, ShaderPropertyList> TexturePropertyInitializer =
             ShaderPropertyExtensions.GetTexturePropertyList;
 
         public void UpdateShaders()

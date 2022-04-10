@@ -10,20 +10,20 @@ namespace VRCAvatarTools
     [ExecuteInEditMode]
     public class TextureOptimizerScript : MonoBehaviour
     {
-        [SerializeField] TextureImporterSettings settings;
-        [SerializeField] Transform               parent;
-        [SerializeField] RendererList            meshes = new RendererList();
+        [SerializeField] private TextureImporterSettings settings;
+        [SerializeField] private Transform               parent;
+        [SerializeField] private RendererList            meshes = new RendererList();
 
-        [SerializeField, ListMutable(false), ListSpan(false)] TexturePropertyMapList texturePropertyMapList = new TexturePropertyMapList();
+        [SerializeField, ListMutable(false), ListSpan(false)] private TexturePropertyMapList texturePropertyMapList = new TexturePropertyMapList();
 
-        Transform _prevParent;
+        private Transform _prevParent;
 
-        void Awake()
+        private void Awake()
         {
             meshes.Initialize(parent);
         }
 
-        void OnValidate()
+        private void OnValidate()
         {
             if (_prevParent != parent)
             {
@@ -66,7 +66,7 @@ namespace VRCAvatarTools
             }
         }
 
-        List<Texture> GetTextureList(ShaderProperty property)
+        private List<Texture> GetTextureList(ShaderProperty property)
         {
             var list = new List<Texture>();
             foreach (var r in meshes)
@@ -92,7 +92,7 @@ namespace VRCAvatarTools
             return list;
         }
 
-        [Button] void Optimize() { }
+        [Button] private void Optimize() { }
     }
 }
 #endif

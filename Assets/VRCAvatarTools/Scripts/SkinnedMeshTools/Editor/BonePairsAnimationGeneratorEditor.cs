@@ -6,11 +6,11 @@ namespace VRCAvatarTools.Editor
     [CustomEditor(typeof(BonePairsAnimationGenerator))]
     public class BonePairsAnimationGeneratorEditor : UnityEditor.Editor
     {
-        BonePairsAnimationGenerator _target;
+        private BonePairsAnimationGenerator _target;
 
-        const string ClassName = nameof(BonePairsAnimationGenerator);
+        private const string ClassName = nameof(BonePairsAnimationGenerator);
 
-        void OnEnable() => _target = (BonePairsAnimationGenerator)target;
+        private void OnEnable() => _target = (BonePairsAnimationGenerator)target;
 
         public override void OnInspectorGUI()
         {

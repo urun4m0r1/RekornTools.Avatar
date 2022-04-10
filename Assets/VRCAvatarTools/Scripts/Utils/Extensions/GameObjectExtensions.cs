@@ -7,13 +7,14 @@ namespace VRCAvatarTools
 {
     public static class GameObjectExtensions
     {
-        [CanBeNull] static IEnumerable<GameObject> AllGameObjectsInProject =>
+        [CanBeNull]
+        private static IEnumerable<GameObject> AllGameObjectsInProject =>
             Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[];
 
         [CanBeNull] public static IEnumerable<GameObject> GetAllGameObjectsInScene =>
             AllGameObjectsInProject?.Where(IsEditableSceneObject);
 
-        static bool IsEditableSceneObject([CanBeNull] GameObject go)
+        private static bool IsEditableSceneObject([CanBeNull] GameObject go)
         {
             if (!go) return false;
 

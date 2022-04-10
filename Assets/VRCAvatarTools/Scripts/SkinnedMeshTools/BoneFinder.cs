@@ -17,14 +17,14 @@ namespace VRCAvatarTools
         [field: SerializeField, Label(nameof(MeshKeyword))] public string    MeshKeyword { get; set; }
         [field: SerializeField, Label(nameof(BoneKeyword))] public string    BoneKeyword { get; set; }
 
-        const     string ClassName = nameof(BoneFinder);
-        [NotNull] string GameObjectName => gameObject.name;
-        [NotNull] string Header         => $"[{ClassName}({GameObjectName})]";
+        private const     string ClassName = nameof(BoneFinder);
+        [NotNull] private string GameObjectName => gameObject.name;
+        [NotNull] private string Header         => $"[{ClassName}({GameObjectName})]";
 
-        SkinnedMeshRendererList _meshList;
-        TransformList           _boneList;
+        private SkinnedMeshRendererList _meshList;
+        private TransformList           _boneList;
 
-        void ShowDialog(string message)
+        private void ShowDialog(string message)
         {
             Debug.LogWarning($"{Header} {message}");
             EditorUtility.DisplayDialog(
@@ -33,9 +33,9 @@ namespace VRCAvatarTools
                 "Confirm");
         }
 
-        MeshBonePairs _meshBonePairs;
+        private MeshBonePairs _meshBonePairs;
 
-        void Awake()
+        private void Awake()
         {
             _meshBonePairs = GetComponent<MeshBonePairs>();
             _meshList      = _meshBonePairs.Meshes; //TODO:  레퍼런스를 복사야야함

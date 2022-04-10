@@ -9,11 +9,11 @@ namespace VRCAvatarTools
     [RequireComponent(typeof(MeshBonePairs))]
     public sealed class BonePairsAnimationGenerator : MonoBehaviour
     {
-        const     string ClassName = nameof(BoneFinder);
-        [NotNull] string GameObjectName => gameObject.name;
-        [NotNull] string Header         => $"[{ClassName}({GameObjectName})]";
+        private const     string ClassName = nameof(BoneFinder);
+        [NotNull] private string GameObjectName => gameObject.name;
+        [NotNull] private string Header         => $"[{ClassName}({GameObjectName})]";
 
-        void ShowDialog(string message)
+        private void ShowDialog(string message)
         {
             Debug.LogWarning($"{Header} {message}");
             EditorUtility.DisplayDialog(
@@ -22,9 +22,9 @@ namespace VRCAvatarTools
                 "Confirm");
         }
 
-        MeshBonePairs _meshBonePairs;
+        private MeshBonePairs _meshBonePairs;
 
-        void Awake()
+        private void Awake()
         {
             _meshBonePairs = GetComponent<MeshBonePairs>();
         }

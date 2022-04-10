@@ -4,23 +4,23 @@ using UnityEngine;
 
 namespace VRCAvatarTools
 {
-    public class SerializedKeyValueProperty
+    public class SerializedKeyValueHelper
     {
         [CanBeNull] public SerializedProperty Key   { get; private set; }
         [CanBeNull] public SerializedProperty Value { get; private set; }
 
-        [NotNull] readonly string _keyName;
-        [NotNull] readonly string _valueName;
+        [NotNull] private readonly string _keyName;
+        [NotNull] private readonly string _valueName;
 
-        [CanBeNull] SerializedProperty _container;
+        [CanBeNull] private SerializedProperty _container;
 
-        public SerializedKeyValueProperty([NotNull] string keyName, [NotNull] string valueName)
+        public SerializedKeyValueHelper([NotNull] string keyName, [NotNull] string valueName)
         {
             _keyName   = ReflectionExtensions.ResolveFieldName(keyName);
             _valueName = ReflectionExtensions.ResolveFieldName(valueName);
         }
 
-        [NotNull] public SerializedKeyValueProperty Update([CanBeNull] SerializedProperty property)
+        [NotNull] public SerializedKeyValueHelper Update([CanBeNull] SerializedProperty property)
         {
             if (_container == property) return this;
 

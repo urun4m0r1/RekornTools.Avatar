@@ -6,11 +6,11 @@ namespace VRCAvatarTools.Editor
     [CustomEditor(typeof(MeshBonePairs))]
     public class MeshBonePairsEditor : UnityEditor.Editor
     {
-        MeshBonePairs _target;
-        bool          _meshesFoldout = true;
-        bool          _bonesFoldout  = false;
+        private MeshBonePairs _target;
+        private bool          _meshesFoldout = true;
+        private bool          _bonesFoldout  = false;
 
-        void OnEnable() => _target = (MeshBonePairs)target;
+        private void OnEnable() => _target = (MeshBonePairs)target;
 
 
         public override void OnInspectorGUI()

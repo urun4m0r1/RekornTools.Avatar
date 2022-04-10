@@ -17,9 +17,9 @@ namespace VRCAvatarTools
     {
         [SerializeField, NotNull] protected List<T> _items = new List<T>();
 
-        static readonly string ClassName = nameof(SerializedList<T>);
-        static readonly string TypeName  = typeof(T).Name;
-        [NotNull]       string Header => $"[{ClassName}<{TypeName}>]";
+        private static readonly string ClassName = nameof(SerializedList<T>);
+        private static readonly string TypeName  = typeof(T).Name;
+        [NotNull] private       string Header => $"[{ClassName}<{TypeName}>]";
 
         protected void ShowDialog(string message)
         {

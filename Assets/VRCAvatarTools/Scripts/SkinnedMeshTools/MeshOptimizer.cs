@@ -8,19 +8,19 @@ namespace VRCAvatarTools
     [ExecuteInEditMode]
     public class MeshOptimizer : MonoBehaviour
     {
-        [SerializeField] Transform               parent;
-        [SerializeField] SkinnedMeshRendererList meshes = new SkinnedMeshRendererList();
-        [SerializeField] Transform               anchorOverride;
-        [SerializeField] Bounds                  boundingBox;
+        [SerializeField] private Transform               parent;
+        [SerializeField] private SkinnedMeshRendererList meshes = new SkinnedMeshRendererList();
+        [SerializeField] private Transform               anchorOverride;
+        [SerializeField] private Bounds                  boundingBox;
 
-        Transform _prevParent;
+        private Transform _prevParent;
 
-        void Awake()
+        private void Awake()
         {
             meshes.Initialize(parent);
         }
 
-        void OnValidate()
+        private void OnValidate()
         {
             if (_prevParent != parent)
             {
@@ -29,7 +29,7 @@ namespace VRCAvatarTools
             }
         }
 
-        void OnDrawGizmosSelected()
+        private void OnDrawGizmosSelected()
         {
             foreach (SkinnedMeshRenderer mesh in meshes)
             {
@@ -50,13 +50,14 @@ namespace VRCAvatarTools
             }
         }
 
-        static void RepaintRenderer<T>(T renderer) where T : Renderer
+        private static void RepaintRenderer<T>(T renderer) where T : Renderer
         {
             renderer.enabled = false;
             renderer.enabled = true;
         }
 
-        [Button] void Optimize()
+        [Button]
+        private void Optimize()
         {
             foreach (SkinnedMeshRenderer mesh in meshes)
             {

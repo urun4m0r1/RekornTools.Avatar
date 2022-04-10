@@ -5,25 +5,25 @@ using UnityEngine.Rendering;
 namespace VRCAvatarTools.Editor
 {
     [CreateAssetMenu(menuName = "VRC Avatar Tools/Light Scenario")]
-    partial class LightScenario : ScriptableObject
+    internal partial class LightScenario : ScriptableObject
     {
-        [SerializeField] Material Skybox;
-        [SerializeField] bool     UseShadow;
-        [SerializeField] float    ReflectionIntensity;
+        [SerializeField] private Material Skybox;
+        [SerializeField] private bool     UseShadow;
+        [SerializeField] private float    ReflectionIntensity;
 
-        [SerializeField] Vector3 SunDirection;
+        [SerializeField] private Vector3 SunDirection;
 
-        [SerializeField] bool  SyncColor;
-        [SerializeField] Color SunColor;
-        [SerializeField] float SunIntensity;
+        [SerializeField] private bool  SyncColor;
+        [SerializeField] private Color SunColor;
+        [SerializeField] private float SunIntensity;
 
-        [SerializeField] bool  UseSkyboxColor;
-        [SerializeField] Color SkyColor;
-        [SerializeField] float SkyboxIntensity;
+        [SerializeField] private bool  UseSkyboxColor;
+        [SerializeField] private Color SkyColor;
+        [SerializeField] private float SkyboxIntensity;
 
-        AmbientMode AmbientMode => UseSkyboxColor && !SyncColor ? AmbientMode.Skybox : AmbientMode.Flat;
+        private AmbientMode AmbientMode => UseSkyboxColor && !SyncColor ? AmbientMode.Skybox : AmbientMode.Flat;
 
-        void OnValidate()
+        private void OnValidate()
         {
             var direction = SunDirection;
             direction.x = Mathf.Clamp(direction.x, -1f, 1f);
