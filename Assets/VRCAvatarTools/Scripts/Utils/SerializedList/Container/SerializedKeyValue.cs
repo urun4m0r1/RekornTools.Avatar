@@ -5,26 +5,25 @@ using JetBrains.Annotations;
 
 namespace VRCAvatarTools
 {
-    public class SerializedKeyValue : SerializedKeyValue<object, object>
+    public sealed class SerializedKeyValue : SerializedKeyValue<object, object>
     {
         [NotNull] public static string KeyField   => nameof(Key);
         [NotNull] public static string ValueField => nameof(Value);
     }
 
-    [Serializable]
-    public abstract class SerializedKeyValue<K, V>
+    [Serializable] public class SerializedKeyValue<K, V>
     {
-        [field: SerializeField] [CanBeNull]                     public virtual K Key   { get; set; }
-        [field: SerializeField, ListMutable(false)] [CanBeNull] public virtual V Value { get; set; }
+        [field: SerializeField] [CanBeNull]                     public K Key   { get; set; }
+        [field: SerializeField, ListMutable(false)] [CanBeNull] public V Value { get; set; }
 
-        public SerializedKeyValue() { }
+        protected SerializedKeyValue() { }
 
-        public SerializedKeyValue(K key, V value)
+        protected SerializedKeyValue([CanBeNull] K key, [CanBeNull] V value)
         {
             Key   = key;
             Value = value;
         }
 
-        public SerializedKeyValue(KeyValuePair<K, V> pair) : this(pair.Key, pair.Value) { }
+        protected SerializedKeyValue(KeyValuePair<K, V> pair) : this(pair.Key, pair.Value) { }
     }
 }

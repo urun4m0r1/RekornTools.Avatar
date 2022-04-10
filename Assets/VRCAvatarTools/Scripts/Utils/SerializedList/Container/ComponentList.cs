@@ -10,45 +10,50 @@ namespace VRCAvatarTools
     [System.Serializable]
     public class ComponentList<T> : SerializedList<T> where T : Component
     {
+        private static readonly string ClassName = nameof(SerializedList<T>);
+        private static readonly string TypeName  = typeof(T).Name;
+        [NotNull] private       string Header => $"[{ClassName}<{TypeName}>]";
+
+        private void ShowDialog([NotNull] string message)
+        {
+            Debug.LogWarning($"{Header} {message}");
+            EditorUtility.DisplayDialog(Header, message, "Confirm");
+        }
+
         public void DestroyItems()
         {
-            var toRemove             = new List<T>();
-            var destroyFailedObjects = new StringBuilder();
+            var destroyTarget = new List<T>();
+            var destroyFailed = new StringBuilder();
 
             foreach (var o in this)
             {
                 if (!o)
                 {
-                    toRemove.Add(o);
+                    destroyTarget.Add(o);
                 }
                 else if (!IsObjectPrefab(o))
                 {
                     Undo.DestroyObjectImmediate(o.gameObject);
-                    toRemove.Add(o);
+                    destroyTarget.Add(o);
                 }
                 else
                 {
-                    destroyFailedObjects.Append($"{o.name}, ");
+                    destroyFailed.Append($"{o.name}, ");
                 }
             }
 
-            if (destroyFailedObjects.Length > 0)
+            if (destroyFailed.Length > 0)
             {
-                var objectsList = destroyFailedObjects.ToString().TrimEnd(',', ' ');
+                var objectsList = destroyFailed.ToString().TrimEnd(',', ' ');
                 ShowDialog($"Failed to destroy following objects: {objectsList}\n" +
                            "You might need to unpack prefabs before destroy them.");
             }
 
-            RemoveRange(toRemove);
+            RemoveRange(destroyTarget);
         }
 
-        private static bool IsObjectPrefab([NotNull] Object o)
-        {
-            if (!o) return false;
-
-            return PrefabUtility.GetPrefabInstanceStatus(o) == PrefabInstanceStatus.Connected;
-        }
-
+        private static bool IsObjectPrefab([NotNull] Object o) =>
+            o && PrefabUtility.GetPrefabInstanceStatus(o) == PrefabInstanceStatus.Connected;
 
         public void SelectComponents()
         {
@@ -61,40 +66,15 @@ namespace VRCAvatarTools
             return selections.Length != 0;
         }
 
-        public void Initialize(Transform parent, [NotNull] string keyword = "")
+        public void Initialize([CanBeNull] Transform parent, [NotNull] string keyword = "")
         {
-            Clear();
+            var objects = parent
+                ? parent.GetComponentsInChildren<T>()
+                : GameObjectExtensions.GetAllGameObjectsInScene?.SelectMany(x => x.GetComponents<T>());
 
-            T[] objects;
+            if (string.IsNullOrWhiteSpace(keyword)) objects = objects?.Where(x => x.name.Contains(keyword));
 
-            if (parent)
-            {
-                objects = parent.GetComponentsInChildren<T>();
-            }
-            else
-            {
-                if (typeof(T) == typeof(Transform) && !EditorUtility.DisplayDialog(
-                        "No parent selected",
-                        "You didn't select a parent\n"                                 +
-                        "Do you really want to search for all objects in the scene?\n" +
-                        "This operation might takes a while.",
-                        "Proceed",
-                        "Cancel")) return;
-
-                var gameObjectsInScene = GameObjectExtensions.GetAllGameObjectsInScene;
-                objects = gameObjectsInScene.SelectMany(x => x.GetComponents<T>()).ToArray();
-            }
-
-
-            foreach (var item in from o in objects
-                                 where o.name.Contains(keyword)
-                                 select o.GetComponent<T>()
-                                 into t
-                                 where t
-                                 select t)
-            {
-                Add(item);
-            }
+            Initialize(objects?.ToList() ?? new List<T>());
         }
     }
 }

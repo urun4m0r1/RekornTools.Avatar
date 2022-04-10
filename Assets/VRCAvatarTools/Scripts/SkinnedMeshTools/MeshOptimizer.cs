@@ -9,7 +9,7 @@ namespace VRCAvatarTools
     public class MeshOptimizer : MonoBehaviour
     {
         [SerializeField] private Transform               parent;
-        [SerializeField] private SkinnedMeshRendererList meshes = new SkinnedMeshRendererList();
+        [SerializeField] private SkinnedMeshRenderers meshes = new SkinnedMeshRenderers();
         [SerializeField] private Transform               anchorOverride;
         [SerializeField] private Bounds                  boundingBox;
 

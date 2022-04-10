@@ -3,11 +3,15 @@ using UnityEngine;
 
 namespace VRCAvatarTools
 {
-    [Serializable] public class TexturePropertyMapList : SerializedList<TexturePropertyMap> { }
+    [Serializable] public class TypedTexturesMaps : SerializedList<TypedTexturesMap> { }
 
-    [Serializable] public class TextureList : SerializedList<Texture> { }
+    [Serializable] public class TypedTexturesMap : SerializedKeyValue<TextureType, Textures> { }
 
-    [Serializable] public class TexturePropertyMap : SerializedKeyValue<TextureType, TextureList> { }
+    [Serializable] public class Textures : SerializedList<Texture> { }
 
-    [Serializable] public class RendererList : ComponentList<Renderer> { }
+    [Serializable] public class Renderers : ComponentList<Renderer> { }
+
+    [Serializable] public class ShaderPropertiesTables : SerializedList<ShaderPropertiesTable> { }
+
+    [Serializable] public class TexturePresetTables : SerializedList<TexturePresetTable> { }
 }

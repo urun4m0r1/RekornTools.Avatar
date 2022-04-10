@@ -12,9 +12,9 @@ namespace VRCAvatarTools
     {
         [SerializeField] private TextureImporterSettings settings;
         [SerializeField] private Transform               parent;
-        [SerializeField] private RendererList            meshes = new RendererList();
+        [SerializeField] private Renderers            meshes = new Renderers();
 
-        [SerializeField, ListMutable(false), ListSpan(false)] private TexturePropertyMapList texturePropertyMapList = new TexturePropertyMapList();
+        [SerializeField, ListMutable(false), ListSpan(false)] private TypedTexturesMaps typedTexturesMaps = new TypedTexturesMaps();
 
         private Transform _prevParent;
 
@@ -30,20 +30,20 @@ namespace VRCAvatarTools
                 _prevParent = parent;
                 meshes.Initialize(parent);
 
-                texturePropertyMapList.Clear();
+                typedTexturesMaps.Clear();
 
                 foreach (var type in Enum.GetValues(typeof(TextureType)))
                 {
                     if ((TextureType)type == TextureType.None) continue;
-                    var map = new TexturePropertyMap
+                    var map = new TypedTexturesMap
                     {
                         Key   = (TextureType)type,
-                        Value = new TextureList(),
+                        Value = new Textures(),
                     };
-                    texturePropertyMapList.Add(map);
+                    typedTexturesMaps.Add(map);
                 }
 
-                // foreach (var table in shaderPropertyTable.Tables)
+                // foreach (var table in textureTypeListMapList)
                 // {
                 //     if (table.Value == null) continue;
                 //     foreach (var property in table.Value)
@@ -51,7 +51,7 @@ namespace VRCAvatarTools
                 //         if (property.Type != ShaderPropertyType.Texture) continue;
                 //         if (property.TextureType == TextureType.None) continue;
                 //
-                //         foreach (TexturePropertyMap t in texturePropertyMapList)
+                //         foreach (var t in texturePropertyMapList)
                 //         {
                 //             if (t.Key == property.TextureType)
                 //             {
@@ -83,7 +83,7 @@ namespace VRCAvatarTools
                     var texture = material.GetTexture(property.Name);
                     if (!texture) continue;
                     if (list.Contains(texture)) continue;
-                    if (texturePropertyMapList.Count(t => t.Value?.Contains(texture) == true) > 0) continue;
+                    if (typedTexturesMaps.Count(t => t.Value?.Contains(texture) == true) > 0) continue;
 
                     list.Add(texture);
                 }

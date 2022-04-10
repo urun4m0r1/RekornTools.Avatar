@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace VRCAvatarTools.Editor
 {
-    //[CustomPropertyDrawer(typeof(TexturePropertyMap))]
-    public class CustomTextureListDrawer : SerializedPropertyDrawer
+    [CustomPropertyDrawer(typeof(TypedTexturesMap))]
+    public class CustomTextureListDrawer : SerializedKeyValueDrawer
     {
         protected override void DrawProperty(Rect rect, SerializedProperty property, GUIContent _)
         {

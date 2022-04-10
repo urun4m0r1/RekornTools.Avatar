@@ -21,8 +21,8 @@ namespace VRCAvatarTools
         [NotNull] private string GameObjectName => gameObject.name;
         [NotNull] private string Header         => $"[{ClassName}({GameObjectName})]";
 
-        private SkinnedMeshRendererList _meshList;
-        private TransformList           _boneList;
+        private SkinnedMeshRenderers _meshList;
+        private Transforms           _boneList;
 
         private void ShowDialog(string message)
         {

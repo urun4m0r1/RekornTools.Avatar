@@ -2,12 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using UnityEditor;
 using UnityEngine;
 
 namespace VRCAvatarTools
 {
-    public class SerializedList : SerializedList<object>
+    public sealed class SerializedList : SerializedList<object>
     {
         [NotNull] public const string ListName = nameof(_items);
     }
@@ -16,19 +15,6 @@ namespace VRCAvatarTools
     public class SerializedList<T> : IList<T>
     {
         [SerializeField, NotNull] protected List<T> _items = new List<T>();
-
-        private static readonly string ClassName = nameof(SerializedList<T>);
-        private static readonly string TypeName  = typeof(T).Name;
-        [NotNull] private       string Header => $"[{ClassName}<{TypeName}>]";
-
-        protected void ShowDialog(string message)
-        {
-            Debug.LogWarning($"{Header} {message}");
-            EditorUtility.DisplayDialog(
-                Header,
-                message,
-                "Confirm");
-        }
 
 #region Interface
         public IEnumerator<T>   GetEnumerator() => _items.GetEnumerator();
@@ -49,11 +35,12 @@ namespace VRCAvatarTools
         public int  Count      => _items.Count;
         public bool IsReadOnly => false;
 
-        public T this[int index]
+        [CanBeNull] public T this[int index]
         {
             get => _items[index];
             set => _items[index] = value;
         }
+#endregion // Interface
 
         public void AddRange([NotNull] List<T> target)
         {
@@ -70,6 +57,5 @@ namespace VRCAvatarTools
             Clear();
             AddRange(target);
         }
-#endregion
     }
 }

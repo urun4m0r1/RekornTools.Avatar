@@ -7,12 +7,12 @@ namespace VRCAvatarTools
     [CustomPropertyDrawer(typeof(SerializedKeyValue<,>), true)]
     public class SerializedKeyValueDrawer : SerializedPropertyDrawer
     {
-        private static readonly SerializedKeyValueHelper KeyValueHelper = new SerializedKeyValueHelper(KeyField, ValueField);
+        private static readonly SerializedKeyValueHelper Helper = new SerializedKeyValueHelper(KeyField, ValueField);
 
         protected override void DrawProperty(Rect rect, SerializedProperty property, GUIContent _) =>
-            KeyValueHelper?.Update(property).DrawVertical(rect, true);
+            Helper?.Update(property).DrawVertical(rect, true);
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent _) =>
-            KeyValueHelper?.Update(property).TotalHeight ?? 0f;
+            Helper?.Update(property).TotalHeight ?? 0f;
     }
 }

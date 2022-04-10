@@ -4,10 +4,6 @@ using UnityEngine;
 
 namespace VRCAvatarTools
 {
-    [Serializable] public class ShaderPropertiesTables : SerializedList<ShaderPropertiesTable> { }
-
-    [Serializable] public class TexturePresetTables : SerializedList<TexturePresetTable> { }
-
     [Serializable]
     public class TexturePresetTable
     {

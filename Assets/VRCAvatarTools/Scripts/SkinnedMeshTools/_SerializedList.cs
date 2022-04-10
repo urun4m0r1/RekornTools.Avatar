@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace VRCAvatarTools
 {
-    [Serializable] public class SkinnedMeshRendererList : ComponentList<SkinnedMeshRenderer> { }
+    [Serializable] public class SkinnedMeshRenderers : ComponentList<SkinnedMeshRenderer> { }
 
-    [Serializable] public class TransformList : ComponentList<Transform> { }
+    [Serializable] public class Transforms : ComponentList<Transform> { }
 }
