@@ -10,7 +10,7 @@ namespace VRCAvatarTools
     [ExecuteInEditMode]
     public class TextureOptimizerScript : MonoBehaviour
     {
-        [SerializeField] private TextureImporterSettings settings;
+        [SerializeField] private TexturePresetSettings settings;
         [SerializeField] private Transform               parent;
         [SerializeField] private Renderers            meshes = new Renderers();
 

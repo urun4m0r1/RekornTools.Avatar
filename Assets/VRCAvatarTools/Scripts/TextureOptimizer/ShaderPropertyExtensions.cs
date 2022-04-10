@@ -35,9 +35,9 @@ namespace VRCAvatarTools
             where shader
             select shader;
 
-        public static ShaderPropertyList GetTexturePropertyList(this Shader shader)
+        public static ShaderProperties GetTexturePropertyList(this Shader shader)
         {
-            var properties = new ShaderPropertyList(shader);
+            var properties = new ShaderProperties(shader);
 
             if (shader.TryGetShaderPropertyCount(out int count))
                 for (var i = 0; i < count; i++)
@@ -45,7 +45,7 @@ namespace VRCAvatarTools
             return properties;
         }
 
-        public static void AddTextureProperty(this ShaderPropertyList list, Shader shader, int i)
+        public static void AddTextureProperty(this ShaderProperties list, Shader shader, int i)
         {
             if (shader.GetPropertyFlags(i) == ShaderPropertyFlags.HideInInspector)
                 return;
@@ -57,7 +57,7 @@ namespace VRCAvatarTools
         }
 
         public static ShaderProperty GetShaderPropertyAt(this Shader shader, int i) =>
-            new ShaderProperty(shader, i, shader.GetPropertyName(i), shader.GetPropertyType(i));
+            new ShaderProperty(shader, i, shader.GetPropertyType(i), shader.GetPropertyName(i));
 
         public static bool TryGetShaderPropertyCount(this Shader shader, out int propertyCount)
         {

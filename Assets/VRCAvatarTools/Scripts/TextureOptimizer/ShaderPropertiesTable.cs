@@ -4,13 +4,13 @@ using UnityEngine;
 namespace VRCAvatarTools
 {
     [Serializable]
-    public class ShaderPropertiesTable : SerializedKeyValue<Shader, ShaderPropertyList>
+    public class ShaderPropertiesPerShaderMap : SerializedKeyValue<Shader, ShaderProperties>
     {
-        public ShaderPropertiesTable(Shader shader, ShaderPropertyList properties) : base(shader, properties) { }
+        public ShaderPropertiesPerShaderMap(Shader shader, ShaderProperties properties) : base(shader, properties) { }
 
         public bool IsShaderInitialized => Key == Value?.Shader;
 
-        public void Initialize(Func<Shader, ShaderPropertyList> initializer)
+        public void Initialize(Func<Shader, ShaderProperties> initializer)
         {
             if (IsShaderInitialized) return;
 
@@ -19,27 +19,27 @@ namespace VRCAvatarTools
     }
 
     [Serializable]
-    public class ShaderPropertyList : SerializedList<ShaderProperty>
+    public class ShaderProperties : SerializedList<ShaderProperty>
     {
         public Shader Shader { get; private set; }
-        public ShaderPropertyList(Shader shader) => Shader = shader;
+        public ShaderProperties(Shader shader) => Shader = shader;
     }
 
-    public class ShaderPropertyObject : ScriptableObject
+    public class ShaderPropertiesTable : ScriptableObject
     {
         [SerializeField, ListSpan(false), ListMutable(false)]
-        public ShaderPropertiesTables Tables = new ShaderPropertiesTables();
+        public ShaderPropertiesPerShaderMaps perShaderMaps = new ShaderPropertiesPerShaderMaps();
 
-        private static readonly Func<Shader, ShaderPropertyList> TexturePropertyInitializer =
+        private static readonly Func<Shader, ShaderProperties> TexturePropertyInitializer =
             ShaderPropertyExtensions.GetTexturePropertyList;
 
         public void UpdateShaders()
         {
             Debug.Log("UpdateShaders");
             var shaders = ShaderPropertyExtensions.GetUsedShadersInProject();
-            var tables  = new ShaderPropertiesTables();
+            var tables  = new ShaderPropertiesPerShaderMaps();
 
-            foreach (var table in Tables)
+            foreach (var table in perShaderMaps)
             {
                 if (shaders.Contains(table.Key))
                 {
@@ -50,18 +50,18 @@ namespace VRCAvatarTools
 
             foreach (var shader in shaders)
             {
-                var table = new ShaderPropertiesTable(shader, null);
+                var table = new ShaderPropertiesPerShaderMap(shader, null);
                 table.Initialize(TexturePropertyInitializer);
                 tables.Add(table);
             }
 
-            Tables = tables;
+            perShaderMaps = tables;
         }
 
         public void ResetItems()
         {
             Debug.Log("ResetItems");
-            Tables.Clear();
+            perShaderMaps.Clear();
             UpdateShaders();
         }
     }

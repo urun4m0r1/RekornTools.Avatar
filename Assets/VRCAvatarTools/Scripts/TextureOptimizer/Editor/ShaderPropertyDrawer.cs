@@ -8,42 +8,24 @@ namespace VRCAvatarTools.Editor
     {
         protected override void DrawProperty(Rect rect, SerializedProperty property, GUIContent _)
         {
-            var shader      = property.ResolveProperty(ShaderProperty.ShaderField);
-            var index       = property.ResolveProperty(ShaderProperty.IndexField);
-            var name        = property.ResolveProperty(ShaderProperty.NameField);
-            var type        = property.ResolveProperty(ShaderProperty.TypeField);
-            var textureType = property.ResolveProperty(ShaderProperty.TextureTypeField);
+            var padding   = EditorGUIUtility.standardVerticalSpacing;
+            var fullWidth = rect.width;
 
-            var w  = rect.width;
-            var w1 = w * 0.15f;
-            var w2 = w * 0.1f;
-            var w3 = w * 0.15f;
-            var w4 = w * 0.4f;
-            var w5 = w * 0.2f;
+            rect.width = 0f;
 
-            rect.y      += EditorGUIUtility.standardVerticalSpacing;
-            rect.height =  EditorGUIUtility.singleLineHeight;
+            DrawElement(0.15f, ShaderProperty.ShaderField);
+            DrawElement(0.1f,  ShaderProperty.IndexField);
+            DrawElement(0.15f, ShaderProperty.TypeField);
+            DrawElement(0.4f,  ShaderProperty.NameField);
+            DrawElement(0.2f,  ShaderProperty.TextureTypeField, false);
 
-            var padding = EditorGUIUtility.standardVerticalSpacing * 0.5f;
-
-            rect.width = w1 - padding;
-            shader.DisabledPropertyField(rect);
-            rect.x += w1;
-
-            rect.width = w2 - padding;
-            index.DisabledPropertyField(rect);
-            rect.x += w2;
-
-            rect.width = w3 - padding;
-            type.DisabledPropertyField(rect);
-            rect.x += w3;
-
-            rect.width = w4 - padding;
-            name.DisabledPropertyField(rect);
-            rect.x += w4;
-
-            rect.width = w5;
-            textureType.PropertyField(rect);
+            void DrawElement(float weight, string propertyName, bool isReadOnly = true)
+            {
+                var prop = property.ResolveProperty(propertyName);
+                rect.AppendWidth(fullWidth * weight - padding);
+                prop.DisabledPropertyField(rect, isReadOnly);
+                rect.AppendWidth(padding);
+            }
         }
     }
 }

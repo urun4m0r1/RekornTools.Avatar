@@ -6,42 +6,31 @@ namespace VRCAvatarTools.Editor
 {
     public class TextureOptimizer : SerializedEditorWindow<TextureOptimizer>
     {
-        [SerializeField] private Vector2                 _scrollPosition = Vector2.zero;
-        [SerializeField] private TextureImporterSettings _settings;
-        [SerializeField] private ShaderPropertyObject    _obj;
+        [SerializeField] private TexturePresetSettings _presetSettings;
+        [SerializeField] private ShaderPropertiesTable _shaderPropertiesTable;
 
-        [MenuItem("Tools/VRC Avatar Tools/Texture Optimizer")] private static void OnWindowOpen() => GetWindow<TextureOptimizer>("Texture Optimizer")?.Show();
+        [MenuItem("Tools/VRC Avatar Tools/Texture Optimizer")]
+        private static void OnWindowOpen() => GetWindow<TextureOptimizer>("Texture Optimizer")?.Show();
 
         protected override void Draw()
         {
-            _scrollPosition = GUILayout.BeginScrollView(_scrollPosition);
-            {
-                _settings = _settings.GetInstance();
-                _settings.DrawEditor();
+            _presetSettings = _presetSettings.GetInstance();
+            _presetSettings.DrawEditor();
 
-                _obj = _obj.GetInstance();
-                DrawShaderPropertyMap(_obj);
-            }
-            GUILayout.EndScrollView();
+            _shaderPropertiesTable = _shaderPropertiesTable.GetInstance();
+            DrawShaderPropertyMap(_shaderPropertiesTable);
         }
 
-        private static void DrawShaderPropertyMap([NotNull] ShaderPropertyObject shaderPropertyObject)
+        private static void DrawShaderPropertyMap([NotNull] ShaderPropertiesTable shaderPropertiesTable)
         {
             GUILayout.BeginHorizontal();
             {
-                if (GUILayout.Button("Update Shaders"))
-                {
-                    shaderPropertyObject.UpdateShaders();
-                }
-
-                if (GUILayout.Button("Reset Items"))
-                {
-                    shaderPropertyObject.ResetItems();
-                }
+                if (GUILayout.Button("Update Shaders")) shaderPropertiesTable.UpdateShaders();
+                if (GUILayout.Button("Reset Items")) shaderPropertiesTable.ResetItems();
             }
             GUILayout.EndHorizontal();
 
-            shaderPropertyObject.DrawEditor();
+            shaderPropertiesTable.DrawEditor();
         }
     }
 }

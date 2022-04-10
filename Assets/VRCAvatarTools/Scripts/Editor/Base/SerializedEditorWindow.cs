@@ -8,7 +8,8 @@ namespace VRCAvatarTools
     {
         [NotNull] private static string PrefPath => Application.identifier + "/" + typeof(T).Name;
 
-        private bool _isSerializedFieldsReady;
+        private Vector2 _scrollPosition = Vector2.zero;
+        private bool    _isSerializedFieldsReady;
 
         private void OnEnable()
         {
@@ -31,7 +32,11 @@ namespace VRCAvatarTools
 
         public void OnGUI()
         {
-            if (_isSerializedFieldsReady) Draw();
+            _scrollPosition = GUILayout.BeginScrollView(_scrollPosition);
+            {
+                if (_isSerializedFieldsReady) Draw();
+            }
+            GUILayout.EndScrollView();
 
             if (GUI.changed)
             {

@@ -21,20 +21,20 @@ MonoBehaviour:
         - <Shader>k__BackingField: {fileID: 211, guid: 0000000000000000f000000000000000,
             type: 0}
           <Index>k__BackingField: 0
-          <Name>k__BackingField: _MainTex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _MainTex
           <TextureType>k__BackingField: 1
         - <Shader>k__BackingField: {fileID: 211, guid: 0000000000000000f000000000000000,
             type: 0}
           <Index>k__BackingField: 4
-          <Name>k__BackingField: _BumpMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _BumpMap
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 211, guid: 0000000000000000f000000000000000,
             type: 0}
           <Index>k__BackingField: 6
-          <Name>k__BackingField: _EmissionMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _EmissionMap
           <TextureType>k__BackingField: 4
     - <Key>k__BackingField: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5,
         type: 3}
@@ -43,98 +43,98 @@ MonoBehaviour:
         - <Shader>k__BackingField: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5,
             type: 3}
           <Index>k__BackingField: 4
-          <Name>k__BackingField: _MainTex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _MainTex
           <TextureType>k__BackingField: 1
         - <Shader>k__BackingField: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5,
             type: 3}
           <Index>k__BackingField: 9
-          <Name>k__BackingField: _1st_ShadeMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _1st_ShadeMap
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5,
             type: 3}
           <Index>k__BackingField: 13
-          <Name>k__BackingField: _2nd_ShadeMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _2nd_ShadeMap
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5,
             type: 3}
           <Index>k__BackingField: 17
-          <Name>k__BackingField: _NormalMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _NormalMap
           <TextureType>k__BackingField: 5
         - <Shader>k__BackingField: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5,
             type: 3}
           <Index>k__BackingField: 32
-          <Name>k__BackingField: _Set_1st_ShadePosition
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_1st_ShadePosition
           <TextureType>k__BackingField: 7
         - <Shader>k__BackingField: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5,
             type: 3}
           <Index>k__BackingField: 33
-          <Name>k__BackingField: _Set_2nd_ShadePosition
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_2nd_ShadePosition
           <TextureType>k__BackingField: 7
         - <Shader>k__BackingField: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5,
             type: 3}
           <Index>k__BackingField: 35
-          <Name>k__BackingField: _HighColor_Tex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _HighColor_Tex
           <TextureType>k__BackingField: 1
         - <Shader>k__BackingField: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5,
             type: 3}
           <Index>k__BackingField: 43
-          <Name>k__BackingField: _Set_HighColorMask
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_HighColorMask
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5,
             type: 3}
           <Index>k__BackingField: 59
-          <Name>k__BackingField: _Set_RimLightMask
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_RimLightMask
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5,
             type: 3}
           <Index>k__BackingField: 62
-          <Name>k__BackingField: _MatCap_Sampler
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _MatCap_Sampler
           <TextureType>k__BackingField: 7
         - <Shader>k__BackingField: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5,
             type: 3}
           <Index>k__BackingField: 71
-          <Name>k__BackingField: _NormalMapForMatCap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _NormalMapForMatCap
           <TextureType>k__BackingField: 5
         - <Shader>k__BackingField: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5,
             type: 3}
           <Index>k__BackingField: 76
-          <Name>k__BackingField: _Set_MatcapMask
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_MatcapMask
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5,
             type: 3}
           <Index>k__BackingField: 81
-          <Name>k__BackingField: _Emissive_Tex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Emissive_Tex
           <TextureType>k__BackingField: 4
         - <Shader>k__BackingField: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5,
             type: 3}
           <Index>k__BackingField: 98
-          <Name>k__BackingField: _Outline_Sampler
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Outline_Sampler
           <TextureType>k__BackingField: 7
         - <Shader>k__BackingField: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5,
             type: 3}
           <Index>k__BackingField: 103
-          <Name>k__BackingField: _OutlineTex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _OutlineTex
           <TextureType>k__BackingField: 1
         - <Shader>k__BackingField: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5,
             type: 3}
           <Index>k__BackingField: 106
-          <Name>k__BackingField: _BakedNormal
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _BakedNormal
           <TextureType>k__BackingField: 5
     - <Key>k__BackingField: {fileID: 4800000, guid: 345def18d0906d544b7d12b050937392,
         type: 3}
@@ -143,104 +143,104 @@ MonoBehaviour:
         - <Shader>k__BackingField: {fileID: 4800000, guid: 345def18d0906d544b7d12b050937392,
             type: 3}
           <Index>k__BackingField: 4
-          <Name>k__BackingField: _ClippingMask
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _ClippingMask
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 345def18d0906d544b7d12b050937392,
             type: 3}
           <Index>k__BackingField: 8
-          <Name>k__BackingField: _MainTex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _MainTex
           <TextureType>k__BackingField: 1
         - <Shader>k__BackingField: {fileID: 4800000, guid: 345def18d0906d544b7d12b050937392,
             type: 3}
           <Index>k__BackingField: 13
-          <Name>k__BackingField: _1st_ShadeMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _1st_ShadeMap
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 345def18d0906d544b7d12b050937392,
             type: 3}
           <Index>k__BackingField: 17
-          <Name>k__BackingField: _2nd_ShadeMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _2nd_ShadeMap
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 345def18d0906d544b7d12b050937392,
             type: 3}
           <Index>k__BackingField: 21
-          <Name>k__BackingField: _NormalMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _NormalMap
           <TextureType>k__BackingField: 5
         - <Shader>k__BackingField: {fileID: 4800000, guid: 345def18d0906d544b7d12b050937392,
             type: 3}
           <Index>k__BackingField: 36
-          <Name>k__BackingField: _Set_1st_ShadePosition
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_1st_ShadePosition
           <TextureType>k__BackingField: 7
         - <Shader>k__BackingField: {fileID: 4800000, guid: 345def18d0906d544b7d12b050937392,
             type: 3}
           <Index>k__BackingField: 37
-          <Name>k__BackingField: _Set_2nd_ShadePosition
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_2nd_ShadePosition
           <TextureType>k__BackingField: 7
         - <Shader>k__BackingField: {fileID: 4800000, guid: 345def18d0906d544b7d12b050937392,
             type: 3}
           <Index>k__BackingField: 39
-          <Name>k__BackingField: _HighColor_Tex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _HighColor_Tex
           <TextureType>k__BackingField: 1
         - <Shader>k__BackingField: {fileID: 4800000, guid: 345def18d0906d544b7d12b050937392,
             type: 3}
           <Index>k__BackingField: 47
-          <Name>k__BackingField: _Set_HighColorMask
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_HighColorMask
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 345def18d0906d544b7d12b050937392,
             type: 3}
           <Index>k__BackingField: 63
-          <Name>k__BackingField: _Set_RimLightMask
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_RimLightMask
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 345def18d0906d544b7d12b050937392,
             type: 3}
           <Index>k__BackingField: 66
-          <Name>k__BackingField: _MatCap_Sampler
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _MatCap_Sampler
           <TextureType>k__BackingField: 7
         - <Shader>k__BackingField: {fileID: 4800000, guid: 345def18d0906d544b7d12b050937392,
             type: 3}
           <Index>k__BackingField: 75
-          <Name>k__BackingField: _NormalMapForMatCap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _NormalMapForMatCap
           <TextureType>k__BackingField: 5
         - <Shader>k__BackingField: {fileID: 4800000, guid: 345def18d0906d544b7d12b050937392,
             type: 3}
           <Index>k__BackingField: 80
-          <Name>k__BackingField: _Set_MatcapMask
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_MatcapMask
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 345def18d0906d544b7d12b050937392,
             type: 3}
           <Index>k__BackingField: 85
-          <Name>k__BackingField: _Emissive_Tex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Emissive_Tex
           <TextureType>k__BackingField: 4
         - <Shader>k__BackingField: {fileID: 4800000, guid: 345def18d0906d544b7d12b050937392,
             type: 3}
           <Index>k__BackingField: 102
-          <Name>k__BackingField: _Outline_Sampler
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Outline_Sampler
           <TextureType>k__BackingField: 7
         - <Shader>k__BackingField: {fileID: 4800000, guid: 345def18d0906d544b7d12b050937392,
             type: 3}
           <Index>k__BackingField: 108
-          <Name>k__BackingField: _OutlineTex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _OutlineTex
           <TextureType>k__BackingField: 1
         - <Shader>k__BackingField: {fileID: 4800000, guid: 345def18d0906d544b7d12b050937392,
             type: 3}
           <Index>k__BackingField: 111
-          <Name>k__BackingField: _BakedNormal
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _BakedNormal
           <TextureType>k__BackingField: 5
     - <Key>k__BackingField: {fileID: 4800000, guid: 96d4d9f975e6c8849bd1a5c06acfae84,
         type: 3}
@@ -249,80 +249,80 @@ MonoBehaviour:
         - <Shader>k__BackingField: {fileID: 4800000, guid: 96d4d9f975e6c8849bd1a5c06acfae84,
             type: 3}
           <Index>k__BackingField: 4
-          <Name>k__BackingField: _MainTex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _MainTex
           <TextureType>k__BackingField: 1
         - <Shader>k__BackingField: {fileID: 4800000, guid: 96d4d9f975e6c8849bd1a5c06acfae84,
             type: 3}
           <Index>k__BackingField: 9
-          <Name>k__BackingField: _1st_ShadeMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _1st_ShadeMap
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 96d4d9f975e6c8849bd1a5c06acfae84,
             type: 3}
           <Index>k__BackingField: 13
-          <Name>k__BackingField: _2nd_ShadeMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _2nd_ShadeMap
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 96d4d9f975e6c8849bd1a5c06acfae84,
             type: 3}
           <Index>k__BackingField: 17
-          <Name>k__BackingField: _NormalMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _NormalMap
           <TextureType>k__BackingField: 5
         - <Shader>k__BackingField: {fileID: 4800000, guid: 96d4d9f975e6c8849bd1a5c06acfae84,
             type: 3}
           <Index>k__BackingField: 32
-          <Name>k__BackingField: _Set_1st_ShadePosition
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_1st_ShadePosition
           <TextureType>k__BackingField: 7
         - <Shader>k__BackingField: {fileID: 4800000, guid: 96d4d9f975e6c8849bd1a5c06acfae84,
             type: 3}
           <Index>k__BackingField: 33
-          <Name>k__BackingField: _Set_2nd_ShadePosition
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_2nd_ShadePosition
           <TextureType>k__BackingField: 7
         - <Shader>k__BackingField: {fileID: 4800000, guid: 96d4d9f975e6c8849bd1a5c06acfae84,
             type: 3}
           <Index>k__BackingField: 35
-          <Name>k__BackingField: _HighColor_Tex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _HighColor_Tex
           <TextureType>k__BackingField: 1
         - <Shader>k__BackingField: {fileID: 4800000, guid: 96d4d9f975e6c8849bd1a5c06acfae84,
             type: 3}
           <Index>k__BackingField: 43
-          <Name>k__BackingField: _Set_HighColorMask
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_HighColorMask
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 96d4d9f975e6c8849bd1a5c06acfae84,
             type: 3}
           <Index>k__BackingField: 59
-          <Name>k__BackingField: _Set_RimLightMask
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_RimLightMask
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 96d4d9f975e6c8849bd1a5c06acfae84,
             type: 3}
           <Index>k__BackingField: 62
-          <Name>k__BackingField: _MatCap_Sampler
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _MatCap_Sampler
           <TextureType>k__BackingField: 7
         - <Shader>k__BackingField: {fileID: 4800000, guid: 96d4d9f975e6c8849bd1a5c06acfae84,
             type: 3}
           <Index>k__BackingField: 71
-          <Name>k__BackingField: _NormalMapForMatCap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _NormalMapForMatCap
           <TextureType>k__BackingField: 5
         - <Shader>k__BackingField: {fileID: 4800000, guid: 96d4d9f975e6c8849bd1a5c06acfae84,
             type: 3}
           <Index>k__BackingField: 76
-          <Name>k__BackingField: _Set_MatcapMask
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_MatcapMask
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 96d4d9f975e6c8849bd1a5c06acfae84,
             type: 3}
           <Index>k__BackingField: 81
-          <Name>k__BackingField: _Emissive_Tex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Emissive_Tex
           <TextureType>k__BackingField: 4
     - <Key>k__BackingField: {fileID: 4800000, guid: b2a70923168ea0c40a3051a013c93a8a,
         type: 3}
@@ -331,104 +331,104 @@ MonoBehaviour:
         - <Shader>k__BackingField: {fileID: 4800000, guid: b2a70923168ea0c40a3051a013c93a8a,
             type: 3}
           <Index>k__BackingField: 4
-          <Name>k__BackingField: _ClippingMask
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _ClippingMask
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: b2a70923168ea0c40a3051a013c93a8a,
             type: 3}
           <Index>k__BackingField: 9
-          <Name>k__BackingField: _MainTex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _MainTex
           <TextureType>k__BackingField: 1
         - <Shader>k__BackingField: {fileID: 4800000, guid: b2a70923168ea0c40a3051a013c93a8a,
             type: 3}
           <Index>k__BackingField: 14
-          <Name>k__BackingField: _1st_ShadeMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _1st_ShadeMap
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: b2a70923168ea0c40a3051a013c93a8a,
             type: 3}
           <Index>k__BackingField: 18
-          <Name>k__BackingField: _2nd_ShadeMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _2nd_ShadeMap
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: b2a70923168ea0c40a3051a013c93a8a,
             type: 3}
           <Index>k__BackingField: 22
-          <Name>k__BackingField: _NormalMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _NormalMap
           <TextureType>k__BackingField: 5
         - <Shader>k__BackingField: {fileID: 4800000, guid: b2a70923168ea0c40a3051a013c93a8a,
             type: 3}
           <Index>k__BackingField: 37
-          <Name>k__BackingField: _ShadingGradeMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _ShadingGradeMap
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: b2a70923168ea0c40a3051a013c93a8a,
             type: 3}
           <Index>k__BackingField: 41
-          <Name>k__BackingField: _HighColor_Tex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _HighColor_Tex
           <TextureType>k__BackingField: 1
         - <Shader>k__BackingField: {fileID: 4800000, guid: b2a70923168ea0c40a3051a013c93a8a,
             type: 3}
           <Index>k__BackingField: 49
-          <Name>k__BackingField: _Set_HighColorMask
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_HighColorMask
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: b2a70923168ea0c40a3051a013c93a8a,
             type: 3}
           <Index>k__BackingField: 65
-          <Name>k__BackingField: _Set_RimLightMask
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_RimLightMask
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: b2a70923168ea0c40a3051a013c93a8a,
             type: 3}
           <Index>k__BackingField: 68
-          <Name>k__BackingField: _MatCap_Sampler
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _MatCap_Sampler
           <TextureType>k__BackingField: 7
         - <Shader>k__BackingField: {fileID: 4800000, guid: b2a70923168ea0c40a3051a013c93a8a,
             type: 3}
           <Index>k__BackingField: 77
-          <Name>k__BackingField: _NormalMapForMatCap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _NormalMapForMatCap
           <TextureType>k__BackingField: 5
         - <Shader>k__BackingField: {fileID: 4800000, guid: b2a70923168ea0c40a3051a013c93a8a,
             type: 3}
           <Index>k__BackingField: 82
-          <Name>k__BackingField: _Set_MatcapMask
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_MatcapMask
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: b2a70923168ea0c40a3051a013c93a8a,
             type: 3}
           <Index>k__BackingField: 87
-          <Name>k__BackingField: _AngelRing_Sampler
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _AngelRing_Sampler
           <TextureType>k__BackingField: 7
         - <Shader>k__BackingField: {fileID: 4800000, guid: b2a70923168ea0c40a3051a013c93a8a,
             type: 3}
           <Index>k__BackingField: 94
-          <Name>k__BackingField: _Emissive_Tex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Emissive_Tex
           <TextureType>k__BackingField: 4
         - <Shader>k__BackingField: {fileID: 4800000, guid: b2a70923168ea0c40a3051a013c93a8a,
             type: 3}
           <Index>k__BackingField: 111
-          <Name>k__BackingField: _Outline_Sampler
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Outline_Sampler
           <TextureType>k__BackingField: 7
         - <Shader>k__BackingField: {fileID: 4800000, guid: b2a70923168ea0c40a3051a013c93a8a,
             type: 3}
           <Index>k__BackingField: 117
-          <Name>k__BackingField: _OutlineTex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _OutlineTex
           <TextureType>k__BackingField: 1
         - <Shader>k__BackingField: {fileID: 4800000, guid: b2a70923168ea0c40a3051a013c93a8a,
             type: 3}
           <Index>k__BackingField: 120
-          <Name>k__BackingField: _BakedNormal
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _BakedNormal
           <TextureType>k__BackingField: 5
     - <Key>k__BackingField: {fileID: 4800000, guid: 97b7edb5fc0f5744c9b264c2224a0b1e,
         type: 3}
@@ -437,86 +437,86 @@ MonoBehaviour:
         - <Shader>k__BackingField: {fileID: 4800000, guid: 97b7edb5fc0f5744c9b264c2224a0b1e,
             type: 3}
           <Index>k__BackingField: 4
-          <Name>k__BackingField: _ClippingMask
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _ClippingMask
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 97b7edb5fc0f5744c9b264c2224a0b1e,
             type: 3}
           <Index>k__BackingField: 9
-          <Name>k__BackingField: _MainTex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _MainTex
           <TextureType>k__BackingField: 1
         - <Shader>k__BackingField: {fileID: 4800000, guid: 97b7edb5fc0f5744c9b264c2224a0b1e,
             type: 3}
           <Index>k__BackingField: 14
-          <Name>k__BackingField: _1st_ShadeMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _1st_ShadeMap
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 97b7edb5fc0f5744c9b264c2224a0b1e,
             type: 3}
           <Index>k__BackingField: 18
-          <Name>k__BackingField: _2nd_ShadeMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _2nd_ShadeMap
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 97b7edb5fc0f5744c9b264c2224a0b1e,
             type: 3}
           <Index>k__BackingField: 22
-          <Name>k__BackingField: _NormalMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _NormalMap
           <TextureType>k__BackingField: 5
         - <Shader>k__BackingField: {fileID: 4800000, guid: 97b7edb5fc0f5744c9b264c2224a0b1e,
             type: 3}
           <Index>k__BackingField: 37
-          <Name>k__BackingField: _Set_1st_ShadePosition
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_1st_ShadePosition
           <TextureType>k__BackingField: 7
         - <Shader>k__BackingField: {fileID: 4800000, guid: 97b7edb5fc0f5744c9b264c2224a0b1e,
             type: 3}
           <Index>k__BackingField: 38
-          <Name>k__BackingField: _Set_2nd_ShadePosition
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_2nd_ShadePosition
           <TextureType>k__BackingField: 7
         - <Shader>k__BackingField: {fileID: 4800000, guid: 97b7edb5fc0f5744c9b264c2224a0b1e,
             type: 3}
           <Index>k__BackingField: 40
-          <Name>k__BackingField: _HighColor_Tex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _HighColor_Tex
           <TextureType>k__BackingField: 1
         - <Shader>k__BackingField: {fileID: 4800000, guid: 97b7edb5fc0f5744c9b264c2224a0b1e,
             type: 3}
           <Index>k__BackingField: 48
-          <Name>k__BackingField: _Set_HighColorMask
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_HighColorMask
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 97b7edb5fc0f5744c9b264c2224a0b1e,
             type: 3}
           <Index>k__BackingField: 64
-          <Name>k__BackingField: _Set_RimLightMask
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_RimLightMask
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 97b7edb5fc0f5744c9b264c2224a0b1e,
             type: 3}
           <Index>k__BackingField: 67
-          <Name>k__BackingField: _MatCap_Sampler
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _MatCap_Sampler
           <TextureType>k__BackingField: 7
         - <Shader>k__BackingField: {fileID: 4800000, guid: 97b7edb5fc0f5744c9b264c2224a0b1e,
             type: 3}
           <Index>k__BackingField: 76
-          <Name>k__BackingField: _NormalMapForMatCap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _NormalMapForMatCap
           <TextureType>k__BackingField: 5
         - <Shader>k__BackingField: {fileID: 4800000, guid: 97b7edb5fc0f5744c9b264c2224a0b1e,
             type: 3}
           <Index>k__BackingField: 81
-          <Name>k__BackingField: _Set_MatcapMask
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Set_MatcapMask
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 4800000, guid: 97b7edb5fc0f5744c9b264c2224a0b1e,
             type: 3}
           <Index>k__BackingField: 86
-          <Name>k__BackingField: _Emissive_Tex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _Emissive_Tex
           <TextureType>k__BackingField: 4
     - <Key>k__BackingField: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
       <Value>k__BackingField:
@@ -524,57 +524,71 @@ MonoBehaviour:
         - <Shader>k__BackingField: {fileID: 46, guid: 0000000000000000f000000000000000,
             type: 0}
           <Index>k__BackingField: 1
-          <Name>k__BackingField: _MainTex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _MainTex
           <TextureType>k__BackingField: 1
         - <Shader>k__BackingField: {fileID: 46, guid: 0000000000000000f000000000000000,
             type: 0}
           <Index>k__BackingField: 7
-          <Name>k__BackingField: _MetallicGlossMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _MetallicGlossMap
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 46, guid: 0000000000000000f000000000000000,
             type: 0}
           <Index>k__BackingField: 11
-          <Name>k__BackingField: _BumpMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _BumpMap
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 46, guid: 0000000000000000f000000000000000,
             type: 0}
           <Index>k__BackingField: 13
-          <Name>k__BackingField: _ParallaxMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _ParallaxMap
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 46, guid: 0000000000000000f000000000000000,
             type: 0}
           <Index>k__BackingField: 15
-          <Name>k__BackingField: _OcclusionMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _OcclusionMap
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 46, guid: 0000000000000000f000000000000000,
             type: 0}
           <Index>k__BackingField: 17
-          <Name>k__BackingField: _EmissionMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _EmissionMap
           <TextureType>k__BackingField: 4
         - <Shader>k__BackingField: {fileID: 46, guid: 0000000000000000f000000000000000,
             type: 0}
           <Index>k__BackingField: 18
-          <Name>k__BackingField: _DetailMask
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _DetailMask
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 46, guid: 0000000000000000f000000000000000,
             type: 0}
           <Index>k__BackingField: 19
-          <Name>k__BackingField: _DetailAlbedoMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _DetailAlbedoMap
           <TextureType>k__BackingField: 6
         - <Shader>k__BackingField: {fileID: 46, guid: 0000000000000000f000000000000000,
             type: 0}
           <Index>k__BackingField: 21
-          <Name>k__BackingField: _DetailNormalMap
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _DetailNormalMap
           <TextureType>k__BackingField: 5
+    - <Key>k__BackingField: {fileID: 106, guid: 0000000000000000f000000000000000,
+        type: 0}
+      <Value>k__BackingField:
+        _items: []
+    - <Key>k__BackingField: {fileID: 103, guid: 0000000000000000f000000000000000,
+        type: 0}
+      <Value>k__BackingField:
+        _items:
+        - <Shader>k__BackingField: {fileID: 103, guid: 0000000000000000f000000000000000,
+            type: 0}
+          <Index>k__BackingField: 3
+          <Type>k__BackingField: 4
+          <Name>k__BackingField: _Tex
+          <TextureType>k__BackingField: 1
     - <Key>k__BackingField: {fileID: 10752, guid: 0000000000000000f000000000000000,
         type: 0}
       <Value>k__BackingField:
@@ -582,8 +596,8 @@ MonoBehaviour:
         - <Shader>k__BackingField: {fileID: 10752, guid: 0000000000000000f000000000000000,
             type: 0}
           <Index>k__BackingField: 0
-          <Name>k__BackingField: _MainTex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _MainTex
           <TextureType>k__BackingField: 1
     - <Key>k__BackingField: {fileID: 10723, guid: 0000000000000000f000000000000000,
         type: 0}
@@ -592,8 +606,8 @@ MonoBehaviour:
         - <Shader>k__BackingField: {fileID: 10723, guid: 0000000000000000f000000000000000,
             type: 0}
           <Index>k__BackingField: 0
-          <Name>k__BackingField: _MainTex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _MainTex
           <TextureType>k__BackingField: 1
     - <Key>k__BackingField: {fileID: 4800000, guid: 2dcd9e0568e0a6f45b92c60ba2eb16a0,
         type: 3}
@@ -602,8 +616,8 @@ MonoBehaviour:
         - <Shader>k__BackingField: {fileID: 4800000, guid: 2dcd9e0568e0a6f45b92c60ba2eb16a0,
             type: 3}
           <Index>k__BackingField: 0
-          <Name>k__BackingField: _MainTex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _MainTex
           <TextureType>k__BackingField: 1
     - <Key>k__BackingField: {fileID: 200, guid: 0000000000000000f000000000000000,
         type: 0}
@@ -612,8 +626,8 @@ MonoBehaviour:
         - <Shader>k__BackingField: {fileID: 200, guid: 0000000000000000f000000000000000,
             type: 0}
           <Index>k__BackingField: 1
-          <Name>k__BackingField: _MainTex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _MainTex
           <TextureType>k__BackingField: 1
     - <Key>k__BackingField: {fileID: 4800000, guid: 693137b858e4dc64c83be531351f45e6,
         type: 3}
@@ -622,8 +636,8 @@ MonoBehaviour:
         - <Shader>k__BackingField: {fileID: 4800000, guid: 693137b858e4dc64c83be531351f45e6,
             type: 3}
           <Index>k__BackingField: 0
-          <Name>k__BackingField: _MainTex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _MainTex
           <TextureType>k__BackingField: 1
     - <Key>k__BackingField: {fileID: 4800000, guid: 9788d723ed7eac946a9a599e4a6ba940,
         type: 3}
@@ -632,6 +646,6 @@ MonoBehaviour:
         - <Shader>k__BackingField: {fileID: 4800000, guid: 9788d723ed7eac946a9a599e4a6ba940,
             type: 3}
           <Index>k__BackingField: 0
-          <Name>k__BackingField: _MainTex
           <Type>k__BackingField: 4
+          <Name>k__BackingField: _MainTex
           <TextureType>k__BackingField: 1

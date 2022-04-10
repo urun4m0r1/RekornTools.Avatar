@@ -11,7 +11,7 @@ namespace VRCAvatarTools
 
     [Serializable] public class Renderers : ComponentList<Renderer> { }
 
-    [Serializable] public class ShaderPropertiesTables : SerializedList<ShaderPropertiesTable> { }
+    [Serializable] public class ShaderPropertiesPerShaderMaps : SerializedList<ShaderPropertiesPerShaderMap> { }
 
-    [Serializable] public class TexturePresetTables : SerializedList<TexturePresetTable> { }
+    [Serializable] public class TypedTexturePresetMaps : SerializedList<TypedTexturePresetMap> { }
 }

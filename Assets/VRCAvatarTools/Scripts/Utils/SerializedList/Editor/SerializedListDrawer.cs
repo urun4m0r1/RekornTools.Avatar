@@ -6,7 +6,7 @@ namespace VRCAvatarTools
     [CustomPropertyDrawer(typeof(SerializedList<>), true)]
     public class SerializedListDrawer : SerializedPropertyDrawer
     {
-        private readonly ReorderableListHelper _helper = new ReorderableListHelper(SerializedList.ListName);
+        protected readonly ReorderableListHelper _helper = new ReorderableListHelper(SerializedList.ListName);
 
         protected override void DrawProperty(Rect rect, SerializedProperty property, GUIContent _) =>
             _helper.Update(property).Draw(rect);

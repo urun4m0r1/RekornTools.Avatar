@@ -10,26 +10,22 @@ namespace VRCAvatarTools
     {
         [NotNull] public const string ShaderField      = nameof(Shader);
         [NotNull] public const string IndexField       = nameof(Index);
-        [NotNull] public const string NameField        = nameof(Name);
         [NotNull] public const string TypeField        = nameof(Type);
+        [NotNull] public const string NameField        = nameof(Name);
         [NotNull] public const string TextureTypeField = nameof(TextureType);
 
         [field: SerializeField] public Shader             Shader      { get; private set; }
         [field: SerializeField] public int                Index       { get; private set; }
-        [field: SerializeField] public string             Name        { get; private set; }
         [field: SerializeField] public ShaderPropertyType Type        { get; private set; }
+        [field: SerializeField] public string             Name        { get; private set; }
         [field: SerializeField] public TextureType        TextureType { get; set; }
 
-        public ShaderProperty(
-            [NotNull] Shader   shader,
-            int                index,
-            [NotNull] string   name,
-            ShaderPropertyType type)
+        public ShaderProperty([NotNull] Shader shader, int index, ShaderPropertyType type, [NotNull] string name)
         {
             Shader = shader;
             Index  = index;
-            Name   = name;
             Type   = type;
+            Name   = name;
 
             if (type == ShaderPropertyType.Texture)
                 TextureType = AssumeTextureType(name);

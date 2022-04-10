@@ -7,7 +7,7 @@ namespace VRCAvatarTools
     [CustomPropertyDrawer(typeof(SerializedKeyValue<,>), true)]
     public class SerializedKeyValueDrawer : SerializedPropertyDrawer
     {
-        private static readonly SerializedKeyValueHelper Helper = new SerializedKeyValueHelper(KeyField, ValueField);
+        protected static readonly SerializedKeyValueHelper Helper = new SerializedKeyValueHelper(KeyField, ValueField);
 
         protected override void DrawProperty(Rect rect, SerializedProperty property, GUIContent _) =>
             Helper?.Update(property).DrawVertical(rect, true);
