@@ -10,14 +10,11 @@ namespace VRCAvatarTools
     [System.Serializable]
     public class ComponentList<T> : SerializedList<T> where T : Component
     {
-        private static readonly string ClassName = nameof(SerializedList<T>);
-        private static readonly string TypeName  = typeof(T).Name;
-        [NotNull] private       string Header => $"[{ClassName}<{TypeName}>]";
-
         private void ShowDialog([NotNull] string message)
         {
-            Debug.LogWarning($"{Header} {message}");
-            EditorUtility.DisplayDialog(Header, message, "Confirm");
+            var header = $"[{nameof(SerializedList<T>)}<{typeof(T).Name}>]";
+            Debug.LogWarning($"{header} {message}");
+            EditorUtility.DisplayDialog(header, message, "Confirm");
         }
 
         public void DestroyItems()
