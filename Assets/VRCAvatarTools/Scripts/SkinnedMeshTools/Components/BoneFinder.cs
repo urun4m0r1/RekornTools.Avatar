@@ -13,21 +13,21 @@ namespace VRCAvatarTools
     [RequireComponent(typeof(MeshBonePairs))]
     public sealed class BoneFinder : MonoBehaviour
     {
-        [field: SerializeField, Label(nameof(MeshParent))]  public Transform MeshParent  { get; set; }
-        [field: SerializeField, Label(nameof(BoneParent))]  public Transform BoneParent  { get; set; }
-        [field: SerializeField, Label(nameof(MeshKeyword))] public string    MeshKeyword { get; set; }
-        [field: SerializeField, Label(nameof(BoneKeyword))] public string    BoneKeyword { get; set; }
-
         private const string ClassName = nameof(BoneFinder);
 
-        [NotNull] private SkinnedMeshRenderers Meshes =>
-            _meshBonePairs ? _meshBonePairs.Meshes : throw new NullReferenceException();
+        [field: SerializeField, Label(nameof(MeshParent))] [CanBeNull] public Transform MeshParent { get; set; }
+        [field: SerializeField, Label(nameof(BoneParent))] [CanBeNull] public Transform BoneParent { get; set; }
 
-        [NotNull] private Transforms Bones =>
-            _meshBonePairs ? _meshBonePairs.Bones : throw new NullReferenceException();
+        [field: SerializeField, Label(nameof(MeshKeyword))] [NotNull] public string MeshKeyword { get; set; } = "";
+        [field: SerializeField, Label(nameof(BoneKeyword))] [NotNull] public string BoneKeyword { get; set; } = "";
 
-        [CanBeNull] private MeshBonePairs _meshBonePairs;
+        [NotNull] private SkinnedMeshRenderers Meshes => _meshBonePairs.Meshes;
+        [NotNull] private Transforms           Bones  => _meshBonePairs.Bones;
 
+        // ReSharper disable once NotNullMemberIsNotInitialized
+        [NotNull] private MeshBonePairs _meshBonePairs;
+
+        // ReSharper disable once AssignNullToNotNullAttribute
         private void Awake() => _meshBonePairs = GetComponent<MeshBonePairs>();
 
         public void FindMeshesFromTargetWithKeyword()
@@ -41,7 +41,7 @@ namespace VRCAvatarTools
             Undo.RegisterCompleteObjectUndo(_meshBonePairs, ClassName);
             {
                 Bones.Initialize(BoneParent, BoneKeyword);
-                Bones.RemoveRange(Meshes.Select(x => x.transform).ToList());
+                Bones.RemoveRange(Meshes.Select(x => x ? x.transform : null).ToList());
                 Bones.Remove(BoneParent);
             }
             if (Bones.Count == 0) this.ShowConfirmDialog("No objects found");

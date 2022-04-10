@@ -59,7 +59,7 @@ namespace VRCAvatarTools
 
         public bool TryGetSelections([NotNull] out Object[] selections)
         {
-            selections = this.Select(x => x ? x.gameObject as Object : null).Where(x => x).ToArray();
+            selections = this.Select(x => x ? x.gameObject as Object : null).ToArray();
             return selections.Length != 0;
         }
 
