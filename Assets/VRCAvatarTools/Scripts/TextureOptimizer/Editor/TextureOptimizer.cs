@@ -2,37 +2,39 @@
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
+using static VRCAvatarTools.EditorGUILayoutExtensions;
 
 namespace VRCAvatarTools.Editor
 {
     public class TextureOptimizer : SerializedEditorWindow<TextureOptimizer>
     {
-        [SerializeField] [CanBeNull] private TexturePresetSettings _presetSettings;
-        [SerializeField] [CanBeNull] private ShaderPropertiesTable _shaderPropertiesTable;
+        [SerializeField] private TexturePresetSettings _presetSettings;
+        [SerializeField] private ShaderPropertiesTable _shaderPropertiesTable;
 
         [MenuItem("Tools/VRC Avatar Tools/Texture Optimizer")]
         private static void OnWindowOpen() => GetWindow<TextureOptimizer>("Texture Optimizer")?.Show();
 
         protected override void Draw()
         {
-            _presetSettings = _presetSettings.GetInstance();
-            _presetSettings.Validate();
-            _presetSettings.DrawEditor();
-
-            _shaderPropertiesTable = _shaderPropertiesTable.GetInstance();
-            DrawShaderPropertyMap(_shaderPropertiesTable);
-        }
-
-        private static void DrawShaderPropertyMap([NotNull] ShaderPropertiesTable shaderPropertiesTable)
-        {
-            GUILayout.BeginHorizontal();
+            _presetSettings = ObjectField("", _presetSettings, false);
+            if (_presetSettings)
             {
-                if (GUILayout.Button("Update Shaders")) shaderPropertiesTable.UpdateShaders();
-                if (GUILayout.Button("Reset Items")) shaderPropertiesTable.ResetItems();
+                _presetSettings.Validate(); // 바로 UI로 저장 안되는 문제 해결
+                _presetSettings.DrawEditor();
             }
-            GUILayout.EndHorizontal();
 
-            shaderPropertiesTable.DrawEditor();
+            _shaderPropertiesTable = ObjectField("", _shaderPropertiesTable, false);
+            if (_shaderPropertiesTable)
+            {
+                GUILayout.BeginHorizontal();
+                {
+                    if (GUILayout.Button("Update Shaders")) _shaderPropertiesTable.UpdateShaders();
+                    if (GUILayout.Button("Reset Items")) _shaderPropertiesTable.ResetItems();
+                }
+                GUILayout.EndHorizontal();
+
+                _shaderPropertiesTable.DrawEditor();
+            }
         }
     }
 }
