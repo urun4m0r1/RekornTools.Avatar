@@ -13,18 +13,30 @@ namespace VRCAvatarTools
 
         private void OnEnable()
         {
-            var data = EditorPrefs.GetString(PrefPath, EditorJsonUtility.ToJson(this, false));
-            EditorJsonUtility.FromJsonOverwrite(data, this);
+            EditorApplication.quitting += SaveSerializedData;
+            LoadSerializedData();
             Enable();
             _isSerializedFieldsReady = true;
         }
 
         private void OnDisable()
         {
-            var data = EditorJsonUtility.ToJson(this, false);
-            EditorPrefs.SetString(PrefPath, data);
+            EditorApplication.quitting -= SaveSerializedData;
+            SaveSerializedData();
             Disable();
             _isSerializedFieldsReady = false;
+        }
+
+        private void LoadSerializedData()
+        {
+            var data = EditorPrefs.GetString(PrefPath, EditorJsonUtility.ToJson(this, false));
+            EditorJsonUtility.FromJsonOverwrite(data, this);
+        }
+
+        private void SaveSerializedData()
+        {
+            var data = EditorJsonUtility.ToJson(this, false);
+            EditorPrefs.SetString(PrefPath, data);
         }
 
         protected virtual void Enable()  { }
