@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ namespace VRCAvatarTools.Editor
         protected override void Draw()
         {
             _presetSettings = _presetSettings.GetInstance();
+            _presetSettings.Validate();
             _presetSettings.DrawEditor();
 
             _shaderPropertiesTable = _shaderPropertiesTable.GetInstance();
