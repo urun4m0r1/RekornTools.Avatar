@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace VRCAvatarTools
 {
-    [CustomPropertyDrawer(typeof(SerializedList<>), true)]
-    public class SerializedListDrawer : SerializedPropertyDrawer
+    [CustomPropertyDrawer(typeof(SerializedDictionary<,,>), true)]
+    public class SerializedDictionaryDrawer : SerializedPropertyDrawer
     {
-        [NotNull] protected readonly ReorderableListHelper Helper = new ReorderableListHelper(SerializedList.FieldName);
+        [NotNull] protected readonly ReorderableListHelper Helper = new ReorderableListHelper(SerializedDictionary.FieldName);
 
         protected override void DrawProperty(Rect rect, SerializedProperty property, GUIContent _) =>
             Helper.Update(property).Draw(rect);

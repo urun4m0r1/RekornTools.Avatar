@@ -1,6 +1,4 @@
-﻿using System;
-using JetBrains.Annotations;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using static VRCAvatarTools.EditorGUILayoutExtensions;
 
@@ -17,11 +15,7 @@ namespace VRCAvatarTools.Editor
         protected override void Draw()
         {
             _presetSettings = ObjectField("", _presetSettings, false);
-            if (_presetSettings)
-            {
-                _presetSettings.Validate(); // 바로 UI로 저장 안되는 문제 해결
-                _presetSettings.DrawEditor();
-            }
+            if (_presetSettings) _presetSettings.DrawEditor();
 
             _shaderPropertiesTable = ObjectField("", _shaderPropertiesTable, false);
             if (_shaderPropertiesTable)
@@ -32,7 +26,7 @@ namespace VRCAvatarTools.Editor
                     if (GUILayout.Button("Reset Items")) _shaderPropertiesTable.ResetItems();
                 }
                 GUILayout.EndHorizontal();
-
+            
                 _shaderPropertiesTable.DrawEditor();
             }
         }

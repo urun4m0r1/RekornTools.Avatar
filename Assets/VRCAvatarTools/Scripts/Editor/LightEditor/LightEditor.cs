@@ -13,6 +13,9 @@ namespace VRCAvatarTools.Editor
         [SerializeField] private Light         _sun;
         [SerializeField] private LightScenario _scenario;
 
+        [MenuItem("Tools/VRC Avatar Tools/Light Editor")] private static void OnWindowOpen() =>
+            GetWindow<LightEditor>("Light Editor")?.Show();
+
         protected override void Enable()
         {
             EditorSceneManager.activeSceneChangedInEditMode += OnSceneChanged;
@@ -33,8 +36,6 @@ namespace VRCAvatarTools.Editor
             if (_sun == null) _sun = new GameObject(sunName).AddComponent<Light>();
         }
 
-        [MenuItem("Tools/VRC Avatar Tools/Light Editor")] private static void OnWindowOpen() => GetWindow<LightEditor>("Light Editor")?.Show();
-
         protected override void Draw()
         {
             LabelField("Light Preset", EditorStyles.boldLabel);
@@ -44,21 +45,6 @@ namespace VRCAvatarTools.Editor
 
             _scenario = ObjectField("Scenario", _scenario, false);
             DrawLightScenario();
-        }
-
-        private void DrawLightScenario()
-        {
-            EditorGUI.BeginDisabledGroup(_ignoreLighting);
-            {
-                if (!_scenario) return;
-
-                HorizontalLine();
-
-                _scenario.DrawEditor();
-            }
-            EditorGUI.EndDisabledGroup();
-
-            _scenario.Apply(_sun);
         }
 
         private static void SetCurrentSceneViewLighting(bool isEnable)
@@ -73,6 +59,15 @@ namespace VRCAvatarTools.Editor
                 view.sceneLighting = isEnable;
                 view.Repaint();
             }
+        }
+
+        private void DrawLightScenario()
+        {
+            if (!_scenario) return;
+
+            HorizontalLine();
+            _scenario.DrawEditor(_ignoreLighting);
+            _scenario.Apply(_sun);
         }
     }
 }

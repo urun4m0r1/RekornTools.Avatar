@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 271094caa09e4937b2690fdce7b07442, type: 3}
   m_Name: Day
   m_EditorClassIdentifier: 
-  Skybox: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  Skybox: {fileID: 2100000, guid: 07ba3fd7d8c509743a614aaa14e363c4, type: 2}
   UseShadow: 1
-  ReflectionIntensity: 0.415
+  ReflectionIntensity: 0.5
   SunDirection: {x: -0.5, y: -1, z: 0.5}
   SyncColor: 0
   SunColor: {r: 1, g: 1, b: 1, a: 0}

@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 271094caa09e4937b2690fdce7b07442, type: 3}
   m_Name: Full Brightness
   m_EditorClassIdentifier: 
-  <Skybox>k__BackingField: {fileID: 10304, guid: 0000000000000000f000000000000000,
-    type: 0}
-  <UseShadow>k__BackingField: 1
-  <ReflectionIntensity>k__BackingField: 0.5
-  <SunDirection>k__BackingField: {x: -0.5, y: -1, z: 1}
-  <SyncColor>k__BackingField: 1
-  <SunColor>k__BackingField: {r: 1, g: 1, b: 1, a: 0}
-  <SunIntensity>k__BackingField: 8
-  <UseSkyboxColor>k__BackingField: 0
-  <SkyColor>k__BackingField: {r: 1, g: 1, b: 1, a: 0}
-  <SkyboxIntensity>k__BackingField: 8
+  Skybox: {fileID: 2100000, guid: 08583edbd95894646806a995e12cbb84, type: 2}
+  UseShadow: 0
+  ReflectionIntensity: 1
+  SunDirection: {x: -0, y: -1, z: -0}
+  SyncColor: 0
+  SunColor: {r: 1, g: 1, b: 1, a: 0}
+  SunIntensity: 8
+  UseSkyboxColor: 0
+  SkyColor: {r: 1, g: 1, b: 1, a: 0}
+  SkyboxIntensity: 8

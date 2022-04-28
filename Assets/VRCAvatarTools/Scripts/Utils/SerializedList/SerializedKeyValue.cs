@@ -7,8 +7,8 @@ namespace VRCAvatarTools
 {
     public sealed class SerializedKeyValue : SerializedKeyValue<object, object>
     {
-        [NotNull] public static string KeyField   => nameof(Key);
-        [NotNull] public static string ValueField => nameof(Value);
+        [NotNull] public static string KeyFieldName   => nameof(Key);
+        [NotNull] public static string ValueFieldName => nameof(Value);
     }
 
     [Serializable] public class SerializedKeyValue<K, V>

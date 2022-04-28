@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 271094caa09e4937b2690fdce7b07442, type: 3}
   m_Name: Sunrise
   m_EditorClassIdentifier: 
-  <Skybox>k__BackingField: {fileID: 10304, guid: 0000000000000000f000000000000000,
-    type: 0}
-  <UseShadow>k__BackingField: 1
-  <ReflectionIntensity>k__BackingField: 0.5
-  <SunDirection>k__BackingField: {x: 0.5, y: 0, z: -1}
-  <SyncColor>k__BackingField: 0
-  <SunColor>k__BackingField: {r: 1, g: 0, b: 0, a: 0}
-  <SunIntensity>k__BackingField: 2.33
-  <UseSkyboxColor>k__BackingField: 0
-  <SkyColor>k__BackingField: {r: 0, g: 0.9167206, b: 1, a: 0}
-  <SkyboxIntensity>k__BackingField: 0.5
+  Skybox: {fileID: 2100000, guid: 07ba3fd7d8c509743a614aaa14e363c4, type: 2}
+  UseShadow: 1
+  ReflectionIntensity: 0.5
+  SunDirection: {x: 0, y: 0.05, z: -0.5}
+  SyncColor: 0
+  SunColor: {r: 0, g: 0.71642184, b: 1, a: 0}
+  SunIntensity: 1
+  UseSkyboxColor: 0
+  SkyColor: {r: 1, g: 0.3795064, b: 0, a: 0}
+  SkyboxIntensity: 0.5

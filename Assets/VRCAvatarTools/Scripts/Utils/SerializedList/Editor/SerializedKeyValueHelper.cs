@@ -9,16 +9,13 @@ namespace VRCAvatarTools
         [CanBeNull] public SerializedProperty Key   { get; private set; }
         [CanBeNull] public SerializedProperty Value { get; private set; }
 
-        [NotNull] private readonly string _keyName;
-        [NotNull] private readonly string _valueName;
+        [NotNull] private readonly string _keyName =
+            ReflectionExtensions.ResolveFieldName(SerializedKeyValue.KeyFieldName);
+
+        [NotNull] private readonly string _valueName =
+            ReflectionExtensions.ResolveFieldName(SerializedKeyValue.ValueFieldName);
 
         [CanBeNull] private SerializedProperty _container;
-
-        public SerializedKeyValueHelper([NotNull] string keyName, [NotNull] string valueName)
-        {
-            _keyName   = ReflectionExtensions.ResolveFieldName(keyName);
-            _valueName = ReflectionExtensions.ResolveFieldName(valueName);
-        }
 
         [NotNull] public SerializedKeyValueHelper Update([CanBeNull] SerializedProperty container)
         {

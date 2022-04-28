@@ -6,7 +6,7 @@ namespace VRCAvatarTools
 {
     public abstract class SerializedEditorWindow<T> : EditorWindow
     {
-        [NotNull] private static string PrefPath => Application.identifier + "/" + typeof(T);
+        [NotNull] private static string PrefPath => $"{Application.identifier}/{typeof(T)}";
 
         private Vector2 _scrollPosition = Vector2.zero;
         private bool    _isSerializedFieldsReady;
@@ -49,12 +49,6 @@ namespace VRCAvatarTools
                 if (_isSerializedFieldsReady) Draw();
             }
             GUILayout.EndScrollView();
-
-            if (GUI.changed)
-            {
-                Repaint();
-                EditorUtility.SetDirty(this);
-            }
         }
 
         protected abstract void Draw();

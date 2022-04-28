@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace VRCAvatarTools.Editor
 {
-    [CustomPropertyDrawer(typeof(TypedTexturePresetMap))]
-    public class TypedTexturePresetMapDrawer : SerializedKeyValueDrawer
+    [CustomPropertyDrawer(typeof(TexturePresetByType))]
+    public class TexturePresetByTypeDrawer : SerializedKeyValueDrawer
     {
         protected override void DrawProperty(Rect rect, SerializedProperty property, GUIContent _) =>
             Helper.Update(property).DrawHorizontal(rect, 0.2f, true);

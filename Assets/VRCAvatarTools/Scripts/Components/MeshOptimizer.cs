@@ -1,4 +1,6 @@
 ﻿#if UNITY_EDITOR
+using System.Diagnostics.CodeAnalysis;
+using JetBrains.Annotations;
 using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
@@ -8,10 +10,10 @@ namespace VRCAvatarTools
     [ExecuteInEditMode]
     public class MeshOptimizer : MonoBehaviour
     {
-        [SerializeField] private Transform               parent;
+        [SerializeField] private Transform            parent;
         [SerializeField] private SkinnedMeshRenderers meshes = new SkinnedMeshRenderers();
-        [SerializeField] private Transform               anchorOverride;
-        [SerializeField] private Bounds                  boundingBox;
+        [SerializeField] private Transform            anchorOverride;
+        [SerializeField] private Bounds               boundingBox;
 
         private Transform _prevParent;
 
@@ -31,8 +33,12 @@ namespace VRCAvatarTools
 
         private void OnDrawGizmosSelected()
         {
+            if (meshes?.Count == 0) return;
+
             foreach (var mesh in meshes)
             {
+                if (!mesh) continue;
+
                 var prevBounds = mesh.localBounds;
                 var bounds     = mesh.bounds;
 
@@ -50,7 +56,8 @@ namespace VRCAvatarTools
             }
         }
 
-        private static void RepaintRenderer<T>(T renderer) where T : Renderer
+        [SuppressMessage("ReSharper", "Unity.InefficientPropertyAccess")]
+        private static void RepaintRenderer<T>([NotNull] T renderer) where T : Renderer
         {
             renderer.enabled = false;
             renderer.enabled = true;

@@ -10,23 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3f4698d610241f38d8d77c8b50f9520, type: 3}
-  m_Name: Texture Importer Settings
+  m_Name: New Texture Preset Settings
   m_EditorClassIdentifier: 
-  Presets:
+  PresetMap:
     _items:
-    - <Key>k__BackingField: 0
-      <Value>k__BackingField: {fileID: 2655988077585873504, guid: df42b2d94c1d96745a1b972c07fb2dc8,
-        type: 2}
-    - <Key>k__BackingField: 0
+    - <Key>k__BackingField: 1
       <Value>k__BackingField: {fileID: 0}
-    - <Key>k__BackingField: 0
-      <Value>k__BackingField: {fileID: 2655988077585873504, guid: df42b2d94c1d96745a1b972c07fb2dc8,
-        type: 2}
-    - <Key>k__BackingField: 0
+    - <Key>k__BackingField: 2
       <Value>k__BackingField: {fileID: 0}
-    - <Key>k__BackingField: 0
+    - <Key>k__BackingField: 3
       <Value>k__BackingField: {fileID: 0}
-    - <Key>k__BackingField: 0
+    - <Key>k__BackingField: 4
       <Value>k__BackingField: {fileID: 0}
-    - <Key>k__BackingField: 0
+    - <Key>k__BackingField: 5
+      <Value>k__BackingField: {fileID: 0}
+    - <Key>k__BackingField: 6
+      <Value>k__BackingField: {fileID: 0}
+    - <Key>k__BackingField: 7
       <Value>k__BackingField: {fileID: 0}

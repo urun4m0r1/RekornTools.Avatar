@@ -8,37 +8,37 @@ namespace VRCAvatarTools
 {
     public sealed class SerializedList : SerializedList<object>
     {
-        [NotNull] public const string ListName = nameof(_items);
+        [NotNull] public const string FieldName = nameof(Items);
     }
 
     [Serializable]
     public class SerializedList<T> : IList<T>
     {
-        [SerializeField, NotNull] protected List<T> _items = new List<T>();
+        [SerializeField, NotNull] protected List<T> Items = new List<T>();
 
 #region Interface
-        public IEnumerator<T>   GetEnumerator() => _items.GetEnumerator();
-        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)_items).GetEnumerator();
+        public IEnumerator<T>   GetEnumerator() => Items.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)Items).GetEnumerator();
 
-        public void Add(T    item) => _items.Add(item);
-        public bool Remove(T item) => _items.Remove(item);
+        public void Add(T    item) => Items.Add(item);
+        public bool Remove(T item) => Items.Remove(item);
 
-        public bool Contains(T item) => _items.Contains(item);
-        public int  IndexOf(T  item) => _items.IndexOf(item);
+        public bool Contains(T item) => Items.Contains(item);
+        public int  IndexOf(T  item) => Items.IndexOf(item);
 
-        public void Insert(int   index, T item) => _items.Insert(index, item);
-        public void RemoveAt(int index) => _items.RemoveAt(index);
+        public void Insert(int   index, T item) => Items.Insert(index, item);
+        public void RemoveAt(int index) => Items.RemoveAt(index);
 
-        public void CopyTo(T[] array, int arrayIndex) => _items.CopyTo(array, arrayIndex);
-        public void Clear() => _items.Clear();
+        public void CopyTo(T[] array, int arrayIndex) => Items.CopyTo(array, arrayIndex);
+        public void Clear() => Items.Clear();
 
-        public int  Count      => _items.Count;
+        public int  Count      => Items.Count;
         public bool IsReadOnly => false;
 
         [CanBeNull] public T this[int index]
         {
-            get => _items[index];
-            set => _items[index] = value;
+            get => Items[index];
+            set => Items[index] = value;
         }
 #endregion // Interface
 

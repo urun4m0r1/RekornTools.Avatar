@@ -1,54 +1,55 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using UnityEditor.Presets;
 using UnityEngine;
 
 namespace VRCAvatarTools
 {
-    [Serializable] public class TypedTexturePresetMap : SerializedKeyValue<TextureType, Preset> { }
+    [Serializable] public class TexturePresetMapByType : SerializedDictionary<TexturePresetByType, TextureType, Preset> { }
+    [Serializable] public class TexturePresetByType : SerializedKeyValue<TextureType, Preset> { }
 
     [CreateAssetMenu(menuName = "VRC Avatar Tools/Texture Importer Settings")]
     public class TexturePresetSettings : ScriptableObject
     {
         [SerializeField, ListMutable(false)] [NotNull]
-        public TypedTexturePresetMaps Presets = new TypedTexturePresetMaps();
+        public TexturePresetMapByType PresetMap = new TexturePresetMapByType();
 
-        public void Awake()
+        [NotNull] private readonly List<TextureType> _types =
+            Enum.GetValues(typeof(TextureType)).Cast<TextureType>().ToList();
+
+        public void OnEnable()
         {
-            if (Presets.Count != GetEnumLength<TextureType>() - 1)
+            foreach (var type in _types)
             {
-                Presets.Clear();
-                foreach (TextureType type in Enum.GetValues(typeof(TextureType)))
-                {
-                    if (type == TextureType.None) continue;
+                if (type == TextureType.None)
+                    continue;
 
-                    var presetMap = new TypedTexturePresetMap
-                    {
-                        Key = type,
-                    };
+                if (!PresetMap.ContainsKey(type))
+                    PresetMap.Add(type, null);
+            }
 
-                    Presets.Add(presetMap);
-                }
+            foreach (var map in PresetMap)
+            {
+                if (!_types.Contains(map.Key))
+                    PresetMap.Remove(map.Key);
             }
         }
 
-        public void Validate()
+        private void OnValidate()
         {
-            foreach (var preset in Presets)
+            foreach (var map in PresetMap)
             {
-                if (preset == null || !preset.Value) return;
+                if (!map.Value)
+                    return;
 
-                if (!IsPresetTypeValid(preset.Value, "UnityEditor.TextureImporter"))
-                {
-                    preset.Value = null;
-                }
+                if (!IsPresetTypeValid(map.Value, "UnityEditor.TextureImporter"))
+                    PresetMap[map.Key] = null;
             }
         }
-
 
         private static bool IsPresetTypeValid([NotNull] Preset preset, [NotNull] string name) =>
             preset.GetPresetType().GetManagedTypeName()?.Equals(name) ?? false;
-
-        private static int GetEnumLength<T>() => Enum.GetValues(typeof(T)).Length;
     }
 }
