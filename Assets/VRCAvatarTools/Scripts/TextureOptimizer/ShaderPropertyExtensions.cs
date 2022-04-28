@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -8,6 +9,7 @@ namespace VRCAvatarTools
 {
     public static class ShaderPropertyExtensions
     {
+        [NotNull]
         public static List<Shader> GetUsedShadersInProject()
         {
             var shaders = new List<Shader>();
@@ -37,7 +39,7 @@ namespace VRCAvatarTools
 
         public static ShaderProperties GetTexturePropertyList(this Shader shader)
         {
-            var properties = new ShaderProperties(shader);
+            var properties = new ShaderProperties();
 
             if (shader.TryGetShaderPropertyCount(out int count))
                 for (var i = 0; i < count; i++)

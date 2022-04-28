@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -11,10 +12,12 @@ namespace VRCAvatarTools
     public class TextureOptimizerScript : MonoBehaviour
     {
         [SerializeField] private TexturePresetSettings settings;
-        [SerializeField] private Transform               parent;
-        [SerializeField] private Renderers            meshes = new Renderers();
+        [SerializeField] private Transform             parent;
 
-        [SerializeField, ListMutable(false), ListSpan(false)] private TypedTexturesMaps typedTexturesMaps = new TypedTexturesMaps();
+        [SerializeField] [NotNull] private Renderers meshes = new Renderers();
+
+        [SerializeField, ListMutable(false), ListSpan(false)] [NotNull]
+        private TexturesMapByType texturesMap = new TexturesMapByType();
 
         private Transform _prevParent;
 
@@ -30,17 +33,12 @@ namespace VRCAvatarTools
                 _prevParent = parent;
                 meshes.Initialize(parent);
 
-                typedTexturesMaps.Clear();
+                texturesMap.Clear();
 
                 foreach (var type in Enum.GetValues(typeof(TextureType)))
                 {
                     if ((TextureType)type == TextureType.None) continue;
-                    var map = new TypedTexturesMap
-                    {
-                        Key   = (TextureType)type,
-                        Value = new Textures(),
-                    };
-                    typedTexturesMaps.Add(map);
+                    texturesMap.Add((TextureType)type, new Textures());
                 }
 
                 // foreach (var table in textureTypeListMapList)
@@ -83,7 +81,7 @@ namespace VRCAvatarTools
                     var texture = material.GetTexture(property.Name);
                     if (!texture) continue;
                     if (list.Contains(texture)) continue;
-                    if (typedTexturesMaps.Count(t => t.Value?.Contains(texture) == true) > 0) continue;
+                    if (texturesMap.Count(t => t.Value?.Contains(texture) == true) > 0) continue;
 
                     list.Add(texture);
                 }

@@ -24,8 +24,7 @@ namespace VRCAvatarTools
         {
             foreach (var type in _types)
             {
-                if (type == TextureType.None)
-                    continue;
+                if (type == TextureType.None) continue;
 
                 if (!PresetMap.ContainsKey(type))
                     PresetMap.Add(type, null);
@@ -33,6 +32,8 @@ namespace VRCAvatarTools
 
             foreach (var map in PresetMap)
             {
+                if (map.Key == TextureType.None) continue;
+
                 if (!_types.Contains(map.Key))
                     PresetMap.Remove(map.Key);
             }

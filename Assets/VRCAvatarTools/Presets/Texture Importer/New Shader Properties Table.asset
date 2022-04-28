@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89d3ec4237704783bffc3ea47b9602ba, type: 3}
-  m_Name: Shader Properties Table
+  m_Name: New Shader Properties Table
   m_EditorClassIdentifier: 
-  perShaderMaps:
-    Items:
+  ShaderPropertiesMap:
+    _items:
     - <Key>k__BackingField: {fileID: 211, guid: 0000000000000000f000000000000000,
         type: 0}
       <Value>k__BackingField:
