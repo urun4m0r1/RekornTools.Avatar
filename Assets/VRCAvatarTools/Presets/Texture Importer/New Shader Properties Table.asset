@@ -575,10 +575,6 @@ MonoBehaviour:
           <Type>k__BackingField: 4
           <Name>k__BackingField: _DetailNormalMap
           <TextureType>k__BackingField: 5
-    - <Key>k__BackingField: {fileID: 106, guid: 0000000000000000f000000000000000,
-        type: 0}
-      <Value>k__BackingField:
-        Items: []
     - <Key>k__BackingField: {fileID: 103, guid: 0000000000000000f000000000000000,
         type: 0}
       <Value>k__BackingField:

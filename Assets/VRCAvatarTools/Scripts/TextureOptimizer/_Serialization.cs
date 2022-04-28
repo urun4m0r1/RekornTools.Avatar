@@ -9,6 +9,8 @@ namespace VRCAvatarTools
 
     [Serializable] public class Renderers : ComponentList<Renderer> { }
 
+    [Serializable] public class TextureProperties : SerializedList<TextureProperty> { }
+
     [Serializable] public class ShaderProperties : SerializedList<ShaderProperty> { }
 #endregion // List
 
@@ -17,7 +19,7 @@ namespace VRCAvatarTools
 
     [Serializable] public class TexturesMapByType : SerializedDictionary<TexturesByType, TextureType, Textures> { }
 
-    [Serializable] public class ShaderPropertiesMapByShader : SerializedDictionary<ShaderPropertiesByShader, Shader, ShaderProperties> { }
+    [Serializable] public class TexturePropertiesMapByShader : SerializedDictionary<TexturePropertiesByShader, Shader, TextureProperties> { }
 #endregion // Dictionary
 
 #region KeyValue
@@ -25,6 +27,6 @@ namespace VRCAvatarTools
 
     [Serializable] public class TexturesByType : SerializedKeyValue<TextureType, Textures> { }
 
-    [Serializable] public class ShaderPropertiesByShader : SerializedKeyValue<Shader, ShaderProperties> { }
+    [Serializable] public class TexturePropertiesByShader : SerializedKeyValue<Shader, TextureProperties> { }
 #endregion // KeyValue
 }

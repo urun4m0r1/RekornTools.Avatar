@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -8,34 +8,41 @@ namespace VRCAvatarTools
     public class ShaderPropertiesTable : ScriptableObject
     {
         [SerializeField, ListSpan(false), ListMutable(false)] [NotNull]
-        public ShaderPropertiesMapByShader ShaderPropertiesMap = new ShaderPropertiesMapByShader();
+        public TexturePropertiesMapByShader texturePropertiesMap = new TexturePropertiesMapByShader();
 
-        [NotNull] private static List<Shader> ProjectShaders => ShaderPropertyExtensions.GetUsedShadersInProject();
-
-        public void ResetItems()
-        {
-            ShaderPropertiesMap.Clear();
-            MatchDictionaryType();
-        }
 
         public void OnEnable() => MatchDictionaryType();
 
+        public void UpdateTable() => MatchDictionaryType();
+
+        public void ResetTable()
+        {
+            texturePropertiesMap.Clear();
+            MatchDictionaryType();
+        }
+
         private void MatchDictionaryType()
         {
-            foreach (var shader in ProjectShaders)
+            var shaders = ShaderPropertyExtensions.AllUserShadersInProject?.ToList();
+            if (shaders == null) return;
+
+            foreach (var shader in shaders)
             {
                 if (shader == null) continue;
 
-                if (!ShaderPropertiesMap.ContainsKey(shader))
-                    ShaderPropertiesMap.Add(shader, shader.GetTexturePropertyList());
+                if (!texturePropertiesMap.ContainsKey(shader))
+                {
+                    var value = shader.GetTexturePropertyList();
+                    if (value != null) texturePropertiesMap.Add(shader, value);
+                }
             }
 
-            foreach (var map in ShaderPropertiesMap)
+            foreach (var map in texturePropertiesMap)
             {
                 if (map.Key == null) continue;
 
-                if (!ProjectShaders.Contains(map.Key))
-                    ShaderPropertiesMap.Remove(map.Key);
+                if (!shaders.Contains(map.Key))
+                    texturePropertiesMap.Remove(map.Key);
             }
         }
     }

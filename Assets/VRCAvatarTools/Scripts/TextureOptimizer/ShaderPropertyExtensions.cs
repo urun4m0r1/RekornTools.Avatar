@@ -9,68 +9,44 @@ namespace VRCAvatarTools
 {
     public static class ShaderPropertyExtensions
     {
-        [NotNull]
-        public static List<Shader> GetUsedShadersInProject()
-        {
-            var shaders = new List<Shader>();
+        [CanBeNull]
+        public static IEnumerable<Shader> AllUserShadersInProject =>
+            from material in AllMaterialsInProject
+            let shader = material.shader
+            where shader != null
+            select shader;
 
-            foreach (var shader in AllMaterialsInProject
-                                  .Where(x => x)
-                                  .Select(x => x.shader)
-                                  .Where(shader => !shaders.Contains(shader)))
-                shaders.Add(shader);
-
-            return shaders;
-        }
-
+        [CanBeNull]
         public static IEnumerable<Material> AllMaterialsInProject =>
             from guid in AssetDatabase.FindAssets("t:Material")
             let path = AssetDatabase.GUIDToAssetPath(guid)
             let material = AssetDatabase.LoadAssetAtPath<Material>(path)
-            where material
+            where material != null
             select material;
 
+        [CanBeNull]
         public static IEnumerable<Shader> AllShadersInProject =>
             from guid in AssetDatabase.FindAssets("t:Shader")
             let path = AssetDatabase.GUIDToAssetPath(guid)
             let shader = AssetDatabase.LoadAssetAtPath<Shader>(path)
-            where shader
+            where shader != null
             select shader;
 
-        public static ShaderProperties GetTexturePropertyList(this Shader shader)
+        [CanBeNull]
+        public static TextureProperties GetTexturePropertyList([NotNull] this Shader shader)
         {
-            var properties = new ShaderProperties();
+            var count = shader.GetPropertyCount();
+            if (count == 0) return null;
 
-            if (shader.TryGetShaderPropertyCount(out int count))
-                for (var i = 0; i < count; i++)
-                    properties.AddTextureProperty(shader, i);
-            return properties;
-        }
-
-        public static void AddTextureProperty(this ShaderProperties list, Shader shader, int i)
-        {
-            if (shader.GetPropertyFlags(i) == ShaderPropertyFlags.HideInInspector)
-                return;
-
-            if (shader.GetPropertyType(i) != ShaderPropertyType.Texture)
-                return;
-
-            list.Add(GetShaderPropertyAt(shader, i));
-        }
-
-        public static ShaderProperty GetShaderPropertyAt(this Shader shader, int i) =>
-            new ShaderProperty(shader, i, shader.GetPropertyType(i), shader.GetPropertyName(i));
-
-        public static bool TryGetShaderPropertyCount(this Shader shader, out int propertyCount)
-        {
-            if (!shader)
+            var properties = new TextureProperties();
+            for (var i = 0; i < count; i++)
             {
-                propertyCount = 0;
-                return false;
+                if (shader.GetPropertyFlags(i) == ShaderPropertyFlags.HideInInspector) continue;
+                if (shader.GetPropertyType(i)  != ShaderPropertyType.Texture) continue;
+                properties.Add(new TextureProperty(shader, i));
             }
 
-            propertyCount = shader.GetPropertyCount();
-            return true;
+            return properties.Count == 0 ? null : properties;
         }
     }
 }

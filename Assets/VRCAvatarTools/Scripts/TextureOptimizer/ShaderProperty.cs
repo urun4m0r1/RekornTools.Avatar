@@ -6,6 +6,14 @@ using UnityEngine.Rendering;
 namespace VRCAvatarTools
 {
     [Serializable]
+    public class TextureProperty : ShaderProperty
+    {
+        public TextureProperty([NotNull] Shader shader, int index, ShaderPropertyType type, [NotNull] string name) : base(shader, index, type, name) { }
+
+        public TextureProperty([NotNull] Shader shader, int index) : base(shader, index) { }
+    }
+
+    [Serializable]
     public class ShaderProperty
     {
         [NotNull] public const string ShaderField      = nameof(Shader);
@@ -27,25 +35,20 @@ namespace VRCAvatarTools
             Type   = type;
             Name   = name;
 
-            if (type == ShaderPropertyType.Texture)
-                TextureType = AssumeTextureType(name);
+            if (type == ShaderPropertyType.Texture) TextureType = AssumeTextureType(name);
         }
+
+        public ShaderProperty([NotNull] Shader shader, int index) :
+            this(shader, index, shader.GetPropertyType(index), shader.GetPropertyName(index) ?? "null") { }
 
         private static TextureType AssumeTextureType([NotNull] string name)
         {
             var token = name.ToLower();
 
-            if (token.Contains("normal"))
-                return TextureType.Normal;
-
-            if (token.Contains("emissi"))
-                return TextureType.Emissive;
-
-            if (token.Contains("sample") || token.Contains("pos"))
-                return TextureType.Sampler;
-
-            if (token.Contains("mask") || token.Contains("map"))
-                return TextureType.Mask;
+            if (token.Contains("normal")) return TextureType.Normal;
+            if (token.Contains("emissi")) return TextureType.Emissive;
+            if (token.Contains("sample") || token.Contains("pos")) return TextureType.Sampler;
+            if (token.Contains("mask")   || token.Contains("map")) return TextureType.Mask;
 
             return TextureType.Default;
         }

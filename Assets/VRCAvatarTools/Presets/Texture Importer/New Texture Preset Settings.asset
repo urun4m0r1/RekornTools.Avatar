@@ -15,8 +15,7 @@ MonoBehaviour:
   PresetMap:
     _items:
     - <Key>k__BackingField: 1
-      <Value>k__BackingField: {fileID: 2655988077585873504, guid: 7b0f4ad9514ff9c4db09f6ef160b89f9,
-        type: 2}
+      <Value>k__BackingField: {fileID: 0}
     - <Key>k__BackingField: 2
       <Value>k__BackingField: {fileID: 0}
     - <Key>k__BackingField: 3
