@@ -42,6 +42,7 @@ namespace VRCAvatarTools
         }
 #endregion // Interface
 
+#region Extensions
         public void AddRange([CanBeNull] IEnumerable<T> target)
         {
             if (target == null) return;
@@ -61,5 +62,6 @@ namespace VRCAvatarTools
             Clear();
             AddRange(target);
         }
+#endregion // Extensions
     }
 }

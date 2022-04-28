@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Shader Properties Table
   m_EditorClassIdentifier: 
   perShaderMaps:
-    _items:
+    Items:
     - <Key>k__BackingField: {fileID: 211, guid: 0000000000000000f000000000000000,
         type: 0}
       <Value>k__BackingField:
-        _items:
+        Items:
         - <Shader>k__BackingField: {fileID: 211, guid: 0000000000000000f000000000000000,
             type: 0}
           <Index>k__BackingField: 0
@@ -39,7 +39,7 @@ MonoBehaviour:
     - <Key>k__BackingField: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5,
         type: 3}
       <Value>k__BackingField:
-        _items:
+        Items:
         - <Shader>k__BackingField: {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5,
             type: 3}
           <Index>k__BackingField: 4
@@ -139,7 +139,7 @@ MonoBehaviour:
     - <Key>k__BackingField: {fileID: 4800000, guid: 345def18d0906d544b7d12b050937392,
         type: 3}
       <Value>k__BackingField:
-        _items:
+        Items:
         - <Shader>k__BackingField: {fileID: 4800000, guid: 345def18d0906d544b7d12b050937392,
             type: 3}
           <Index>k__BackingField: 4
@@ -245,7 +245,7 @@ MonoBehaviour:
     - <Key>k__BackingField: {fileID: 4800000, guid: 96d4d9f975e6c8849bd1a5c06acfae84,
         type: 3}
       <Value>k__BackingField:
-        _items:
+        Items:
         - <Shader>k__BackingField: {fileID: 4800000, guid: 96d4d9f975e6c8849bd1a5c06acfae84,
             type: 3}
           <Index>k__BackingField: 4
@@ -327,7 +327,7 @@ MonoBehaviour:
     - <Key>k__BackingField: {fileID: 4800000, guid: b2a70923168ea0c40a3051a013c93a8a,
         type: 3}
       <Value>k__BackingField:
-        _items:
+        Items:
         - <Shader>k__BackingField: {fileID: 4800000, guid: b2a70923168ea0c40a3051a013c93a8a,
             type: 3}
           <Index>k__BackingField: 4
@@ -433,7 +433,7 @@ MonoBehaviour:
     - <Key>k__BackingField: {fileID: 4800000, guid: 97b7edb5fc0f5744c9b264c2224a0b1e,
         type: 3}
       <Value>k__BackingField:
-        _items:
+        Items:
         - <Shader>k__BackingField: {fileID: 4800000, guid: 97b7edb5fc0f5744c9b264c2224a0b1e,
             type: 3}
           <Index>k__BackingField: 4
@@ -520,7 +520,7 @@ MonoBehaviour:
           <TextureType>k__BackingField: 4
     - <Key>k__BackingField: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
       <Value>k__BackingField:
-        _items:
+        Items:
         - <Shader>k__BackingField: {fileID: 46, guid: 0000000000000000f000000000000000,
             type: 0}
           <Index>k__BackingField: 1
@@ -578,11 +578,11 @@ MonoBehaviour:
     - <Key>k__BackingField: {fileID: 106, guid: 0000000000000000f000000000000000,
         type: 0}
       <Value>k__BackingField:
-        _items: []
+        Items: []
     - <Key>k__BackingField: {fileID: 103, guid: 0000000000000000f000000000000000,
         type: 0}
       <Value>k__BackingField:
-        _items:
+        Items:
         - <Shader>k__BackingField: {fileID: 103, guid: 0000000000000000f000000000000000,
             type: 0}
           <Index>k__BackingField: 3
@@ -592,7 +592,7 @@ MonoBehaviour:
     - <Key>k__BackingField: {fileID: 10752, guid: 0000000000000000f000000000000000,
         type: 0}
       <Value>k__BackingField:
-        _items:
+        Items:
         - <Shader>k__BackingField: {fileID: 10752, guid: 0000000000000000f000000000000000,
             type: 0}
           <Index>k__BackingField: 0
@@ -602,7 +602,7 @@ MonoBehaviour:
     - <Key>k__BackingField: {fileID: 10723, guid: 0000000000000000f000000000000000,
         type: 0}
       <Value>k__BackingField:
-        _items:
+        Items:
         - <Shader>k__BackingField: {fileID: 10723, guid: 0000000000000000f000000000000000,
             type: 0}
           <Index>k__BackingField: 0
@@ -612,7 +612,7 @@ MonoBehaviour:
     - <Key>k__BackingField: {fileID: 4800000, guid: 2dcd9e0568e0a6f45b92c60ba2eb16a0,
         type: 3}
       <Value>k__BackingField:
-        _items:
+        Items:
         - <Shader>k__BackingField: {fileID: 4800000, guid: 2dcd9e0568e0a6f45b92c60ba2eb16a0,
             type: 3}
           <Index>k__BackingField: 0
@@ -622,7 +622,7 @@ MonoBehaviour:
     - <Key>k__BackingField: {fileID: 200, guid: 0000000000000000f000000000000000,
         type: 0}
       <Value>k__BackingField:
-        _items:
+        Items:
         - <Shader>k__BackingField: {fileID: 200, guid: 0000000000000000f000000000000000,
             type: 0}
           <Index>k__BackingField: 1
@@ -632,7 +632,7 @@ MonoBehaviour:
     - <Key>k__BackingField: {fileID: 4800000, guid: 693137b858e4dc64c83be531351f45e6,
         type: 3}
       <Value>k__BackingField:
-        _items:
+        Items:
         - <Shader>k__BackingField: {fileID: 4800000, guid: 693137b858e4dc64c83be531351f45e6,
             type: 3}
           <Index>k__BackingField: 0
@@ -642,7 +642,7 @@ MonoBehaviour:
     - <Key>k__BackingField: {fileID: 4800000, guid: 9788d723ed7eac946a9a599e4a6ba940,
         type: 3}
       <Value>k__BackingField:
-        _items:
+        Items:
         - <Shader>k__BackingField: {fileID: 4800000, guid: 9788d723ed7eac946a9a599e4a6ba940,
             type: 3}
           <Index>k__BackingField: 0

@@ -17,6 +17,7 @@ namespace VRCAvatarTools
             EditorUtility.DisplayDialog(header, message, "Confirm");
         }
 
+#region UnityObject
         public void DestroyItems()
         {
             var destroyTarget = new List<T>();
@@ -24,8 +25,9 @@ namespace VRCAvatarTools
 
             foreach (var o in this)
             {
-                if (!o)
+                if (o == null)
                 {
+                    // ReSharper disable once ExpressionIsAlwaysNull
                     destroyTarget.Add(o);
                 }
                 else if (!IsObjectPrefab(o))
@@ -52,6 +54,19 @@ namespace VRCAvatarTools
         private static bool IsObjectPrefab([NotNull] Object o) =>
             o && PrefabUtility.GetPrefabInstanceStatus(o) == PrefabInstanceStatus.Connected;
 
+        public void Initialize([CanBeNull] Transform parent, [NotNull] string keyword = "")
+        {
+            var objects = parent == null
+                ? GameObjectExtensions.GetAllGameObjectsInScene?.SelectMany(x => x == null ? null : x.GetComponents<T>())
+                : parent.GetComponentsInChildren<T>();
+
+            if (!string.IsNullOrWhiteSpace(keyword)) objects = objects?.Where(x => x != null && x.name.Contains(keyword));
+
+            Initialize(objects?.Where(x => x));
+        }
+#endregion // UnityObject
+
+#region Selection
         public void SelectComponents()
         {
             if (TryGetSelections(out var selections)) Selection.objects = selections;
@@ -59,19 +74,9 @@ namespace VRCAvatarTools
 
         public bool TryGetSelections([NotNull] out Object[] selections)
         {
-            selections = this.Select(x => x ? x.gameObject as Object : null).ToArray();
+            selections = this.Select(x => x == null ? null : x.gameObject as Object).ToArray();
             return selections.Length != 0;
         }
-
-        public void Initialize([CanBeNull] Transform parent, [NotNull] string keyword = "")
-        {
-            var objects = parent
-                ? parent.GetComponentsInChildren<T>()
-                : GameObjectExtensions.GetAllGameObjectsInScene?.SelectMany(x => x ? x.GetComponents<T>() : null);
-
-            if (!string.IsNullOrWhiteSpace(keyword)) objects = objects?.Where(x => x && x.name.Contains(keyword));
-
-            Initialize(objects?.Where(x => x));
-        }
+#endregion // Selection
     }
 }

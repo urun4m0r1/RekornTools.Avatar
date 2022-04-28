@@ -17,9 +17,11 @@ MonoBehaviour:
     - <Key>k__BackingField: 1
       <Value>k__BackingField: {fileID: 0}
     - <Key>k__BackingField: 2
-      <Value>k__BackingField: {fileID: 0}
+      <Value>k__BackingField: {fileID: 2655988077585873504, guid: 8fd8ffccd4b41ee4bb78aae17e3415ea,
+        type: 2}
     - <Key>k__BackingField: 3
-      <Value>k__BackingField: {fileID: 0}
+      <Value>k__BackingField: {fileID: 2655988077585873504, guid: ae88a98d0b19bcf48980df130aa7d2be,
+        type: 2}
     - <Key>k__BackingField: 4
       <Value>k__BackingField: {fileID: 0}
     - <Key>k__BackingField: 5

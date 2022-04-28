@@ -7,8 +7,11 @@ namespace VRCAvatarTools
 {
     public static class EditorGUIExtensions
     {
+#region Decorator
         public static readonly float SingleItemHeight = EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+#endregion // Decorator
 
+#region Extensions
         public static bool DisabledPropertyField([CanBeNull] this SerializedProperty obj, Rect rect, bool isDisabled = true)
         {
             BeginDisabledGroup(isDisabled);
@@ -30,5 +33,6 @@ namespace VRCAvatarTools
 
         public static float GetHeight([CanBeNull] this SerializedProperty obj) =>
             obj == null ? SingleItemHeight : GetPropertyHeight(obj, true);
+#endregion // Extensions
     }
 }

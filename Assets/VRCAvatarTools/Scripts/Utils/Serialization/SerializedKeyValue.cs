@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using JetBrains.Annotations;
 
@@ -23,7 +22,5 @@ namespace VRCAvatarTools
             Key   = key;
             Value = value;
         }
-
-        protected SerializedKeyValue(KeyValuePair<K, V> pair) : this(pair.Key, pair.Value) { }
     }
 }

@@ -21,6 +21,8 @@ namespace VRCAvatarTools.Editor
 
             void DrawElement(float weight, string propertyName, bool isReadOnly = true)
             {
+                if (propertyName == null) return;
+
                 var prop = property.ResolveProperty(propertyName);
                 rect.AppendWidth(fullWidth * weight - padding);
                 prop.DisabledPropertyField(rect, isReadOnly);

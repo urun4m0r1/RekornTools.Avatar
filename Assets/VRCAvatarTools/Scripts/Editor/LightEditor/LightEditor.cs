@@ -63,7 +63,7 @@ namespace VRCAvatarTools.Editor
 
         private void DrawLightScenario()
         {
-            if (!_scenario) return;
+            if (_scenario == null) return;
 
             HorizontalLine();
             _scenario.DrawEditor(_ignoreLighting);

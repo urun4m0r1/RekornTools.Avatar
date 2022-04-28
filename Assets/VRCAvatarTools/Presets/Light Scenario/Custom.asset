@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Custom
   m_EditorClassIdentifier: 
   Skybox: {fileID: 2100000, guid: 785a5790ee41cd141b8ab52eefee35c4, type: 2}
-  UseShadow: 0
+  UseShadow: 1
   ReflectionIntensity: 1
-  SunDirection: {x: 0.5, y: -0.5, z: -0}
+  SunDirection: {x: 0.5, y: -1, z: -0}
   SyncColor: 1
   SunColor: {r: 1, g: 1, b: 1, a: 0}
-  SunIntensity: 2
+  SunIntensity: 1.99
   UseSkyboxColor: 0
   SkyColor: {r: 0, g: 0, b: 0, a: 0}
-  SkyboxIntensity: 0
+  SkyboxIntensity: 1

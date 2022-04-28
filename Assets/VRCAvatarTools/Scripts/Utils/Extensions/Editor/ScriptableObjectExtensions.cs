@@ -1,22 +1,11 @@
-﻿using System;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using UnityEditor;
-using UnityEngine;
-using static UnityEngine.ScriptableObject;
 
 namespace VRCAvatarTools
 {
     public static class ScriptableObjectExtensions
     {
-        [NotNull] public static T GetInstance<T>([CanBeNull] ref T obj) where T : ScriptableObject
-        {
-            obj = obj.GetInstance();
-            return obj;
-        }
-
-        [NotNull] public static T GetInstance<T>([CanBeNull] this T obj) where T : ScriptableObject =>
-            (obj == null ? CreateInstance<T>() : obj) ?? throw new InvalidOperationException();
-
+#region Editor
         public static void DrawEditor([NotNull] this UnityEngine.Object obj, bool isDisabled)
         {
             EditorGUI.BeginDisabledGroup(isDisabled);
@@ -26,11 +15,12 @@ namespace VRCAvatarTools
             EditorGUI.EndDisabledGroup();
         }
 
-        public static void DrawEditor([NotNull] this UnityEngine.Object obj)
+        public static void DrawEditor<T>([NotNull] this T obj) where T : UnityEngine.Object
         {
             var editor = UnityEditor.Editor.CreateEditor(obj);
-            if (editor) editor.OnInspectorGUI();
+            if (editor != null) editor.OnInspectorGUI();
             EditorUtility.SetDirty(obj);
         }
+#endregion // Editor
     }
 }

@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using UnityEditor;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace VRCAvatarTools
 {
@@ -16,13 +19,17 @@ namespace VRCAvatarTools
 
         private static bool IsEditableSceneObject([CanBeNull] GameObject go)
         {
-            if (!go) return false;
+            if (go == null) return false;
 
-            var root        = go.transform.root;
-            if (!root) root = go.transform;
+            var root               = go.transform.root;
+            if (root == null) root = go.transform;
 
-            return !EditorUtility.IsPersistent(root) &&
-                   !(root.hideFlags == HideFlags.NotEditable || root.hideFlags == HideFlags.HideAndDontSave);
+#if UNITY_EDITOR
+            var isStoredOnDisk = EditorUtility.IsPersistent(root);
+#else
+            var isStoredOnDisk = false;
+#endif
+            return !isStoredOnDisk && !(root.hideFlags == HideFlags.NotEditable || root.hideFlags == HideFlags.HideAndDontSave);
         }
     }
 }

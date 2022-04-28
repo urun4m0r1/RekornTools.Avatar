@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditor.Presets;
 using UnityEngine;
 
 namespace VRCAvatarTools
@@ -12,4 +13,8 @@ namespace VRCAvatarTools
     [Serializable] public class Renderers : ComponentList<Renderer> { }
 
     [Serializable] public class ShaderPropertiesPerShaderMaps : SerializedList<ShaderPropertiesPerShaderMap> { }
+
+    [Serializable] public class TexturePresetMapByType : SerializedDictionary<TexturePresetByType, TextureType, Preset> { }
+
+    [Serializable] public class TexturePresetByType : SerializedKeyValue<TextureType, Preset> { }
 }

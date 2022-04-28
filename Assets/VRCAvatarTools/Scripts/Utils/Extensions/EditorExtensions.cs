@@ -21,7 +21,7 @@ namespace VRCAvatarTools
 #endif // UNITY_EDITOR
         }
 
-        public static void UndoableAction([NotNull] this Object target, [NotNull] Action action) => 
+        public static void UndoableAction([NotNull] this Object target, [NotNull] Action action) =>
             UndoableAction(target, target.name, action);
 
         public static void UndoableAction([NotNull] this Object target, [NotNull] string actionName, [NotNull] Action action)

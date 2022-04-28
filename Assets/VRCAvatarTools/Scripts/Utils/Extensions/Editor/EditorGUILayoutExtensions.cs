@@ -9,8 +9,15 @@ namespace VRCAvatarTools
     public static class EditorGUILayoutExtensions
     {
 #region Decorator
-        public static void HorizontalLine() => LabelField("", GUI.skin ? GUI.skin.horizontalSlider : GUIStyle.none);
-#endregion
+        public static void HorizontalLine()
+        {
+            var skin                = GUI.skin;
+            var style               = GUIStyle.none;
+            if (skin != null) style = skin.horizontalSlider;
+
+            LabelField("", style);
+        }
+#endregion // Decorator
 
 #region Extensions
         [CanBeNull] public static T ObjectField<T>([CanBeNull] string label, [CanBeNull] T obj, bool allowSceneObjects)
@@ -23,6 +30,6 @@ namespace VRCAvatarTools
             var e = EnumPopup(label, selected);
             return e != null ? (T)e : selected;
         }
-#endregion
+#endregion // Extensions
     }
 }

@@ -7,11 +7,8 @@ using UnityEngine;
 
 namespace VRCAvatarTools
 {
-    [Serializable] public class TexturePresetMapByType : SerializedDictionary<TexturePresetByType, TextureType, Preset> { }
-    [Serializable] public class TexturePresetByType : SerializedKeyValue<TextureType, Preset> { }
-
-    [CreateAssetMenu(menuName = "VRC Avatar Tools/Texture Importer Settings")]
-    public class TexturePresetSettings : ScriptableObject
+    [CreateAssetMenu(menuName = "VRC Avatar Tools/Texture Preset Settings")]
+    public class TexturePresetSettings : ScriptableObject, IValidate
     {
         [SerializeField, ListMutable(false)] [NotNull]
         public TexturePresetMapByType PresetMap = new TexturePresetMapByType();
@@ -19,7 +16,11 @@ namespace VRCAvatarTools
         [NotNull] private readonly List<TextureType> _types =
             Enum.GetValues(typeof(TextureType)).Cast<TextureType>().ToList();
 
-        public void OnEnable()
+        public void OnEnable() => MatchDictionaryType();
+
+        public void OnValidate() => ClearInvalidPreset();
+
+        private void MatchDictionaryType()
         {
             foreach (var type in _types)
             {
@@ -37,15 +38,16 @@ namespace VRCAvatarTools
             }
         }
 
-        private void OnValidate()
+        private void ClearInvalidPreset()
         {
-            foreach (var map in PresetMap)
+            foreach (var type in _types)
             {
-                if (!map.Value)
-                    return;
+                if (type == TextureType.None) continue;
+                if (!PresetMap.TryGetValue(type, out var preset)) continue;
+                if (preset == null) continue;
 
-                if (!IsPresetTypeValid(map.Value, "UnityEditor.TextureImporter"))
-                    PresetMap[map.Key] = null;
+                if (!IsPresetTypeValid(preset, "UnityEditor.TextureImporter"))
+                    PresetMap[type] = null;
             }
         }
 
