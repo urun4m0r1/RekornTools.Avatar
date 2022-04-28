@@ -10,10 +10,12 @@ namespace VRCAvatarTools
         [NotNull] public static string ValueFieldName => nameof(Value);
     }
 
+    [Serializable] public class HorizontalKeyValue<K, V> : SerializedKeyValue<K, V> { }
+
     [Serializable] public class SerializedKeyValue<K, V>
     {
-        [field: SerializeField] [CanBeNull]                     public K Key   { get; set; }
-        [field: SerializeField, ListMutable(false)] [CanBeNull] public V Value { get; set; }
+        [field: SerializeField] [CanBeNull] public K Key   { get; set; }
+        [field: SerializeField] [CanBeNull] public V Value { get; set; }
 
         protected SerializedKeyValue() { }
 

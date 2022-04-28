@@ -10,18 +10,20 @@ namespace VRCAvatarTools
         {
             if (property == null) return;
 
+            var indent = EditorGUI.indentLevel;
             EditorGUI.BeginProperty(rect, label, property);
             {
                 EditorGUI.BeginChangeCheck();
                 {
-                    DrawProperty(rect, property, label);
+                    DrawProperty(rect, property, label, indent);
                 }
                 if (EditorGUI.EndChangeCheck()) property.serializedObject?.ApplyModifiedProperties();
             }
             EditorGUI.EndProperty();
+            EditorGUI.indentLevel = indent;
         }
 
-        protected abstract void DrawProperty(Rect rect, [NotNull] SerializedProperty property, [CanBeNull] GUIContent label);
+        protected abstract void DrawProperty(Rect rect, [NotNull] SerializedProperty property, [CanBeNull] GUIContent label, int indent);
 
         public override float GetPropertyHeight([CanBeNull] SerializedProperty property, [CanBeNull] GUIContent _) => property.GetHeight();
     }

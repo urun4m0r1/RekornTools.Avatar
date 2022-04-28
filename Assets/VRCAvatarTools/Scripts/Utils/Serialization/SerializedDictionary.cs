@@ -7,7 +7,7 @@ namespace VRCAvatarTools
 {
     public sealed class SerializedDictionary : SerializedDictionary<SerializedKeyValue, object, object>
     {
-        [NotNull] public const string FieldName = nameof(_items);
+        [NotNull] public const string FieldName = nameof(Items);
     }
 
     [Serializable]
@@ -15,11 +15,11 @@ namespace VRCAvatarTools
         Dictionary<TKey, TValue>, ISerializationCallbackReceiver
         where TKeyValue : SerializedKeyValue<TKey, TValue>, new()
     {
-        [SerializeField] [NotNull] protected List<TKeyValue> _items = new List<TKeyValue>();
+        [SerializeField] [NotNull] protected List<TKeyValue> Items = new List<TKeyValue>();
 
         public void OnBeforeSerialize()
         {
-            _items.Clear();
+            Items.Clear();
             foreach (var item in this)
             {
                 var pair = new TKeyValue
@@ -28,14 +28,14 @@ namespace VRCAvatarTools
                     Value = item.Value,
                 };
 
-                _items.Add(pair);
+                Items.Add(pair);
             }
         }
 
         public void OnAfterDeserialize()
         {
             Clear();
-            foreach (var item in _items)
+            foreach (var item in Items)
             {
                 Add(item.Key, item.Value);
             }

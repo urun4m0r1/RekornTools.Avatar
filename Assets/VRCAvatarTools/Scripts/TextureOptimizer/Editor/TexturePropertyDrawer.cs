@@ -6,7 +6,7 @@ namespace VRCAvatarTools.Editor
     [CustomPropertyDrawer(typeof(TextureProperty))]
     public class TexturePropertyDrawer : SerializedPropertyDrawer
     {
-        protected override void DrawProperty(Rect rect, SerializedProperty property, GUIContent _)
+        protected override void DrawProperty(Rect rect, SerializedProperty property, GUIContent _, int __)
         {
             var padding   = EditorGUIUtility.standardVerticalSpacing;
             var fullWidth = rect.width;

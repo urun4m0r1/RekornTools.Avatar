@@ -9,7 +9,7 @@ namespace VRCAvatarTools
     {
         [NotNull] protected static readonly SerializedKeyValueHelper Helper = new SerializedKeyValueHelper();
 
-        protected override void DrawProperty(Rect rect, SerializedProperty property, GUIContent _) =>
+        protected override void DrawProperty(Rect rect, SerializedProperty property, GUIContent _, int __) =>
             Helper.Update(property).DrawVertical(rect, true);
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent _) =>

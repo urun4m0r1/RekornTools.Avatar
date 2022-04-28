@@ -33,8 +33,10 @@ namespace VRCAvatarTools
             select shader;
 
         [CanBeNull]
-        public static TextureProperties GetTexturePropertyList([NotNull] this Shader shader)
+        public static TextureProperties GetTexturePropertyList([CanBeNull] this Shader shader)
         {
+            if (shader == null) return null;
+
             var count = shader.GetPropertyCount();
             if (count == 0) return null;
 

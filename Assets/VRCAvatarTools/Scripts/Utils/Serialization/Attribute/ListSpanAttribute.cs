@@ -7,7 +7,7 @@ namespace VRCAvatarTools
     {
         public const bool Default = true;
 
-        public bool IsSpan { get; }
+        public bool IsSpan { get; set; }
 
         public ListSpanAttribute(bool isSpan = Default) => IsSpan = isSpan;
     }

@@ -23,9 +23,9 @@ namespace VRCAvatarTools
 #endregion // Dictionary
 
 #region KeyValue
-    [Serializable] public class TexturePresetByType : SerializedKeyValue<TextureType, Preset> { }
+    [Serializable] public class TexturePresetByType : HorizontalKeyValue<TextureType, Preset> { }
 
-    [Serializable] public class TexturesByType : SerializedKeyValue<TextureType, Textures> { }
+    [Serializable] public class TexturesByType : HorizontalKeyValue<TextureType, Textures> { }
 
     [Serializable] public class TexturePropertiesByShader : SerializedKeyValue<Shader, TextureProperties> { }
 #endregion // KeyValue

@@ -30,8 +30,8 @@ namespace VRCAvatarTools
             return this;
         }
 
-        public float KeyHeight   => Key.GetHeight();
-        public float ValueHeight => Value.GetHeight();
+        public float KeyHeight   => Key.GetHeight()   + EditorGUIUtility.standardVerticalSpacing;
+        public float ValueHeight => Value.GetHeight() + EditorGUIUtility.standardVerticalSpacing;
 
         public float MaxHeight   => Mathf.Max(Key.GetHeight(), Value.GetHeight());
         public float TotalHeight => Key.GetHeight() + Value.GetHeight();

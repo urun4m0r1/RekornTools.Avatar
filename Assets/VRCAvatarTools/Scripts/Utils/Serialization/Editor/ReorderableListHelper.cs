@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEditorInternal;
@@ -15,15 +16,29 @@ namespace VRCAvatarTools
 
         [NotNull] private readonly string _listName;
 
+        private readonly string _header;
+        private readonly bool?  _isSpan;
+        private readonly bool?  _isMutable;
+
         [CanBeNull] private SerializedProperty _container;
         [CanBeNull] private SerializedProperty _listContainer;
         [CanBeNull] private ReorderableList    _list;
 
-        [CanBeNull] private string Header    => _container.GetAttribute<ListHeaderAttribute>()?.Header;
-        private             bool   IsMutable => _container.GetAttribute<ListMutableAttribute>()?.IsMutable ?? ListMutableAttribute.Default;
-        private             bool   IsSpan    => _container.GetAttribute<ListSpanAttribute>()?.IsSpan       ?? ListSpanAttribute.Default;
+        [CanBeNull] private string Header    => _container.GetAttribute<ListHeaderAttribute>()?.Header     ?? _header;
+        private             bool   IsMutable => _container.GetAttribute<ListMutableAttribute>()?.IsMutable ?? _isMutable ?? ListMutableAttribute.Default;
+        private             bool   IsSpan    => _container.GetAttribute<ListSpanAttribute>()?.IsSpan       ?? _isSpan    ?? ListSpanAttribute.Default;
 
         public ReorderableListHelper([NotNull] string listName) => _listName = listName;
+
+        public ReorderableListHelper([NotNull]   string listName,
+                                     [CanBeNull] string header    = null,
+                                     bool?              isSpan    = null,
+                                     bool?              isMutable = null) : this(listName)
+        {
+            _header    = header;
+            _isSpan    = isSpan;
+            _isMutable = isMutable;
+        }
 
         [NotNull] public ReorderableListHelper Update([CanBeNull] SerializedProperty container)
         {
@@ -55,7 +70,17 @@ namespace VRCAvatarTools
             _list.DoList(rect);
         }
 
-        public float GetHeight() => _list?.GetHeight() ?? EditorGUIExtensions.SingleItemHeight;
+        public float GetHeight()
+        {
+            try
+            {
+                return _list?.GetHeight() ?? EditorGUIExtensions.SingleItemHeight;
+            }
+            catch (NullReferenceException)
+            {
+                return EditorGUIExtensions.SingleItemHeight;
+            }
+        }
 
         private void UpdateList()
         {

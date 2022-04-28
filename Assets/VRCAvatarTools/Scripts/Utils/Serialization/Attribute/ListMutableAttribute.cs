@@ -7,7 +7,7 @@ namespace VRCAvatarTools
     {
         public const bool Default = true;
 
-        public bool IsMutable { get; }
+        public bool IsMutable { get; set; }
 
         public ListMutableAttribute(bool isMutable = Default) => IsMutable = isMutable;
     }

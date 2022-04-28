@@ -2,7 +2,7 @@
 {
     public enum TextureType
     {
-        None,
+        Ignore,
         Default,
         Opaque,
         Alpha,
@@ -10,5 +10,6 @@
         Normal,
         Mask,
         Sampler,
+        Icon,
     }
 }

@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace VRCAvatarTools.Editor
 {
-    [CustomPropertyDrawer(typeof(TexturePresetByType))]
-    public class TexturePresetByTypeDrawer : SerializedKeyValueDrawer
+    [CustomPropertyDrawer(typeof(HorizontalKeyValue<,>), true)]
+    public class HorizontalKeyValueDrawer : SerializedKeyValueDrawer
     {
-        protected override void DrawProperty(Rect rect, SerializedProperty property, GUIContent _) =>
+        protected override void DrawProperty(Rect rect, SerializedProperty property, GUIContent _, int __) =>
             Helper.Update(property).DrawHorizontal(rect, 0.2f, true);
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent _) =>

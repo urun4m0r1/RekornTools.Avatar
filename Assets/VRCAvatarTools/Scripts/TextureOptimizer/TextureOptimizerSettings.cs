@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using UnityEditor;
 using UnityEditor.Presets;
 using UnityEngine;
 
 namespace VRCAvatarTools
 {
-    [CreateAssetMenu(menuName = "VRC Avatar Tools/Texture Preset Settings")]
-    public class TexturePresetSettings : ScriptableObject, IValidate
+    [CreateAssetMenu(menuName = "VRC Avatar Tools/Texture Optimizer Settings")]
+    public class TextureOptimizerSettings : ScriptableObject, IValidate
     {
         [SerializeField, ListMutable(false)] [NotNull]
         public TexturePresetMapByType PresetMap = new TexturePresetMapByType();
@@ -16,38 +17,25 @@ namespace VRCAvatarTools
         [NotNull] private readonly List<TextureType> _types =
             Enum.GetValues(typeof(TextureType)).Cast<TextureType>().ToList();
 
-        public void OnEnable() => MatchDictionaryType();
+        public void OnEnable() => UpdateTable();
 
         public void OnValidate() => ClearInvalidPreset();
 
-        private void MatchDictionaryType()
+        private void UpdateTable()
         {
-            foreach (var type in _types)
-            {
-                if (type == TextureType.None) continue;
-
-                if (!PresetMap.ContainsKey(type))
-                    PresetMap.Add(type, null);
-            }
-
-            foreach (var map in PresetMap)
-            {
-                if (map.Key == TextureType.None) continue;
-
-                if (!_types.Contains(map.Key))
-                    PresetMap.Remove(map.Key);
-            }
+            PresetMap.MatchDictionaryKey(_types, x => default);
+            PresetMap.Remove(TextureType.Ignore);
         }
 
         private void ClearInvalidPreset()
         {
             foreach (var type in _types)
             {
-                if (type == TextureType.None) continue;
+                if (type == TextureType.Ignore) continue;
                 if (!PresetMap.TryGetValue(type, out var preset)) continue;
                 if (preset == null) continue;
 
-                if (!IsPresetTypeValid(preset, "UnityEditor.TextureImporter"))
+                if (!IsPresetTypeValid(preset, $"{nameof(UnityEditor)}.{nameof(TextureImporter)}"))
                     PresetMap[type] = null;
             }
         }
