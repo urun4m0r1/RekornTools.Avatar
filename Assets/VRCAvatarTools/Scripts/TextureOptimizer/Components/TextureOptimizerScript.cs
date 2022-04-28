@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using JetBrains.Annotations;
 using NaughtyAttributes;
+using UnityEditor;
 using UnityEngine;
 
 namespace VRCAvatarTools
@@ -116,7 +117,28 @@ namespace VRCAvatarTools
         private bool IsTextureExist([NotNull] Texture texture) =>
             _texturesMap.Any(x => x.Value?.Contains(texture) == true);
 
-        [Button] private void Optimize() { }
+        [Button] private void Optimize()
+        {
+            if (_optimizerSettings == null) return;
+            var presets = _optimizerSettings.PresetMap;
+            foreach (var map in _texturesMap)
+            {
+                var textures = map.Value;
+                if (textures == null || textures.Count == 0) continue;
+
+                if (!presets.TryGetValue(map.Key, out var preset)) continue;
+                if (preset == null) continue;
+
+                foreach (var texture in textures)
+                {
+                    var path     = AssetDatabase.GetAssetPath(texture);
+                    var importer = AssetImporter.GetAtPath(path);
+                    preset.ApplyTo(importer);
+                }
+            }
+
+            //TODO: 절약한 용량 표시
+        }
     }
 }
 #endif
