@@ -73,8 +73,4 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # ProjectIgnore
-VRCAvatarTools.zip
-VRCAvatarTools.zip.meta
-VRCAvatarTools.unitypackage
-VRCAvatarTools.unitypackage.meta
-/[Aa]ssets/VRCSDK/*
+/[Aa]ssets/[Vv][Rr][Cc][Ss][Dd][Kk]*

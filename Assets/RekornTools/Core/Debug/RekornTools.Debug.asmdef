@@ -1,0 +1,15 @@
+{
+    "name": "RekornTools.Debug",
+    "references": [
+        "GUID:2618654c3f986a34286d6d44683fbbb4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,45 @@
+﻿using System;
+using System.Text;
+using JetBrains.Annotations;
+using NaughtyAttributes.Editor;
+using UnityEditor;
+
+namespace RekornTools.Avatar
+{
+    public static class ReflectionExtensions
+    {
+#region Attribute
+        [CanBeNull]
+        public static T GetAttribute<T>([CanBeNull] this SerializedProperty property) where T : Attribute =>
+            PropertyUtility.GetAttribute<T>(property);
+
+        [CanBeNull]
+        [ItemCanBeNull]
+        public static T[] GetAttributes<T>([CanBeNull] this SerializedProperty property) where T : Attribute =>
+            PropertyUtility.GetAttributes<T>(property);
+#endregion // Attribute
+
+#region Property
+        [NotNull] static readonly StringBuilder Sb = new StringBuilder();
+
+        [NotNull] const string AutoPropertyHeader = "<";
+        [NotNull] const string AutoPropertyFooter = ">k__BackingField";
+
+        public static bool IsAutoProperty([NotNull] string name) =>
+            name.StartsWith(AutoPropertyHeader, StringComparison.Ordinal)
+         && name.EndsWith(AutoPropertyFooter, StringComparison.Ordinal);
+
+        [NotNull]
+        public static string ResolveFieldName([NotNull] string name)
+        {
+            if (IsAutoProperty(name)) return name;
+
+            Sb.Clear();
+            Sb.Append(AutoPropertyHeader);
+            Sb.Append(name);
+            Sb.Append(AutoPropertyFooter);
+            return Sb.ToString();
+        }
+#endregion // Property
+    }
+}
