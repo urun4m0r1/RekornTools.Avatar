@@ -4,7 +4,7 @@ using UnityEngine.Rendering;
 
 namespace RekornTools.Avatar.Editor
 {
-    [CreateAssetMenu(menuName = "VRC Avatar Tools/Light Scenario")]
+    [CreateAssetMenu(menuName = "Rekorn Tools/Light Scenario")]
     public sealed partial class LightScenario : ScriptableObject, IValidate
     {
         [SerializeField] Material Skybox;

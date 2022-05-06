@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RekornTools.Avatar
 {
-    [CreateAssetMenu(menuName = "VRC Avatar Tools/Texture Properties Table")]
+    [CreateAssetMenu(menuName = "Rekorn Tools/Texture Properties Table")]
     public sealed class TexturePropertiesTable : ScriptableObject
     {
         [SerializeField] [ReadOnlyList] [ItemNotSpan] [NotNull]

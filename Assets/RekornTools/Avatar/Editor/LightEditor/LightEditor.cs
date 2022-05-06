@@ -13,7 +13,7 @@ namespace RekornTools.Avatar.Editor
         [SerializeField] Light         _sun;
         [SerializeField] LightScenario _scenario;
 
-        [MenuItem("Tools/VRC Avatar Tools/Light Editor")]
+        [MenuItem("Tools/Rekorn Tools/Light Editor")]
         static void OnWindowOpen() =>
             GetWindow<LightEditor>("Light Editor")?.Show();
 
