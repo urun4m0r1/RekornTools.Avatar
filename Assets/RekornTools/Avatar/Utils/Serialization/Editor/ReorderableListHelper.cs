@@ -16,28 +16,21 @@ namespace RekornTools.Avatar.Editor
 
         [NotNull] readonly string _listName;
 
-        readonly string _header;
-        readonly bool?  _isSpan;
-        readonly bool?  _isMutable;
-
         [CanBeNull] SerializedProperty _container;
         [CanBeNull] SerializedProperty _listContainer;
         [CanBeNull] ReorderableList    _list;
 
-        [CanBeNull] string Header    => _container.GetAttribute<ListHeaderAttribute>()?.Header     ?? _header;
-        bool               IsMutable => _container.GetAttribute<ListMutableAttribute>()?.IsMutable ?? _isMutable ?? ListMutableAttribute.Default;
-        bool               IsSpan    => _container.GetAttribute<ListSpanAttribute>()?.IsSpan       ?? _isSpan    ?? ListSpanAttribute.Default;
+        bool          IsReadOnly => _container.GetAttribute<ReadOnlyListAttribute>() != null || _isReadOnly;
+        readonly bool _isReadOnly;
 
-        public ReorderableListHelper([NotNull] string listName) => _listName = listName;
+        bool          ItemNotSpan => _container.GetAttribute<ItemNotSpanAttribute>() != null || _itemNotSpan;
+        readonly bool _itemNotSpan;
 
-        public ReorderableListHelper([NotNull]   string listName,
-                                     [CanBeNull] string header    = null,
-                                     bool?              isSpan    = null,
-                                     bool?              isMutable = null) : this(listName)
+        public ReorderableListHelper([NotNull] string listName, bool isReadOnly = false, bool itemNotSpan = false)
         {
-            _header    = header;
-            _isSpan    = isSpan;
-            _isMutable = isMutable;
+            _listName    = listName;
+            _isReadOnly  = isReadOnly;
+            _itemNotSpan = itemNotSpan;
         }
 
         [NotNull] public ReorderableListHelper Update([CanBeNull] SerializedProperty container)
@@ -92,20 +85,20 @@ namespace RekornTools.Avatar.Editor
             }
             else
             {
-                _list = CreateList(_listContainer, Header, IsMutable, IsSpan);
+                _list = CreateList(_listContainer, null, IsReadOnly, ItemNotSpan);
                 _cache.Add(_listContainer.propertyPath, _list);
             }
         }
 
         [NotNull]
         static ReorderableList CreateList(
-            [NotNull] SerializedProperty property, [CanBeNull] string header, bool isMutable, bool isSpan)
+            [NotNull] SerializedProperty property, [CanBeNull] string header, bool isReadOnly, bool itemNotSpan)
         {
             var list = new ReorderableList(property.serializedObject, property)
             {
-                draggable     = isMutable,
-                displayAdd    = isMutable,
-                displayRemove = isMutable,
+                draggable     = !isReadOnly,
+                displayAdd    = !isReadOnly,
+                displayRemove = !isReadOnly,
             };
 
             if (string.IsNullOrWhiteSpace(header)) list.headerHeight = 0f;
@@ -113,8 +106,8 @@ namespace RekornTools.Avatar.Editor
             list.drawHeaderCallback  += OnDrawHeader;
             list.drawElementCallback += OnDrawElement;
 
-            if (isSpan) list.elementHeight  =  GetElementHeight();
-            else list.elementHeightCallback += OnGetHeight;
+            if (itemNotSpan) list.elementHeightCallback += OnGetHeight;
+            else list.elementHeight                     =  GetElementHeight();
 
             return list;
 
@@ -126,12 +119,12 @@ namespace RekornTools.Avatar.Editor
 
             float OnGetHeight(int index) => GetElement(index).GetHeight();
 
-            SerializedProperty GetElement(int index) => property.GetArrayElementAtIndex(index);
-
             float GetElementHeight() =>
                 property.arraySize > 0
                     ? OnGetHeight(0) + EditorGUIUtility.standardVerticalSpacing
                     : EditorGUIExtensions.SingleItemHeight;
+
+            SerializedProperty GetElement(int index) => property.GetArrayElementAtIndex(index);
 
             void OnDrawHeader(Rect rect) => EditorGUI.LabelField(rect, header);
         }

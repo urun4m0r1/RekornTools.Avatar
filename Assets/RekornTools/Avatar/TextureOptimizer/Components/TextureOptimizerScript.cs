@@ -20,7 +20,7 @@ namespace RekornTools.Avatar
         [SerializeField]
         TexturePropertiesTable _propertiesTable;
 
-        [SerializeField, ListMutable(false), ListSpan(false)] [NotNull] TexturesMapByType _texturesMap = new TexturesMapByType();
+        [SerializeField, ReadOnlyList, ItemNotSpan] [NotNull] TexturesMapByType _texturesMap = new TexturesMapByType();
 
         [Header("Optimizer")]
         [SerializeField]

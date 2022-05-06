@@ -7,7 +7,7 @@ namespace RekornTools.Avatar
     [CreateAssetMenu(menuName = "VRC Avatar Tools/Texture Properties Table")]
     public class TexturePropertiesTable : ScriptableObject
     {
-        [SerializeField, ListSpan(false), ListMutable(false)] [NotNull]
+        [SerializeField, ReadOnlyList, ItemNotSpan] [NotNull]
         public TexturePropertiesMapByShader TexturePropertiesMap = new TexturePropertiesMapByShader();
 
         public void OnEnable() => UpdateTable();

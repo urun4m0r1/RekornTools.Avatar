@@ -7,7 +7,7 @@ namespace RekornTools.Avatar.Editor
     [CustomPropertyDrawer(typeof(TexturePropertiesByShader))]
     public class TexturePropertiesByShaderDrawer : SerializedKeyValueDrawer
     {
-        [NotNull] readonly ReorderableListHelper _listHelper = new ReorderableListHelper(SerializedList.FieldName, isMutable: false);
+        [NotNull] readonly ReorderableListHelper _listHelper = new ReorderableListHelper(SerializedList.FieldName, true);
 
         protected override void DrawProperty(Rect rect, SerializedProperty property, GUIContent _, int indent)
         {

@@ -11,7 +11,7 @@ namespace RekornTools.Avatar
     [CreateAssetMenu(menuName = "VRC Avatar Tools/Texture Optimizer Settings")]
     public class TextureOptimizerSettings : ScriptableObject, IValidate
     {
-        [SerializeField, ListMutable(false)] [NotNull]
+        [SerializeField, ReadOnlyList] [NotNull]
         public TexturePresetMapByType PresetMap = new TexturePresetMapByType();
 
         [NotNull] readonly List<TextureType> _types =
