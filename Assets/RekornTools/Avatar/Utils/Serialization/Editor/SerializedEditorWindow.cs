@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace RekornTools.Avatar
+namespace RekornTools.Avatar.Editor
 {
     public abstract class SerializedEditorWindow<T> : EditorWindow
     {

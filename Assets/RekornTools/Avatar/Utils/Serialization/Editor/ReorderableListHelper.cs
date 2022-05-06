@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
-namespace RekornTools.Avatar
+namespace RekornTools.Avatar.Editor
 {
     /// <summary>
     /// Do not create static class of this, it will cause key collisions of cache dictionary.

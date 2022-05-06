@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace RekornTools.Avatar
+namespace RekornTools.Avatar.Editor
 {
     [CustomPropertyDrawer(typeof(SerializedDictionary<,,>), true)]
     public class SerializedDictionaryDrawer : SerializedPropertyDrawer

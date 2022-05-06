@@ -1,8 +1,8 @@
 ﻿using JetBrains.Annotations;
 using UnityEditor;
-using static RekornTools.Avatar.ReflectionExtensions;
+using static RekornTools.Avatar.Editor.ReflectionExtensions;
 
-namespace RekornTools.Avatar
+namespace RekornTools.Avatar.Editor
 {
     public static class SerializationExtensions
     {

@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using UnityEditor;
 
-namespace RekornTools.Avatar
+namespace RekornTools.Avatar.Editor
 {
     public abstract class SerializedEditor<T> :
         UnityEditor.Editor

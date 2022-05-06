@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using static UnityEditor.EditorGUILayout;
 
-namespace RekornTools.Avatar
+namespace RekornTools.Avatar.Editor
 {
     public static class EditorGUILayoutExtensions
     {

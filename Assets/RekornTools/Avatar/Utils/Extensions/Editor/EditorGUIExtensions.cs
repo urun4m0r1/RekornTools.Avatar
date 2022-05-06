@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using static UnityEditor.EditorGUI;
 
-namespace RekornTools.Avatar
+namespace RekornTools.Avatar.Editor
 {
     public static class EditorGUIExtensions
     {

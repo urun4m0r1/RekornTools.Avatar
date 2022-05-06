@@ -3,7 +3,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static UnityEditor.EditorGUILayout;
-using static RekornTools.Avatar.EditorGUILayoutExtensions;
+using static RekornTools.Avatar.Editor.EditorGUILayoutExtensions;
 
 namespace RekornTools.Avatar.Editor
 {

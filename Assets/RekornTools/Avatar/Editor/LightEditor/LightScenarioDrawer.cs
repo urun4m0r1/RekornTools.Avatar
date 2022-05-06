@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using static UnityEditor.EditorGUILayout;
-using static RekornTools.Avatar.EditorGUILayoutExtensions;
+using static RekornTools.Avatar.Editor.EditorGUILayoutExtensions;
 
 namespace RekornTools.Avatar.Editor
 {
