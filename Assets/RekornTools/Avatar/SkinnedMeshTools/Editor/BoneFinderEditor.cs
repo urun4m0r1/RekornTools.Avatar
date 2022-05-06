@@ -4,7 +4,7 @@ using UnityEngine;
 namespace RekornTools.Avatar.Editor
 {
     [CustomEditor(typeof(BoneFinder))]
-    public class BoneFinderEditor : UnityEditor.Editor
+    public sealed class BoneFinderEditor : UnityEditor.Editor
     {
         BoneFinder _target;
 

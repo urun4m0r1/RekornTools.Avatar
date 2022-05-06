@@ -4,7 +4,7 @@ using UnityEngine;
 namespace RekornTools.Avatar.Editor
 {
     [CustomEditor(typeof(BonePairsAnimationGenerator))]
-    public class BonePairsAnimationGeneratorEditor : UnityEditor.Editor
+    public sealed class BonePairsAnimationGeneratorEditor : UnityEditor.Editor
     {
         BonePairsAnimationGenerator _target;
 

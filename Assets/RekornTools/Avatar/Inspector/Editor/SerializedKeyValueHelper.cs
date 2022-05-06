@@ -5,7 +5,7 @@ using static RekornTools.Avatar.ReflectionExtensions;
 
 namespace RekornTools.Avatar.Editor
 {
-    public class SerializedKeyValueHelper
+    public sealed class SerializedKeyValueHelper
     {
         [CanBeNull] public SerializedProperty Key   { get; private set; }
         [CanBeNull] public SerializedProperty Value { get; private set; }

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace RekornTools.Avatar.Editor
 {
     [CustomEditor(typeof(MeshBonePairs))]
-    public class MeshBonePairsEditor : UnityEditor.Editor
+    public sealed class MeshBonePairsEditor : UnityEditor.Editor
     {
         MeshBonePairs _target;
         bool          _meshesFoldout = true;

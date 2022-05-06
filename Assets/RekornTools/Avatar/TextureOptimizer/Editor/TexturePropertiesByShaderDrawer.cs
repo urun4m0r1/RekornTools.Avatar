@@ -5,7 +5,7 @@ using UnityEngine;
 namespace RekornTools.Avatar.Editor
 {
     [CustomPropertyDrawer(typeof(TexturePropertiesByShader))]
-    public class TexturePropertiesByShaderDrawer : SerializedKeyValueDrawer
+    public sealed class TexturePropertiesByShaderDrawer : SerializedKeyValueDrawer
     {
         [NotNull] readonly ReorderableListHelper _listHelper = new ReorderableListHelper(SerializedList.FieldName, true);
 

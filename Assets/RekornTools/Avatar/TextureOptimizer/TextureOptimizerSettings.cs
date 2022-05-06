@@ -9,7 +9,7 @@ using UnityEngine;
 namespace RekornTools.Avatar
 {
     [CreateAssetMenu(menuName = "VRC Avatar Tools/Texture Optimizer Settings")]
-    public class TextureOptimizerSettings : ScriptableObject, IValidate
+    public sealed class TextureOptimizerSettings : ScriptableObject, IValidate
     {
         [SerializeField, ReadOnlyList] [NotNull]
         public TexturePresetMapByType PresetMap = new TexturePresetMapByType();

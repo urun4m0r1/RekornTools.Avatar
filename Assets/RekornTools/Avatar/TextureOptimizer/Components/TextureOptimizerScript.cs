@@ -8,7 +8,7 @@ using UnityEngine;
 namespace RekornTools.Avatar
 {
     [ExecuteInEditMode]
-    public class TextureOptimizerScript : MonoBehaviour
+    public sealed class TextureOptimizerScript : MonoBehaviour
     {
         [Header("Target")]
         [SerializeField]
