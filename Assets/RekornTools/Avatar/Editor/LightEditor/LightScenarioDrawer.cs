@@ -5,7 +5,7 @@ using static RekornTools.Avatar.Editor.EditorGUILayoutExtensions;
 
 namespace RekornTools.Avatar.Editor
 {
-    partial class LightScenario
+    public sealed partial class LightScenario
     {
         [CustomEditor(typeof(LightScenario))]
         sealed class LightScenarioDrawer : BaseEditor<LightScenario>
