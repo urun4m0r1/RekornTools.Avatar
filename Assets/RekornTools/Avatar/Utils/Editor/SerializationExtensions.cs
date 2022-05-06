@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 using UnityEditor;
-using static RekornTools.Avatar.Editor.ReflectionExtensions;
+using static RekornTools.Avatar.ReflectionExtensions;
 
 namespace RekornTools.Avatar.Editor
 {

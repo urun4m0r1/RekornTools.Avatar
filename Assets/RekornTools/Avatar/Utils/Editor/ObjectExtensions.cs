@@ -1,12 +1,13 @@
 ﻿using JetBrains.Annotations;
 using UnityEditor;
+using UnityEngine;
 
 namespace RekornTools.Avatar.Editor
 {
-    public static class ScriptableObjectExtensions
+    public static class ObjectExtensions
     {
 #region Editor
-        public static void DrawEditor([NotNull] this UnityEngine.Object obj, bool isDisabled)
+        public static void DrawEditor([NotNull] this Object obj, bool isDisabled)
         {
             EditorGUI.BeginDisabledGroup(isDisabled);
             {
@@ -15,7 +16,7 @@ namespace RekornTools.Avatar.Editor
             EditorGUI.EndDisabledGroup();
         }
 
-        public static void DrawEditor<T>([NotNull] this T obj) where T : UnityEngine.Object
+        public static void DrawEditor<T>([NotNull] this T obj) where T : Object
         {
             var editor = UnityEditor.Editor.CreateEditor(obj);
             if (editor != null) editor.OnInspectorGUI();

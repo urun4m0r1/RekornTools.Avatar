@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
+using static RekornTools.Avatar.ReflectionExtensions;
 
 namespace RekornTools.Avatar.Editor
 {
@@ -9,11 +10,8 @@ namespace RekornTools.Avatar.Editor
         [CanBeNull] public SerializedProperty Key   { get; private set; }
         [CanBeNull] public SerializedProperty Value { get; private set; }
 
-        [NotNull] readonly string _keyName =
-            ReflectionExtensions.ResolveFieldName(SerializedKeyValue.KeyFieldName);
-
-        [NotNull] readonly string _valueName =
-            ReflectionExtensions.ResolveFieldName(SerializedKeyValue.ValueFieldName);
+        [NotNull] readonly string _keyName   = ResolveFieldName(SerializedKeyValue.KeyFieldName);
+        [NotNull] readonly string _valueName = ResolveFieldName(SerializedKeyValue.ValueFieldName);
 
         [CanBeNull] SerializedProperty _container;
 
