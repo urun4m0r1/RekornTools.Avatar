@@ -5,9 +5,9 @@ using UnityEngine;
 namespace RekornTools.Avatar
 {
     [CreateAssetMenu(menuName = "VRC Avatar Tools/Texture Properties Table")]
-    public class TexturePropertiesTable : ScriptableObject
+    public sealed class TexturePropertiesTable : ScriptableObject
     {
-        [SerializeField, ReadOnlyList, ItemNotSpan] [NotNull]
+        [SerializeField] [ReadOnlyList] [ItemNotSpan] [NotNull]
         public TexturePropertiesMapByShader TexturePropertiesMap = new TexturePropertiesMapByShader();
 
         public void OnEnable() => UpdateTable();

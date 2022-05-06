@@ -8,7 +8,7 @@ using Object = UnityEngine.Object;
 
 namespace RekornTools.Avatar.Editor
 {
-    [CustomEditor(typeof(MonoBehaviour), true)]
+    [CustomEditor(typeof(Object), true)]
     public sealed class DefaultEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
