@@ -24,7 +24,7 @@ namespace RekornTools.Avatar
         {
             InitFields();
 
-            //gameObjects = GameObjectExtensions.GetAllGameObjectsInScene.ToList();
+            gameObjects = GameObjectExtensions.GetAllGameObjectsInScene.ToList();
             if (gameObjects.Count < 1)
             {
                 Debug.LogError("No GameObjects in scene!");
