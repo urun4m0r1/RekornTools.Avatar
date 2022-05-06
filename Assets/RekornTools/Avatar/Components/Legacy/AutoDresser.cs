@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
 
@@ -36,11 +35,7 @@ namespace RekornTools.Avatar
     [Serializable]
     public struct AvatarRig
     {
-        [SerializeField] public Transform Rig;
-
-        bool IsValid => Rig != null;
-
-        [ShowIf("IsValid"), AllowNesting]
+        [SerializeField] public Transform           Rig;
         [SerializeField] public RigNamingConvention NamingConvention;
     }
 
@@ -70,13 +65,6 @@ namespace RekornTools.Avatar
         [SerializeField] string            _clothPrefix;
         [SerializeField] string            _clothSuffix;
         [SerializeField] List<RigNamePair> _rigNameExceptions;
-
-        [Header("Debug Info")]
-        [ReadOnly] public bool DebugEnabled = true;
-
-        [ShowNativeProperty] string AvatarNamingPreview   => _avatar.NamingConvention.PreviewText;
-        [ShowNativeProperty] string ClothNamingPreview    => _cloth.NamingConvention.PreviewText;
-        [ShowNativeProperty] string NewClothNamingPreview => $"{_clothPrefix}Hips{_clothSuffix}";
 
         static string ConvertNamingConvention(string name, RigNamingConvention src, RigNamingConvention dst)
         {

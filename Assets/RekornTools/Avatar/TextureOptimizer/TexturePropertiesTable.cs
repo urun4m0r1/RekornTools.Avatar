@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using JetBrains.Annotations;
-using NaughtyAttributes;
 using UnityEngine;
 
 namespace RekornTools.Avatar
@@ -13,7 +12,8 @@ namespace RekornTools.Avatar
 
         public void OnEnable() => UpdateTable();
 
-        [Button] public void UpdateTable()
+        [Button]
+        public void UpdateTable()
         {
             var shaders = ShaderPropertyExtensions.AllUserShadersInProject?.ToList();
             if (shaders == null) return;
@@ -21,7 +21,8 @@ namespace RekornTools.Avatar
             TexturePropertiesMap.MatchDictionaryKey(shaders, x => x.GetTexturePropertyList());
         }
 
-        [Button] public void ResetTable()
+        [Button]
+        public void ResetTable()
         {
             TexturePropertiesMap.Clear();
             UpdateTable();

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using NaughtyAttributes;
 using UnityEngine;
 
 namespace RekornTools.Avatar
@@ -13,10 +12,10 @@ namespace RekornTools.Avatar
         [SerializeField]           string           shaderPath              = "UnityChanToonShader/Toon_DoubleShadeWithFeather";
         [SerializeField]           string           mainTextureProperty     = "_MainTex";
         [SerializeField]           string           emissiveTextureProperty = "_Emissive_Tex";
-        [SerializeField, ReadOnly] List<GameObject> gameObjects;
-        [SerializeField, ReadOnly] List<Renderer>   renderers;
-        [SerializeField, ReadOnly] List<Material>   materials;
-        [SerializeField, ReadOnly] List<Material>   shaders;
+        [SerializeField] List<GameObject> gameObjects;
+        [SerializeField] List<Renderer>   renderers;
+        [SerializeField] List<Material>   materials;
+        [SerializeField] List<Material>   shaders;
         [SerializeField]           List<Material>   ignoreShaders = new List<Material>();
 
         [Button]

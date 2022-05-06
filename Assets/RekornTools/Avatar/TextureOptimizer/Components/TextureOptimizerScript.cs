@@ -2,7 +2,6 @@
 using System;
 using System.Linq;
 using JetBrains.Annotations;
-using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
 
@@ -18,14 +17,12 @@ namespace RekornTools.Avatar
         [SerializeField] [NotNull] Renderers _meshes = new Renderers();
 
         [Header("Textures")]
-        [HorizontalLine]
         [SerializeField]
         TexturePropertiesTable _propertiesTable;
 
         [SerializeField, ListMutable(false), ListSpan(false)] [NotNull] TexturesMapByType _texturesMap = new TexturesMapByType();
 
         [Header("Optimizer")]
-        [HorizontalLine]
         [SerializeField]
         TextureOptimizerSettings _optimizerSettings;
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using NaughtyAttributes;
 using UnityEngine;
 
 namespace RekornTools.Avatar
@@ -11,11 +10,11 @@ namespace RekornTools.Avatar
     [RequireComponent(typeof(MeshBonePairs))]
     public sealed class BoneFinder : MonoBehaviour
     {
-        [field: SerializeField, Label(nameof(MeshParent))] [CanBeNull] public Transform MeshParent { get; set; }
-        [field: SerializeField, Label(nameof(BoneParent))] [CanBeNull] public Transform BoneParent { get; set; }
+        [field: SerializeField] [CanBeNull] public Transform MeshParent { get; set; }
+        [field: SerializeField] [CanBeNull] public Transform BoneParent { get; set; }
 
-        [field: SerializeField, Label(nameof(MeshKeyword))] [NotNull] public string MeshKeyword { get; set; } = "";
-        [field: SerializeField, Label(nameof(BoneKeyword))] [NotNull] public string BoneKeyword { get; set; } = "";
+        [field: SerializeField] [NotNull] public string MeshKeyword { get; set; } = "";
+        [field: SerializeField] [NotNull] public string BoneKeyword { get; set; } = "";
 
         [NotNull] SkinnedMeshRenderers Meshes => _meshBonePairs.Meshes;
         [NotNull] Transforms           Bones  => _meshBonePairs.Bones;

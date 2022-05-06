@@ -1,7 +1,6 @@
 ﻿#if UNITY_EDITOR
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
-using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
 
