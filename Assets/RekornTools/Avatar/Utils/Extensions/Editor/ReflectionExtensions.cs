@@ -9,7 +9,7 @@ namespace RekornTools.Avatar
     public static class ReflectionExtensions
     {
 #region Attribute
-        static readonly BindingFlags Everything = ~BindingFlags.Default;
+        public static readonly BindingFlags Everything = ~BindingFlags.Default;
 
         [CanBeNull]
         public static T GetAttribute<T>([CanBeNull] this SerializedProperty property, bool inherit = true) where T : Attribute

@@ -4,29 +4,28 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-namespace RekornTools.Avatar
+namespace RekornTools.Avatar.Editor
 {
 #if UNITY_EDITOR
     [CustomEditor(typeof(MonoBehaviour), true)]
-    public class EditorButton : Editor
+    public class EditorButton : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
 
             var mono = target as MonoBehaviour;
+            if (mono == null) return;
 
             var methods = mono.GetType()
-                              .GetMembers(BindingFlags.Instance | BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public |
-                                          BindingFlags.NonPublic)
-                              .Where(o => Attribute.IsDefined(o, typeof(ButtonAttribute)));
+                              .GetMembers(ReflectionExtensions.Everything)
+                              .Where(x => Attribute.IsDefined(x, typeof(ButtonAttribute)));
 
             foreach (var memberInfo in methods)
             {
                 if (GUILayout.Button(memberInfo.Name))
                 {
-                    var method = memberInfo as MethodInfo;
-                    method.Invoke(mono, null);
+                    (memberInfo as MethodInfo)?.Invoke(mono, null);
                 }
             }
         }
