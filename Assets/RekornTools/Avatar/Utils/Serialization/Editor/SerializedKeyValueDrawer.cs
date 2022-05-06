@@ -1,11 +1,10 @@
 ﻿using JetBrains.Annotations;
-using RekornTools.Avatar.Editor;
 using UnityEditor;
 using UnityEngine;
 
-namespace RekornTools.Avatar
+namespace RekornTools.Avatar.Editor
 {
-    [CustomPropertyDrawer(typeof(SerializedKeyValue<,>), true)]
+    [CustomPropertyDrawer(typeof(SerializedKeyValue<,>))]
     public class SerializedKeyValueDrawer : SerializedPropertyDrawer
     {
         [NotNull] protected static readonly SerializedKeyValueHelper Helper = new SerializedKeyValueHelper();
