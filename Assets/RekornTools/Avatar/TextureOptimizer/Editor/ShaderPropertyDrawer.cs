@@ -4,7 +4,7 @@ using UnityEngine;
 namespace RekornTools.Avatar.Editor
 {
     [CustomPropertyDrawer(typeof(ShaderProperty))]
-    public class ShaderPropertyDrawer : SerializedPropertyDrawer
+    public class ShaderPropertyDrawer : BasePropertyDrawer
     {
         protected override void DrawProperty(Rect rect, SerializedProperty property, GUIContent _, int __)
         {

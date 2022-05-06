@@ -3,9 +3,7 @@ using UnityEditor;
 
 namespace RekornTools.Avatar.Editor
 {
-    public abstract class SerializedEditor<T> :
-        UnityEditor.Editor
-        where T : UnityEngine.Object, IValidate
+    public abstract class BaseEditor<T> : UnityEditor.Editor where T : UnityEngine.Object, IValidate
     {
         T _target;
 

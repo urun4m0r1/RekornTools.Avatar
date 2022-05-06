@@ -8,7 +8,7 @@ namespace RekornTools.Avatar.Editor
     partial class LightScenario
     {
         [CustomEditor(typeof(LightScenario))]
-        sealed class LightScenarioDrawer : SerializedEditor<LightScenario>
+        sealed class LightScenarioDrawer : BaseEditor<LightScenario>
         {
             protected override void Draw(LightScenario t)
             {

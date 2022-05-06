@@ -10,7 +10,7 @@ namespace RekornTools.Avatar.Editor
     /// <summary>
     /// Do not create static class of this, it will cause key collisions of cache dictionary.
     /// </summary>
-    public class ReorderableListHelper
+    public sealed class ReorderableListHelper
     {
         [NotNull] readonly Dictionary<string, ReorderableList> _cache = new Dictionary<string, ReorderableList>();
 

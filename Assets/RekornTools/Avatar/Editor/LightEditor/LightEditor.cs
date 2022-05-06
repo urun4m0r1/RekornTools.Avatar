@@ -7,7 +7,7 @@ using static RekornTools.Avatar.Editor.EditorGUILayoutExtensions;
 
 namespace RekornTools.Avatar.Editor
 {
-    sealed class LightEditor : SerializedEditorWindow<LightEditor>
+    sealed class LightEditor : BaseEditorWindow<LightEditor>
     {
         [SerializeField] bool          _ignoreLighting;
         [SerializeField] Light         _sun;

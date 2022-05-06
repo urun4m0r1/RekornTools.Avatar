@@ -5,7 +5,7 @@ using UnityEngine;
 namespace RekornTools.Avatar.Editor
 {
     [CustomPropertyDrawer(typeof(SerializedKeyValue<,>))]
-    public class SerializedKeyValueDrawer : SerializedPropertyDrawer
+    public class SerializedKeyValueDrawer : BasePropertyDrawer
     {
         [NotNull] protected static readonly SerializedKeyValueHelper Helper = new SerializedKeyValueHelper();
 

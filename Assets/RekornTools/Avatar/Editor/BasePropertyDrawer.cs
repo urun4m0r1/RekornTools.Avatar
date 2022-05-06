@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RekornTools.Avatar.Editor
 {
-    public abstract class SerializedPropertyDrawer : PropertyDrawer
+    public abstract class BasePropertyDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect rect, [CanBeNull] SerializedProperty property, [CanBeNull] GUIContent label)
         {

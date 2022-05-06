@@ -5,7 +5,7 @@ using UnityEngine;
 namespace RekornTools.Avatar.Editor
 {
     [CustomPropertyDrawer(typeof(SerializedList<>), true)]
-    public class SerializedListDrawer : SerializedPropertyDrawer
+    public class SerializedListDrawer : BasePropertyDrawer
     {
         [NotNull] protected readonly ReorderableListHelper Helper = new ReorderableListHelper(SerializedList.FieldName);
 

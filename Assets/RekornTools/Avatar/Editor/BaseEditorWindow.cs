@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RekornTools.Avatar.Editor
 {
-    public abstract class SerializedEditorWindow<T> : EditorWindow
+    public abstract class BaseEditorWindow<T> : EditorWindow
     {
         [NotNull] static string PrefPath => $"{Application.identifier}/{typeof(T)}";
 
