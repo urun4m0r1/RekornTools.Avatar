@@ -45,7 +45,7 @@ namespace RekornTools.Avatar
             {
                 if (shader.GetPropertyFlags(i) == ShaderPropertyFlags.HideInInspector) continue;
                 if (shader.GetPropertyType(i)  != ShaderPropertyType.Texture) continue;
-                properties.Add(new TextureProperty(shader, i));
+                properties.Add(ShaderProperty.Create(shader, i) as TextureProperty);
             }
 
             return properties.Count == 0 ? null : properties;

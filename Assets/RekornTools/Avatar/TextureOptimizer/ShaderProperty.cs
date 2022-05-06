@@ -6,12 +6,7 @@ using UnityEngine.Rendering;
 namespace RekornTools.Avatar
 {
     [Serializable]
-    public class TextureProperty : ShaderProperty
-    {
-        public TextureProperty([NotNull] Shader shader, int index, ShaderPropertyType type, [NotNull] string name) : base(shader, index, type, name) { }
-
-        public TextureProperty([NotNull] Shader shader, int index) : base(shader, index) { }
-    }
+    public class TextureProperty : ShaderProperty { }
 
     [Serializable]
     public class ShaderProperty
@@ -28,18 +23,24 @@ namespace RekornTools.Avatar
         [field: SerializeField] public string             Name        { get; private set; }
         [field: SerializeField] public TextureType        TextureType { get; set; }
 
-        public ShaderProperty([NotNull] Shader shader, int index, ShaderPropertyType type, [NotNull] string name)
+        [NotNull]
+        public static ShaderProperty Create([NotNull] Shader shader, int index) =>
+            Create(shader, index, shader.GetPropertyType(index), shader.GetPropertyName(index) ?? "null");
+
+        [NotNull]
+        public static ShaderProperty Create([NotNull] Shader shader, int index, ShaderPropertyType type, [NotNull] string name)
         {
-            Shader = shader;
-            Index  = index;
-            Type   = type;
-            Name   = name;
+            var result = new ShaderProperty
+            {
+                Shader = shader,
+                Index  = index,
+                Type   = type,
+                Name   = name,
+            };
 
-            if (type == ShaderPropertyType.Texture) TextureType = AssumeTextureType(name);
+            if (type == ShaderPropertyType.Texture) result.TextureType = AssumeTextureType(name);
+            return result;
         }
-
-        public ShaderProperty([NotNull] Shader shader, int index) :
-            this(shader, index, shader.GetPropertyType(index), shader.GetPropertyName(index) ?? "null") { }
 
         static TextureType AssumeTextureType([NotNull] string name)
         {
