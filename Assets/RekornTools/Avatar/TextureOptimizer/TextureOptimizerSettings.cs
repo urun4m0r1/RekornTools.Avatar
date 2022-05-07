@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEditor.Presets;
@@ -14,8 +12,7 @@ namespace RekornTools.Avatar
         [SerializeField, ReadOnlyList] [NotNull]
         public TexturePresetMapByType PresetMap = new TexturePresetMapByType();
 
-        [NotNull] readonly List<TextureType> _types =
-            Enum.GetValues(typeof(TextureType)).Cast<TextureType>().ToList();
+        [NotNull] readonly IReadOnlyCollection<TextureType> _types = DictionaryExtensions.GetKeys<TextureType>();
 
         public void OnEnable() => UpdateTable();
 
@@ -23,7 +20,7 @@ namespace RekornTools.Avatar
 
         void UpdateTable()
         {
-            PresetMap.MatchDictionaryKey(_types, x => default);
+            PresetMap.MatchDictionaryKey(_ => default);
             PresetMap.Remove(TextureType.Ignore);
         }
 

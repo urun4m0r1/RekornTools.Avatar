@@ -1,5 +1,4 @@
 ﻿#if UNITY_EDITOR
-using System;
 using System.Linq;
 using JetBrains.Annotations;
 using UnityEditor;
@@ -11,30 +10,28 @@ namespace RekornTools.Avatar
     public sealed class TextureOptimizer : MonoBehaviour
     {
         [Header("Target")]
-        [SerializeField]
-        Transform _parent;
-
+        [SerializeField] Transform _parent;
         [SerializeField] [NotNull] Renderers _meshes = new Renderers();
 
         [Header("Textures")]
-        [SerializeField]
-        TexturePropertiesTable _propertiesTable;
-
-        [SerializeField, ReadOnlyList, ItemNotSpan] [NotNull] TexturesMapByType _texturesMap = new TexturesMapByType();
+        [SerializeField] TexturePropertiesTable _propertiesTable;
+        [SerializeField] [ReadOnlyList] [ItemNotSpan] [NotNull] TexturesMapByType _texturesMap = new TexturesMapByType();
 
         [Header("Optimizer")]
-        [SerializeField]
-        TextureOptimizerSettings _optimizerSettings;
+        [SerializeField] TextureOptimizerSettings _optimizerSettings;
 
-        Transform              _prevParent;
-        TexturePropertiesTable _prevTable;
+        [SerializeField] [HideInInspector] Transform              _prevParent;
+        [SerializeField] [HideInInspector] TexturePropertiesTable _prevTable;
 
         void Awake() => _meshes.Initialize(_parent);
 
         void OnValidate()
         {
-            if (_prevParent == _parent && _prevTable == _propertiesTable) return;
+            if (_prevParent != _parent || _prevTable != _propertiesTable) Refresh();
+        }
 
+        void Refresh()
+        {
             _prevParent = _parent;
             _meshes.Initialize(_parent);
 
@@ -46,11 +43,8 @@ namespace RekornTools.Avatar
         void ResetTexturesMap()
         {
             _texturesMap.Clear();
-            foreach (var type in Enum.GetValues(typeof(TextureType)).Cast<TextureType>())
-            {
-                if (type == TextureType.Ignore) continue;
-                _texturesMap.Add(type, new Textures());
-            }
+            _texturesMap.MatchDictionaryKey(_ => new Textures());
+            _texturesMap.Remove(TextureType.Ignore);
         }
 
         void AssignTexturesMap()
@@ -120,25 +114,49 @@ namespace RekornTools.Avatar
         [Button]
         void Optimize()
         {
-            if (_optimizerSettings == null) return;
-            var presets = _optimizerSettings.PresetMap;
-            foreach (var map in _texturesMap)
+            if (_propertiesTable != null) _propertiesTable.UpdateTable();
+
+            if (_optimizerSettings == null)
             {
-                var textures = map.Value;
-                if (textures == null || textures.Count == 0) continue;
+                this.ShowConfirmDialog("You need to set the optimizer settings first.");
+                return;
+            }
 
+            if (!EditorUtility.DisplayDialog("Warning"
+                                           , "This operation will reimport all textures from list. "
+                                           + "This operation can't be undone, and takes huge amount of time."
+                                           , "Proceed"
+                                           , "Abort")) return;
+
+            ApplyPreset(_texturesMap, _optimizerSettings.PresetMap);
+        }
+
+        void ApplyPreset([NotNull] TexturesMapByType texturesMapByType, [NotNull] TexturePresetMapByType presets)
+        {
+            var count    = 0;
+            var prevSize = new AssetSize(0L, 0L);
+            var newSize  = new AssetSize(0L, 0L);
+
+            foreach (var map in texturesMapByType)
+            {
                 if (!presets.TryGetValue(map.Key, out var preset)) continue;
-                if (preset == null) continue;
+                if (preset    == null) continue;
+                if (map.Value == null) continue;
 
-                foreach (var texture in textures)
+                foreach (var texture in map.Value)
                 {
-                    var path     = AssetDatabase.GetAssetPath(texture);
-                    var importer = AssetImporter.GetAtPath(path);
-                    preset.ApplyTo(importer);
+                    count++;
+                    prevSize += AssetSize.GetAssetSize(texture);
+                    AssetManager.ApplyPreset(texture, preset);
+                    newSize += AssetSize.GetAssetSize(texture);
                 }
             }
 
-            //TODO: 절약한 용량 표시
+            var savedSize = newSize - prevSize;
+            this.ShowConfirmDialog($"Total {count} textures optimized.\n"
+                                 + $"[Before] {prevSize.ToString()}\n"
+                                 + $"[After] {newSize.ToString()}\n"
+                                 + $"[Saved] {savedSize.ToString()}\n");
         }
     }
 }

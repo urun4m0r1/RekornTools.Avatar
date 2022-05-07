@@ -3,7 +3,6 @@ using System.Linq;
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace RekornTools.Avatar
 {
@@ -31,24 +30,5 @@ namespace RekornTools.Avatar
             let shader = AssetDatabase.LoadAssetAtPath<Shader>(path)
             where shader != null
             select shader;
-
-        [CanBeNull]
-        public static TextureProperties GetTexturePropertyList([CanBeNull] this Shader shader)
-        {
-            if (shader == null) return null;
-
-            var count = shader.GetPropertyCount();
-            if (count == 0) return null;
-
-            var properties = new TextureProperties();
-            for (var i = 0; i < count; i++)
-            {
-                if (shader.GetPropertyFlags(i) == ShaderPropertyFlags.HideInInspector) continue;
-                if (shader.GetPropertyType(i)  != ShaderPropertyType.Texture) continue;
-                properties.Add(new TextureProperty(shader, i));
-            }
-
-            return properties.Count == 0 ? null : properties;
-        }
     }
 }
