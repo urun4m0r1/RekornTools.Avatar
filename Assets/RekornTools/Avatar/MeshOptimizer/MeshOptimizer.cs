@@ -40,24 +40,39 @@ namespace RekornTools.Avatar
                 if (mesh == null) continue;
 
                 var prevBounds = mesh.localBounds;
-                var bounds     = mesh.bounds;
 
-                Gizmos.color = Color.yellow;
-                Gizmos.DrawWireCube(bounds.center, bounds.size);
+                DrawBounds(mesh, Color.yellow);
 
                 mesh.localBounds = boundingBox;
                 RepaintRenderer(mesh);
 
-                bounds       = mesh.bounds;
-                Gizmos.color = Color.green;
-                Gizmos.DrawWireCube(bounds.center, bounds.size);
+                DrawBounds(mesh, Color.green);
 
                 mesh.localBounds = prevBounds;
             }
         }
 
+        static void DrawBounds([NotNull] Renderer renderer, Color color)
+        {
+            var bounds = renderer.bounds;
+
+            var rotation = renderer.transform.rotation;
+
+            if (renderer is SkinnedMeshRenderer)
+            {
+                var transformRoot = renderer.transform.root;
+                if (transformRoot != null)
+                    rotation = transformRoot.rotation;
+            }
+
+            var matrix = Matrix4x4.TRS(bounds.center, rotation, bounds.size);
+            Gizmos.matrix = matrix;
+            Gizmos.color  = color;
+            Gizmos.DrawWireCube(Vector3.zero, Vector3.one);
+        }
+
         [SuppressMessage("ReSharper", "Unity.InefficientPropertyAccess")]
-        static void RepaintRenderer<T>([NotNull] T renderer) where T : Renderer
+        static void RepaintRenderer([NotNull] Renderer renderer)
         {
             renderer.enabled = false;
             renderer.enabled = true;
