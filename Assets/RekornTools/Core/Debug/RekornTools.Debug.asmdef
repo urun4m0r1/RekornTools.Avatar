@@ -3,7 +3,10 @@
     "references": [
         "GUID:2618654c3f986a34286d6d44683fbbb4"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "CloudRendering",
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
