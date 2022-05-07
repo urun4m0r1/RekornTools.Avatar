@@ -3,7 +3,7 @@ using UnityEditor;
 
 namespace RekornTools.Avatar.Editor
 {
-    public abstract class BaseEditor<T> : UnityEditor.Editor where T : UnityEngine.Object, IValidate
+    public abstract class BaseEditor<T> : UnityEditor.Editor where T : UnityEngine.Object
     {
         T _target;
 
@@ -16,10 +16,10 @@ namespace RekornTools.Avatar.Editor
             Undo.RecordObject(_target, nameof(T));
             {
                 Draw(_target);
-                if (_target != null) _target.OnValidate();
+                if (_target is IValidate validate) validate.OnValidate();
             }
         }
 
-        protected virtual void Draw([NotNull] T t) { }
+        protected abstract void Draw([NotNull] T t);
     }
 }
