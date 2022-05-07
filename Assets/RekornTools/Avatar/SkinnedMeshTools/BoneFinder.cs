@@ -13,11 +13,11 @@ namespace RekornTools.Avatar
         [field: SerializeField] [CanBeNull] public Transform MeshParent { get; set; }
         [field: SerializeField] [CanBeNull] public Transform BoneParent { get; set; }
 
-        [field: SerializeField] [NotNull] public string MeshKeyword { get; set; } = "";
-        [field: SerializeField] [NotNull] public string BoneKeyword { get; set; } = "";
+        [field: SerializeField] [CanBeNull] public string MeshKeyword { get; set; }
+        [field: SerializeField] [CanBeNull] public string BoneKeyword { get; set; }
 
-        [NotNull] SkinnedMeshRenderers Meshes => _meshBonePairs.Meshes;
-        [NotNull] Transforms           Bones  => _meshBonePairs.Bones;
+        [NotNull] public SkinnedMeshRenderers Meshes => _meshBonePairs.Meshes;
+        [NotNull] public Transforms           Bones  => _meshBonePairs.Bones;
 
         // ReSharper disable once NotNullMemberIsNotInitialized
         [NotNull] MeshBonePairs _meshBonePairs;

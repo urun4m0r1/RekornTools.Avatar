@@ -1,72 +1,64 @@
-﻿using UnityEditor;
+﻿using JetBrains.Annotations;
+using UnityEditor;
 using UnityEngine;
+using static RekornTools.Avatar.Editor.EditorGUILayoutExtensions;
+using static UnityEditor.EditorGUILayout;
 
 namespace RekornTools.Avatar.Editor
 {
     [CustomEditor(typeof(BoneFinder))]
-    public sealed class BoneFinderEditor : UnityEditor.Editor
+    public sealed class BoneFinderEditor : BaseEditor<BoneFinder>
     {
-        BoneFinder _target;
-
-        const string ClassName = nameof(BoneFinder);
-
-        void OnEnable() => _target = (BoneFinder)target;
-
-        public override void OnInspectorGUI()
+        protected override void Draw(BoneFinder t)
         {
             EditorGUIUtility.labelWidth = EditorGUIUtility.currentViewWidth / 5;
 
-            EditorGUILayout.LabelField("Meshes Finder", EditorStyles.boldLabel);
+            DrawMeshFinder(t);
+            HorizontalLine();
+
+            if (t.Meshes.Count > 0) DrawBoneFinder(t);
+        }
+
+        static void DrawMeshFinder([NotNull] BoneFinder t)
+        {
+            BeginHorizontal();
             {
-                EditorGUILayout.LabelField("From Hierarchy", EditorStyles.miniBoldLabel);
-                {
-                    Undo.RecordObject(_target, ClassName);
-                    {
-                        _target.MeshParent =
-                            EditorGUILayout.ObjectField(
-                                "Parent",
-                                _target.MeshParent,
-                                typeof(Transform),
-                                true) as Transform;
-                        _target.MeshKeyword = EditorGUILayout.TextField("Keyword", _target.MeshKeyword);
-                    }
-                    if (GUILayout.Button("Find")) _target.FindMeshesFromTargetWithKeyword();
-                }
+                LabelField("Mesh Finder", EditorStyles.boldLabel);
+                if (GUILayout.Button("Find")) t.FindMeshesFromTargetWithKeyword();
             }
+            EndHorizontal();
 
-            EditorGUILayout.Space(10);
-
-            EditorGUILayout.LabelField("Bones Finder", EditorStyles.boldLabel);
+            t.UndoableAction(() =>
             {
-                EditorGUILayout.LabelField("From Painted Weights", EditorStyles.miniBoldLabel);
-                {
-                    EditorGUILayout.BeginHorizontal();
-                    {
-                        if (GUILayout.Button("Find"))
-                            _target.FindBonesFromMeshesWeights();
-                        if (GUILayout.Button("Find Including Children"))
-                            _target.FindBonesFromMeshesWeightsIncludingChildren();
-                    }
-                    EditorGUILayout.EndHorizontal();
-                }
+                t.MeshParent  = ObjectField("Parent", t.MeshParent, true);
+                t.MeshKeyword = TextField("Keyword", t.MeshKeyword);
+            });
+        }
 
-                EditorGUILayout.Space(10);
-
-                EditorGUILayout.LabelField("From Hierarchy", EditorStyles.miniBoldLabel);
-                {
-                    Undo.RecordObject(_target, ClassName);
-                    {
-                        _target.BoneParent =
-                            EditorGUILayout.ObjectField(
-                                "Parent",
-                                _target.BoneParent,
-                                typeof(Transform),
-                                true) as Transform;
-                        _target.BoneKeyword = EditorGUILayout.TextField("Keyword", _target.BoneKeyword);
-                    }
-                    if (GUILayout.Button("Find")) _target.FindBonesFromTargetWithKeyword();
-                }
+        static void DrawBoneFinder([NotNull] BoneFinder t)
+        {
+            BeginHorizontal();
+            {
+                LabelField("Bone Finder", EditorStyles.boldLabel);
+                if (GUILayout.Button("Find")) t.FindBonesFromTargetWithKeyword();
             }
+            EndHorizontal();
+
+            t.UndoableAction(() =>
+            {
+                t.BoneParent  = ObjectField("Parent", t.BoneParent, true);
+                t.BoneKeyword = TextField("Keyword", t.BoneKeyword);
+            });
+
+            HorizontalLine();
+
+            BeginHorizontal();
+            {
+                LabelField("Bone Finder (From Weights)", EditorStyles.boldLabel);
+                if (GUILayout.Button("Find")) t.FindBonesFromMeshesWeights();
+                if (GUILayout.Button("Find Recursive")) t.FindBonesFromMeshesWeightsIncludingChildren();
+            }
+            EndHorizontal();
         }
     }
 }

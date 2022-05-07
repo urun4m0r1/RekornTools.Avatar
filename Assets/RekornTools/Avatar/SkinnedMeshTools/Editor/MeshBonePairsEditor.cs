@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using UnityEditor;
+using UnityEngine;
 using static UnityEditor.EditorGUILayout;
-using static UnityEngine.GUILayout;
 
 namespace RekornTools.Avatar.Editor
 {
@@ -9,7 +9,7 @@ namespace RekornTools.Avatar.Editor
     public sealed class MeshBonePairsEditor : BaseEditor<MeshBonePairs>
     {
         bool _meshesFoldout = true;
-        bool _bonesFoldout  = false;
+        bool _bonesFoldout = false;
 
         protected override void Draw(MeshBonePairs t)
         {
@@ -35,32 +35,32 @@ namespace RekornTools.Avatar.Editor
         {
             LabelField("Actions", EditorStyles.boldLabel);
             {
-                EditorGUILayout.BeginHorizontal();
+                BeginHorizontal();
                 {
                     LabelField("Select Items", EditorStyles.miniBoldLabel);
-                    if (Button("All")) t.SelectAll();
-                    if (Button("Meshes")) t.SelectMeshes();
-                    if (Button("Bones")) t.SelectBones();
+                    if (GUILayout.Button("All")) t.SelectAll();
+                    if (GUILayout.Button("Meshes")) t.SelectMeshes();
+                    if (GUILayout.Button("Bones")) t.SelectBones();
                 }
-                EditorGUILayout.EndHorizontal();
+                EndHorizontal();
 
-                EditorGUILayout.BeginHorizontal();
+                BeginHorizontal();
                 {
                     LabelField("Clear List", EditorStyles.miniBoldLabel);
-                    if (Button("All")) t.ClearAll();
-                    if (Button("Meshes")) t.ClearMeshes();
-                    if (Button("Bones")) t.ClearBones();
+                    if (GUILayout.Button("All")) t.ClearAll();
+                    if (GUILayout.Button("Meshes")) t.ClearMeshes();
+                    if (GUILayout.Button("Bones")) t.ClearBones();
                 }
-                EditorGUILayout.EndHorizontal();
+                EndHorizontal();
 
-                EditorGUILayout.BeginHorizontal();
+                BeginHorizontal();
                 {
                     LabelField("Destroy Items", EditorStyles.miniBoldLabel);
-                    if (Button("All")) t.DestroyAll();
-                    if (Button("Meshes")) t.DestroyMeshes();
-                    if (Button("Bones")) t.DestroyBones();
+                    if (GUILayout.Button("All")) t.DestroyAll();
+                    if (GUILayout.Button("Meshes")) t.DestroyMeshes();
+                    if (GUILayout.Button("Bones")) t.DestroyBones();
                 }
-                EditorGUILayout.EndHorizontal();
+                EndHorizontal();
             }
         }
     }

@@ -54,13 +54,14 @@ namespace RekornTools.Avatar
         static bool IsObjectPrefab([NotNull] Object o) =>
             o && PrefabUtility.GetPrefabInstanceStatus(o) == PrefabInstanceStatus.Connected;
 
-        public void Initialize([CanBeNull] Transform parent, [NotNull] string keyword = "")
+        public void Initialize([CanBeNull] Transform parent, [CanBeNull] string keyword = null)
         {
             var objects = parent == null
                 ? GameObjectExtensions.GetAllGameObjectsInScene?.SelectMany(x => x == null ? null : x.GetComponents<T>())
                 : parent.GetComponentsInChildren<T>();
 
-            if (!string.IsNullOrWhiteSpace(keyword)) objects = objects?.Where(x => x != null && x.name.Contains(keyword));
+            if (keyword != null && !string.IsNullOrWhiteSpace(keyword))
+                objects = objects?.Where(x => x != null && x.name.Contains(keyword));
 
             Initialize(objects?.Where(x => x));
         }
