@@ -7,7 +7,7 @@ using UnityEngine;
 namespace RekornTools.Avatar
 {
     [ExecuteInEditMode]
-    public class MeshOptimizer : MonoBehaviour
+    public sealed class MeshOptimizer : MonoBehaviour
     {
         [SerializeField] Transform            parent;
         [SerializeField] SkinnedMeshRenderers meshes = new SkinnedMeshRenderers();
@@ -16,48 +16,42 @@ namespace RekornTools.Avatar
 
         Transform _prevParent;
 
-        void Awake()
-        {
-            meshes.Initialize(parent);
-        }
+        void Awake() => Refresh();
 
         void OnValidate()
         {
-            if (_prevParent != parent)
-            {
-                _prevParent = parent;
-                meshes.Initialize(parent);
-            }
+            if (_prevParent != parent) Refresh();
+        }
+
+        void Refresh()
+        {
+            _prevParent = parent;
+            meshes?.Initialize(parent);
         }
 
         void OnDrawGizmosSelected()
         {
-            if (meshes       == null) return;
-            if (meshes.Count == 0) return;
-
+            if (meshes == null) return;
             foreach (var mesh in meshes)
             {
                 if (mesh == null) continue;
 
                 var prevBounds = mesh.localBounds;
+                {
+                    DrawBounds(mesh, Color.yellow);
 
-                DrawBounds(mesh, Color.yellow);
+                    mesh.localBounds = boundingBox;
+                    RepaintRenderer(mesh);
 
-                mesh.localBounds = boundingBox;
-                RepaintRenderer(mesh);
-
-                DrawBounds(mesh, Color.green);
-
+                    DrawBounds(mesh, Color.green);
+                }
                 mesh.localBounds = prevBounds;
             }
         }
 
         static void DrawBounds([NotNull] Renderer renderer, Color color)
         {
-            var bounds = renderer.bounds;
-
             var rotation = renderer.transform.rotation;
-
             if (renderer is SkinnedMeshRenderer)
             {
                 var transformRoot = renderer.transform.root;
@@ -65,6 +59,7 @@ namespace RekornTools.Avatar
                     rotation = transformRoot.rotation;
             }
 
+            var bounds = renderer.bounds;
             var matrix = Matrix4x4.TRS(bounds.center, rotation, bounds.size);
             Gizmos.matrix = matrix;
             Gizmos.color  = color;
@@ -85,14 +80,14 @@ namespace RekornTools.Avatar
             foreach (var mesh in meshes)
             {
                 if (mesh == null) continue;
-                Undo.RecordObject(mesh, nameof(MeshOptimizer));
+                mesh.UndoableAction(() =>
                 {
                     mesh.probeAnchor               = anchorOverride;
                     mesh.localBounds               = boundingBox;
                     mesh.updateWhenOffscreen       = false;
                     mesh.skinnedMotionVectors      = false;
                     mesh.allowOcclusionWhenDynamic = true;
-                }
+                });
             }
         }
     }
