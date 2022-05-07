@@ -5,7 +5,7 @@ using UnityEditor.Presets;
 
 namespace RekornTools.Avatar
 {
-    public static class AssetManager
+    public static class AssetHelper
     {
         public static void ApplyPreset([CanBeNull] Object obj, [NotNull] Preset preset)
         {

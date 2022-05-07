@@ -134,8 +134,8 @@ namespace RekornTools.Avatar
             var clothManagerGameObject = new GameObject($"{_cloth.Rig.name} Manager");
             Undo.RegisterCreatedObjectUndo(clothManagerGameObject, "Apply Cloth");
             Undo.SetTransformParent(clothManagerGameObject.transform, transform, "Cloth Manager");
-            var clothManager = Undo.AddComponent<ClothManager>(clothManagerGameObject);
-            clothManager.IsClothUnpacked = _unpackClothMeshes;
+            //var clothManager = Undo.AddComponent<ClothManager>(clothManagerGameObject);
+            //clothManager.IsClothUnpacked = _unpackClothMeshes;
 
             var children = armature.GetComponentsInChildren<Transform>();
             foreach (var child in children)
@@ -158,11 +158,11 @@ namespace RekornTools.Avatar
 
                 Undo.SetTransformParent(child, newParent, "Parenting");
 
-                clothManager.ClothBones.Add(child);
+                //clothManager.ClothBones.Add(child);
             }
 
             var clothMeshes = _cloth.Rig.GetComponentsInChildren<SkinnedMeshRenderer>();
-            clothManager.ClothMeshes.AddRange(clothMeshes);
+            //clothManager.ClothMeshes.AddRange(clothMeshes);
 
             Undo.SetTransformParent(_cloth.Rig, _avatar.Rig, "Parenting");
 

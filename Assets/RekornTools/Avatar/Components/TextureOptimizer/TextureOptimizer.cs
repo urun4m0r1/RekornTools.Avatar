@@ -147,7 +147,7 @@ namespace RekornTools.Avatar
                 {
                     count++;
                     prevSize += AssetSize.GetAssetSize(texture);
-                    AssetManager.ApplyPreset(texture, preset);
+                    AssetHelper.ApplyPreset(texture, preset);
                     newSize += AssetSize.GetAssetSize(texture);
                 }
             }
