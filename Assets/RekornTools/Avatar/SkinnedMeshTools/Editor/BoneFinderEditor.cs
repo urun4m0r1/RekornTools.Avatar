@@ -16,7 +16,12 @@ namespace RekornTools.Avatar.Editor
             DrawMeshFinder(t);
             HorizontalLine();
 
-            if (t.Meshes.Count > 0) DrawBoneFinder(t);
+            if (t.Meshes.Count > 0)
+            {
+                DrawBoneFinder(t);
+                HorizontalLine();
+                DrawWeightedBoneFinder(t);
+            }
         }
 
         static void DrawMeshFinder([NotNull] BoneFinder t)
@@ -49,9 +54,10 @@ namespace RekornTools.Avatar.Editor
                 t.BoneParent  = ObjectField("Parent", t.BoneParent, true);
                 t.BoneKeyword = TextField("Keyword", t.BoneKeyword);
             });
+        }
 
-            HorizontalLine();
-
+        static void DrawWeightedBoneFinder([NotNull] BoneFinder t)
+        {
             BeginHorizontal();
             {
                 LabelField("Bone Finder (From Weights)", EditorStyles.boldLabel);
