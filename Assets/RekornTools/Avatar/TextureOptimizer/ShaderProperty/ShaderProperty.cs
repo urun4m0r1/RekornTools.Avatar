@@ -16,12 +16,6 @@ namespace RekornTools.Avatar
     [Serializable]
     public class ShaderProperty
     {
-        [NotNull] public const string ShaderField      = nameof(Shader);
-        [NotNull] public const string IndexField       = nameof(Index);
-        [NotNull] public const string TypeField        = nameof(Type);
-        [NotNull] public const string NameField        = nameof(Name);
-        [NotNull] public const string TextureTypeField = nameof(TextureType);
-
         [field: SerializeField] public Shader             Shader      { get; private set; }
         [field: SerializeField] public int                Index       { get; private set; }
         [field: SerializeField] public ShaderPropertyType Type        { get; private set; }

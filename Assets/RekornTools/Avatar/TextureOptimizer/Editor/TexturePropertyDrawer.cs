@@ -13,9 +13,9 @@ namespace RekornTools.Avatar.Editor
 
             rect.width = 0f;
 
-            DrawElement(0.2f, ShaderProperty.IndexField);
-            DrawElement(0.6f, ShaderProperty.NameField);
-            DrawElement(0.2f, ShaderProperty.TextureTypeField, false);
+            DrawElement(0.2f, nameof(ShaderProperty.Index));
+            DrawElement(0.6f, nameof(ShaderProperty.Name));
+            DrawElement(0.2f, nameof(ShaderProperty.TextureType), false);
 
             void DrawElement(float weight, string propertyName, bool isReadOnly = true)
             {

@@ -13,11 +13,11 @@ namespace RekornTools.Avatar.Editor
 
             rect.width = 0f;
 
-            DrawElement(0.15f, ShaderProperty.ShaderField);
-            DrawElement(0.1f,  ShaderProperty.IndexField);
-            DrawElement(0.15f, ShaderProperty.TypeField);
-            DrawElement(0.4f,  ShaderProperty.NameField);
-            DrawElement(0.2f,  ShaderProperty.TextureTypeField, false);
+            DrawElement(0.15f, nameof(ShaderProperty.Shader));
+            DrawElement(0.1f,  nameof(ShaderProperty.Index));
+            DrawElement(0.15f, nameof(ShaderProperty.Type));
+            DrawElement(0.4f,  nameof(ShaderProperty.Name));
+            DrawElement(0.2f,  nameof(ShaderProperty.TextureType), false);
 
             void DrawElement(float weight, string propertyName, bool isReadOnly = true)
             {
