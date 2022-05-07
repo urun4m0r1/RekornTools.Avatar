@@ -61,8 +61,8 @@ namespace RekornTools.Avatar.Editor
             BeginHorizontal();
             {
                 LabelField("Bone Finder (From Weights)", EditorStyles.boldLabel);
-                if (GUILayout.Button("Find")) t.FindBonesFromMeshesWeights();
-                if (GUILayout.Button("Find Recursive")) t.FindBonesFromMeshesWeightsIncludingChildren();
+                if (GUILayout.Button("Find")) t.FindBonesFromWeights();
+                if (GUILayout.Button("Find Recursive")) t.FindBonesFromWeightsRecursive();
             }
             EndHorizontal();
         }

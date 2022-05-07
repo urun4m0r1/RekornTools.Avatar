@@ -36,36 +36,14 @@ namespace RekornTools.Avatar
             _meshBonePairs.UndoableAction(() =>
             {
                 Bones.Initialize(BoneParent, BoneKeyword);
-                RemoveMeshesFromBoneList();
+                Bones.RemoveRange(Meshes.Select(x => x == null ? null : x.transform));
+                Bones.Remove(BoneParent);
             });
 
             if (Bones.Count == 0) this.ShowConfirmDialog("No objects found");
         }
 
-        void RemoveMeshesFromBoneList()
-        {
-            Bones.RemoveRange(Meshes.Select(x => x == null ? null : x.transform));
-            Bones.Remove(BoneParent);
-        }
-
-        public void FindBonesFromMeshesWeightsIncludingChildren()
-        {
-            FindBonesFromMeshesWeights();
-
-            var children = new List<Transform>();
-
-            foreach (var child in
-                     from b in Bones
-                     where b && !Bones.Contains(b) && !children.Contains(b)
-                     select b)
-            {
-                children.Add(child);
-            }
-
-            _meshBonePairs.UndoableAction(() => Bones.AddRange(children));
-        }
-
-        public void FindBonesFromMeshesWeights()
+        public void FindBonesFromWeights()
         {
             if (Meshes.Count == 0)
             {
@@ -79,7 +57,7 @@ namespace RekornTools.Avatar
                      from m in Meshes
                      where m
                      from b in m.bones
-                     where b && !bones.Contains(b)
+                     where b != null && !bones.Contains(b)
                      select b)
             {
                 bones.Add(bone);
@@ -90,6 +68,33 @@ namespace RekornTools.Avatar
             if (Bones.Count == 0)
                 this.ShowConfirmDialog("Failed to find any bones from meshes.\n" +
                                        "You might need to check meshes is valid or bone weights are not set to zero.");
+        }
+
+        public void FindBonesFromWeightsRecursive()
+        {
+            FindBonesFromWeights();
+
+            var children = GetChildrenRecursive(Bones);
+            _meshBonePairs.UndoableAction(() => Bones.AddRange(children));
+        }
+
+        [NotNull]
+        static List<Transform> GetChildrenRecursive([NotNull] Transforms target)
+        {
+            var children = new List<Transform>();
+
+            foreach (var child in
+                     from t in target
+                     where t != null
+                     select t.GetComponentsInChildren<Transform>(true))
+            {
+                if (child == null) continue;
+                children.AddRange(child.Where(c => !AlreadyInList(c)));
+            }
+
+            return children;
+
+            bool AlreadyInList(Transform b) => target.Contains(b) || children.Contains(b);
         }
     }
 }

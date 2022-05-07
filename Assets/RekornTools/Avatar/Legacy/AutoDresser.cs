@@ -224,6 +224,7 @@ namespace RekornTools.Avatar
 
         static void Rename(ref string str, string a, string b)
         {
+            if (a == b) return;
             str = str.Replace(a, b);
         }
     }
