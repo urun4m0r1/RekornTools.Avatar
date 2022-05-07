@@ -1,83 +1,64 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEditor;
+using static UnityEditor.EditorGUILayout;
+using static UnityEngine.GUILayout;
 
 namespace RekornTools.Avatar.Editor
 {
     [CustomEditor(typeof(MeshBonePairs))]
-    public sealed class MeshBonePairsEditor : UnityEditor.Editor
+    public sealed class MeshBonePairsEditor : BaseEditor<MeshBonePairs>
     {
-        MeshBonePairs _target;
-        bool          _meshesFoldout = true;
-        bool          _bonesFoldout  = false;
+        bool _meshesFoldout = true;
+        bool _bonesFoldout  = false;
 
-        void OnEnable() => _target = (MeshBonePairs)target;
-
-
-        public override void OnInspectorGUI()
+        protected override void Draw(MeshBonePairs t)
         {
             EditorGUIUtility.labelWidth = EditorGUIUtility.currentViewWidth / 5;
 
-            EditorGUILayout.LabelField("Lists", EditorStyles.boldLabel);
-            {
-                _meshesFoldout = EditorGUILayout.Foldout(_meshesFoldout, "Meshes");
-                if (_meshesFoldout)
-                {
-                    EditorGUI.indentLevel++;
-                    {
-                        EditorGUI.BeginChangeCheck();
-                        {
-                            EditorGUILayout.PropertyField(
-                                SerializationExtensions.ResolveProperty(serializedObject, "Meshes"),
-                                true);
-                        }
-                        if (EditorGUI.EndChangeCheck()) serializedObject.ApplyModifiedProperties();
-                    }
-                    EditorGUI.indentLevel--;
-                }
+            DrawLists();
+            DrawButton(t);
+        }
 
-                _bonesFoldout = EditorGUILayout.Foldout(_bonesFoldout, "Bones");
-                if (_bonesFoldout)
-                {
-                    EditorGUI.indentLevel++;
-                    {
-                        EditorGUI.BeginChangeCheck();
-                        {
-                            EditorGUILayout.PropertyField(
-                                SerializationExtensions.ResolveProperty(serializedObject, "Bones"),
-                                true);
-                        }
-                        if (EditorGUI.EndChangeCheck()) serializedObject.ApplyModifiedProperties();
-                    }
-                    EditorGUI.indentLevel--;
-                }
+        void DrawLists()
+        {
+            LabelField("Lists", EditorStyles.boldLabel);
+            {
+                _meshesFoldout = Foldout(_meshesFoldout, "Meshes");
+                if (_meshesFoldout) PropertyField(serializedObject.ResolveProperty(nameof(MeshBonePairs.Meshes)), true);
+
+                _bonesFoldout = Foldout(_bonesFoldout, "Bones");
+                if (_bonesFoldout) PropertyField(serializedObject.ResolveProperty(nameof(MeshBonePairs.Bones)), true);
             }
+        }
 
-            EditorGUILayout.LabelField("Actions", EditorStyles.boldLabel);
+        static void DrawButton([NotNull] MeshBonePairs t)
+        {
+            LabelField("Actions", EditorStyles.boldLabel);
             {
                 EditorGUILayout.BeginHorizontal();
                 {
-                    EditorGUILayout.LabelField("Select Items", EditorStyles.miniBoldLabel);
-                    if (GUILayout.Button("All")) _target.SelectAll();
-                    if (GUILayout.Button("Meshes")) _target.SelectMeshes();
-                    if (GUILayout.Button("Bones")) _target.SelectBones();
+                    LabelField("Select Items", EditorStyles.miniBoldLabel);
+                    if (Button("All")) t.SelectAll();
+                    if (Button("Meshes")) t.SelectMeshes();
+                    if (Button("Bones")) t.SelectBones();
                 }
                 EditorGUILayout.EndHorizontal();
 
                 EditorGUILayout.BeginHorizontal();
                 {
-                    EditorGUILayout.LabelField("Clear List", EditorStyles.miniBoldLabel);
-                    if (GUILayout.Button("All")) _target.ClearAll();
-                    if (GUILayout.Button("Meshes")) _target.ClearMeshes();
-                    if (GUILayout.Button("Bones")) _target.ClearBones();
+                    LabelField("Clear List", EditorStyles.miniBoldLabel);
+                    if (Button("All")) t.ClearAll();
+                    if (Button("Meshes")) t.ClearMeshes();
+                    if (Button("Bones")) t.ClearBones();
                 }
                 EditorGUILayout.EndHorizontal();
 
                 EditorGUILayout.BeginHorizontal();
                 {
-                    EditorGUILayout.LabelField("Destroy Items", EditorStyles.miniBoldLabel);
-                    if (GUILayout.Button("All")) _target.DestroyAll();
-                    if (GUILayout.Button("Meshes")) _target.DestroyMeshes();
-                    if (GUILayout.Button("Bones")) _target.DestroyBones();
+                    LabelField("Destroy Items", EditorStyles.miniBoldLabel);
+                    if (Button("All")) t.DestroyAll();
+                    if (Button("Meshes")) t.DestroyMeshes();
+                    if (Button("Bones")) t.DestroyBones();
                 }
                 EditorGUILayout.EndHorizontal();
             }

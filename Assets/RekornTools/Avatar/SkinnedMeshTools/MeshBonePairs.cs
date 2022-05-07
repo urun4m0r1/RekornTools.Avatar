@@ -9,15 +9,14 @@ namespace RekornTools.Avatar
     [ExecuteInEditMode]
     public sealed class MeshBonePairs : MonoBehaviour
     {
+        // ReSharper disable AutoPropertyCanBeMadeGetOnly.Local
         [field: SerializeField] [NotNull] public SkinnedMeshRenderers Meshes { get; private set; } = new SkinnedMeshRenderers();
-
-        [field: SerializeField] [NotNull] public Transforms Bones { get; private set; } = new Transforms();
-
-        const string ClassName = nameof(BoneFinder);
+        [field: SerializeField] [NotNull] public Transforms           Bones  { get; private set; } = new Transforms();
+        // ReSharper restore AutoPropertyCanBeMadeGetOnly.Local
 
         public void SelectAll()
         {
-            Object[] selection = { };
+            var selection = new Object[] { };
 
             if (Meshes.TryGetSelections(out var meshSelections))
                 selection = selection.Concat(meshSelections).ToArray();
@@ -27,58 +26,24 @@ namespace RekornTools.Avatar
             if (selection.Length > 0) Selection.objects = selection;
         }
 
-        public void SelectMeshes() => Meshes.SelectComponents();
-        public void SelectBones() => Bones.SelectComponents();
-
         public void ClearAll()
         {
-            Undo.RegisterCompleteObjectUndo(this, ClassName);
-            {
-                Meshes.Clear();
-                Bones.Clear();
-            }
-        }
-
-        public void ClearMeshes()
-        {
-            Undo.RegisterCompleteObjectUndo(this, ClassName);
-            {
-                Meshes.Clear();
-            }
-        }
-
-        public void ClearBones()
-        {
-            Undo.RegisterCompleteObjectUndo(this, ClassName);
-            {
-                Bones.Clear();
-            }
+            ClearMeshes();
+            ClearBones();
         }
 
         public void DestroyAll()
         {
-            Undo.RegisterCompleteObjectUndo(this, ClassName);
-            {
-                Meshes.DestroyItems();
-                Bones.DestroyItems();
-            }
+            DestroyMeshes();
+            DestroyBones();
         }
 
-        public void DestroyMeshes()
-        {
-            Undo.RegisterCompleteObjectUndo(this, ClassName);
-            {
-                Meshes.DestroyItems();
-            }
-        }
-
-        public void DestroyBones()
-        {
-            Undo.RegisterCompleteObjectUndo(this, ClassName);
-            {
-                Bones.DestroyItems();
-            }
-        }
+        public void SelectMeshes()  => Meshes.SelectComponents();
+        public void SelectBones()   => Bones.SelectComponents();
+        public void ClearMeshes()   => this.UndoableAction(() => Meshes.Clear());
+        public void ClearBones()    => this.UndoableAction(() => Bones.Clear());
+        public void DestroyMeshes() => this.UndoableAction(() => Meshes.DestroyItems());
+        public void DestroyBones()  => this.UndoableAction(() => Bones.DestroyItems());
     }
 }
 #endif
