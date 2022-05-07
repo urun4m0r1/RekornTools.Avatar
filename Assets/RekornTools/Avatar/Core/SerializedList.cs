@@ -14,7 +14,7 @@ namespace RekornTools.Avatar
     [Serializable]
     public class SerializedList<T> : IList<T>
     {
-        [SerializeField, NotNull] protected List<T> Items = new List<T>();
+        [SerializeField] [NotNull] protected List<T> Items = new List<T>();
 
 #region Interface
         public IEnumerator<T>   GetEnumerator() => Items.GetEnumerator();

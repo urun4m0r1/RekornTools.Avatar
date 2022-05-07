@@ -9,7 +9,7 @@ namespace RekornTools.Avatar
     [CreateAssetMenu(menuName = "Rekorn Tools/Texture Optimizer Settings")]
     public sealed class TextureOptimizerSettings : ScriptableObject, IValidate
     {
-        [SerializeField, ReadOnlyList] [NotNull]
+        [SerializeField] [ReadOnlyList] [NotNull]
         public TexturePresetMapByType PresetMap = new TexturePresetMapByType();
 
         [NotNull] readonly IReadOnlyCollection<TextureType> _types = DictionaryExtensions.GetKeys<TextureType>();

@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
+using UnityEngine;
 using UnityEditor;
 using UnityEditor.Presets;
-using UnityEngine;
 
 namespace RekornTools.Avatar
 {

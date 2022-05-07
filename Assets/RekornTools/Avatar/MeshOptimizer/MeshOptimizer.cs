@@ -32,7 +32,7 @@ namespace RekornTools.Avatar
 
         void OnDrawGizmosSelected()
         {
-            if (meshes == null) return;
+            if (meshes       == null) return;
             if (meshes.Count == 0) return;
 
             foreach (var mesh in meshes)
