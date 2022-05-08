@@ -1,7 +1,6 @@
 ﻿#if UNITY_EDITOR
 using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
-using UnityEditor;
 using UnityEngine;
 
 namespace RekornTools.Avatar
@@ -14,7 +13,7 @@ namespace RekornTools.Avatar
         [SerializeField] Transform            anchorOverride;
         [SerializeField] Bounds               boundingBox;
 
-        Transform _prevParent;
+        [SerializeField] [HideInInspector] Transform _prevParent;
 
         void Awake() => Refresh();
 
