@@ -5,6 +5,13 @@ using UnityEngine;
 
 namespace RekornTools.Avatar
 {
+    public enum DresserMode
+    {
+        DirectTransform,
+        ParentConstraint,
+        WeightTransfer,
+    }
+
     [ExecuteInEditMode]
     public sealed class AutoDresser : MonoBehaviour
     {
@@ -20,8 +27,9 @@ namespace RekornTools.Avatar
 
         [Header("Advanced Settings")]
         [SerializeField] bool _backupCloth = false;
-        [SerializeField] bool _unpackClothMeshes = false;
-        [SerializeField] bool _deleteLeftover    = true;
+        [SerializeField] bool        _unpackClothMeshes = false;
+        [SerializeField] bool        _deleteLeftover    = true;
+        [SerializeField] DresserMode _dresserMode       = DresserMode.DirectTransform;
 
         static string ConvertNamingConvention(string name, RigNamingConvention src, RigNamingConvention dst)
         {
