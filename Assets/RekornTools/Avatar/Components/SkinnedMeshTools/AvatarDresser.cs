@@ -15,10 +15,11 @@ namespace RekornTools.Avatar
     [ExecuteInEditMode]
     public sealed class AvatarDresser : MonoBehaviour
     {
-        [Header("Rig Settings")]
+        [Header("Avatar Settings")]
         [SerializeField] AnimatorRig _avatar;
 
-        [SerializeField] string       _clothPrefix;
+        [Header("Cloth Settings")]
+        [SerializeField] string _clothPrefix;
         [SerializeField] string       _clothSuffix;
         [SerializeField] TransformRig _cloth;
 

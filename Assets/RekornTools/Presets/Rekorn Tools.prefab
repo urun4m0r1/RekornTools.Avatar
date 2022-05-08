@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6641233035509609489
+--- !u!1 &3527896265422754665
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6641233035509609491}
-  - component: {fileID: 6641233035509609488}
+  - component: {fileID: 2282721658063701435}
+  - component: {fileID: 1284315707096903102}
   m_Layer: 0
-  m_Name: Auto Dresser
-  m_TagString: EditorOnly
+  m_Name: Avatar Dresser
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6641233035509609491
+--- !u!4 &2282721658063701435
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6641233035509609489}
+  m_GameObject: {fileID: 3527896265422754665}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,13 +31,13 @@ Transform:
   m_Father: {fileID: 6641233036261945921}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6641233035509609488
+--- !u!114 &1284315707096903102
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6641233035509609489}
+  m_GameObject: {fileID: 3527896265422754665}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1736ac66ad9eb1445bbad42ac0db8a2b, type: 3}
@@ -483,7 +483,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6641233035509609491}
+  - {fileID: 2282721658063701435}
   - {fileID: 6641233035632871743}
   - {fileID: 6641233036212931386}
   - {fileID: 6641233036143860344}

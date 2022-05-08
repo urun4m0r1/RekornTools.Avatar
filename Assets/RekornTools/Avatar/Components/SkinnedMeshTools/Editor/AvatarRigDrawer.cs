@@ -18,5 +18,8 @@ namespace RekornTools.Avatar.Editor
             rect.AppendHeight(naming);
             naming.PropertyField(rect);
         }
+
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent _) =>
+            EditorGUIExtensions.SingleItemHeight * 3f;
     }
 }
