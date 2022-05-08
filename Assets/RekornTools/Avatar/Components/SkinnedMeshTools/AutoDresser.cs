@@ -76,7 +76,7 @@ namespace RekornTools.Avatar
         }
 
         [Button]
-        public void ApplyCloth()
+        public void Apply()
         {
             var armature = _cloth.Rig.Find("Armature");
             if (armature == null)
