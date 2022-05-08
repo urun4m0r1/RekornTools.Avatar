@@ -15,6 +15,8 @@ namespace RekornTools.Avatar.Editor
             {
                 EditorGUI.BeginChangeCheck();
                 {
+                    EditorGUI.indentLevel = 0;
+                    rect.ApplyIndent(indent);
                     DrawProperty(rect, property, label, indent);
                 }
                 if (EditorGUI.EndChangeCheck()) property.serializedObject?.ApplyModifiedProperties();
