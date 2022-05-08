@@ -4,9 +4,15 @@ using UnityEngine;
 
 namespace RekornTools.Avatar
 {
-#region List
-    [Serializable] public sealed class Textures : SerializedList<Texture> { }
+#region BasicList
+    [Serializable] public sealed class Materials : SerializedList<Material> { }
 
+    [Serializable] public sealed class Shaders : SerializedList<Shader> { }
+
+    [Serializable] public sealed class Textures : SerializedList<Texture> { }
+#endregion // BasicList
+
+#region List
     [Serializable] public sealed class Renderers : ComponentList<Renderer> { }
 
     [Serializable] public sealed class TextureProperties : SerializedList<TextureProperty> { }
