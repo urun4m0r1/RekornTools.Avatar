@@ -18,7 +18,7 @@ namespace RekornTools
     [InitializeOnLoad]
     public class VersionChecker
     {
-        static VersionChecker() => new Thread(CheckNewVersion).Start();
+        static VersionChecker() => CheckNewVersion();
 
         static void CheckNewVersion()
         {
@@ -48,6 +48,7 @@ namespace RekornTools
                 }
                 else
                 {
+                    Debug.Log(www.downloadHandler?.text);
                     var remoteVersion = JsonUtility.FromJson<VersionInfo>(www.downloadHandler?.text);
                     if (remoteVersion.version != localVersion.version)
                     {
@@ -59,6 +60,8 @@ namespace RekornTools
                                                   , "OK");
                     }
                 }
+
+                www.Dispose();
             };
         }
     }
