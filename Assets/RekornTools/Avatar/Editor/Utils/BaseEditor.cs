@@ -13,7 +13,7 @@ namespace RekornTools.Avatar.Editor
         {
             if (_target == null) return;
 
-            Undo.RecordObject(_target, nameof(T));
+            Undo.RecordObject(_target, typeof(T).Name);
             {
                 Draw(_target);
                 if (_target is IValidate validate) validate.OnValidate();

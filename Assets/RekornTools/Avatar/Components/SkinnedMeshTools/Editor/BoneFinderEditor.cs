@@ -33,11 +33,8 @@ namespace RekornTools.Avatar.Editor
             }
             EndHorizontal();
 
-            t.UndoableAction(() =>
-            {
-                t.MeshParent  = ObjectField("Parent", t.MeshParent, true);
-                t.MeshKeyword = TextField("Keyword", t.MeshKeyword);
-            });
+            t.MeshParent  = ObjectField("Parent", t.MeshParent, true);
+            t.MeshKeyword = TextField("Keyword", t.MeshKeyword);
         }
 
         static void DrawBoneFinder([NotNull] BoneFinder t)
@@ -49,11 +46,8 @@ namespace RekornTools.Avatar.Editor
             }
             EndHorizontal();
 
-            t.UndoableAction(() =>
-            {
-                t.BoneParent  = ObjectField("Parent", t.BoneParent, true);
-                t.BoneKeyword = TextField("Keyword", t.BoneKeyword);
-            });
+            t.BoneParent  = ObjectField("Parent", t.BoneParent, true);
+            t.BoneKeyword = TextField("Keyword", t.BoneKeyword);
         }
 
         static void DrawWeightedBoneFinder([NotNull] BoneFinder t)
