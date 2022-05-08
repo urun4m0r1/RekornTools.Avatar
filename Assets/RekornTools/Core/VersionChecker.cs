@@ -49,7 +49,7 @@ namespace RekornTools
                 else
                 {
                     Debug.Log(www.downloadHandler?.text);
-                    var remoteVersion = JsonUtility.FromJson<VersionInfo>(www.downloadHandler?.text);
+                    var remoteVersion = JsonUtility.FromJson<VersionInfo>(www.downloadHandler?.text?.Trim());
                     if (remoteVersion.version != localVersion.version)
                     {
                         EditorUtility.DisplayDialog("New version available"
