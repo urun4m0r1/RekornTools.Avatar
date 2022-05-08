@@ -11,7 +11,7 @@ namespace RekornTools.Avatar
     }
 
     [Serializable]
-    public class RigNamingConvention
+    public sealed class RigNamingConvention
     {
         [field: SerializeField] public ModifierType ModifierType  { get; private set; } = ModifierType.End;
         [field: SerializeField] public string       Splitter      { get; private set; } = ".";

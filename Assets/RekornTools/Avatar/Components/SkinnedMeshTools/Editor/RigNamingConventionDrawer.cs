@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 namespace RekornTools.Avatar.Editor
