@@ -1,6 +1,5 @@
 ﻿#if UNITY_EDITOR
 using System;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -16,7 +15,7 @@ namespace RekornTools.Avatar
         [SerializeField] string    _clothSuffix;
         [SerializeField] AvatarRig _cloth;
 
-        [Header("Transform Settings")]
+        [Header("Exclusion Settings")]
         [SerializeField] RigNamePairs _rigNameExceptions = new RigNamePairs();
 
         [Header("Advanced Settings")]
@@ -141,11 +140,11 @@ namespace RekornTools.Avatar
 
         string ConvertNameExceptions(string str, ref bool disableParenting)
         {
-            foreach (var exception in _rigNameExceptions.Where(exception => str.Contains(exception.ClothBoneName)))
-            {
-                Rename(ref str, exception.ClothBoneName, exception.AvatarBoneName);
-                disableParenting = exception.DisableParenting;
-            }
+            // foreach (var exception in _rigNameExceptions.Where(exception => str.Contains(exception.ClothBoneName)))
+            // {
+            //     Rename(ref str, exception.ClothBoneName, exception.AvatarBoneName);
+            //     disableParenting = exception.DisableParenting;
+            // }
 
             return str;
         }
