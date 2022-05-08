@@ -7,31 +7,6 @@ using UnityEngine;
 
 namespace RekornTools.Avatar
 {
-    public enum RigModifierPosition
-    {
-        Front,
-        End,
-    }
-
-    [Serializable]
-    public struct RigNamingConvention
-    {
-        [SerializeField] public RigModifierPosition ModifierPosition;
-        [SerializeField] public string              Splitter;
-        [SerializeField] public string              ModifierLeft;
-        [SerializeField] public string              ModifierRight;
-
-        public string LeftFront  => $"{ModifierLeft}{Splitter}";
-        public string RightFront => $"{ModifierRight}{Splitter}";
-        public string LeftEnd    => $"{Splitter}{ModifierLeft}";
-        public string RightEnd   => $"{Splitter}{ModifierRight}";
-
-        public string PreviewText =>
-            ModifierPosition == RigModifierPosition.Front
-                ? $"{LeftFront}Arm / {RightFront}Leg"
-                : $"Arm{LeftEnd} / Leg{RightEnd}";
-    }
-
     [Serializable]
     public struct AvatarRig
     {
@@ -48,7 +23,7 @@ namespace RekornTools.Avatar
     }
 
     [ExecuteInEditMode]
-    public sealed partial class AutoDresser : MonoBehaviour
+    public sealed class AutoDresser : MonoBehaviour
     {
         [Header("Rig Settings")]
         [SerializeField]
@@ -70,7 +45,7 @@ namespace RekornTools.Avatar
         {
             var newName = name;
 
-            if (src.ModifierPosition == RigModifierPosition.Front)
+            if (src.ModifierType == ModifierType.Front)
             {
                 if (!ReplaceAndRenameIfExist(src.LeftFront, RenameLeft))
                     ReplaceAndRenameIfExist(src.RightFront, RenameRight);
@@ -111,7 +86,7 @@ namespace RekornTools.Avatar
 
             void SetNewName(string avatarFront, string avatarEnd)
             {
-                if (dst.ModifierPosition == RigModifierPosition.Front)
+                if (dst.ModifierType == ModifierType.Front)
                     newName = $"{avatarFront}{newName}";
                 else
                     newName = $"{newName}{avatarEnd}";
