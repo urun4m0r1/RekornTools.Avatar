@@ -8,13 +8,6 @@ using UnityEngine;
 namespace RekornTools.Avatar
 {
     [Serializable]
-    public struct AvatarRig
-    {
-        [SerializeField] public Transform           Rig;
-        [SerializeField] public RigNamingConvention NamingConvention;
-    }
-
-    [Serializable]
     public struct RigNamePair
     {
         [SerializeField] public bool   DisableParenting;
@@ -119,7 +112,7 @@ namespace RekornTools.Avatar
 
                 var childName = child.name;
                 var convertedName =
-                    ConvertNamingConvention(childName, _cloth.NamingConvention, _avatar.NamingConvention);
+                    ConvertNamingConvention(childName, _cloth.Naming, _avatar.Naming);
 
                 var disableParenting = false;
                 convertedName = ConvertNameExceptions(convertedName, ref disableParenting);

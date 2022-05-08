@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-using System;
+﻿using System;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -25,4 +24,3 @@ namespace RekornTools.Avatar
         [NotNull] public string RightEnd   => $"{Splitter}{ModifierRight}";
     }
 }
-#endif
