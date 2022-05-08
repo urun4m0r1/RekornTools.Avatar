@@ -7,7 +7,7 @@ using UnityEngine;
 namespace RekornTools.Avatar
 {
     [ExecuteInEditMode]
-    public sealed class AssetManager : MonoBehaviour
+    public sealed class AssetManager : MonoBehaviour, IValidate
     {
         [SerializeField] public Transform Parent;
 
@@ -18,15 +18,15 @@ namespace RekornTools.Avatar
 
         [SerializeField] [HideInInspector] Transform _prevParent;
 
-        void Awake() => Renderers.Initialize(Parent);
+        void Awake() => Refresh();
 
-        void OnValidate()
+        public void OnValidate()
         {
             if (_prevParent != Parent) Refresh();
         }
 
         [Button]
-        void Refresh()
+        public void Refresh()
         {
             _prevParent = Parent;
             Renderers.Initialize(Parent);
