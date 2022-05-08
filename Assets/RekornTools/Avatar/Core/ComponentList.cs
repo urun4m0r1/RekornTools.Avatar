@@ -8,11 +8,11 @@ using UnityEngine;
 namespace RekornTools.Avatar
 {
     [System.Serializable]
-    public class ComponentList<T> : SerializedList<T> where T : Component
+    public class ComponentList<T> : ObjectList<T> where T : Component
     {
         void ShowDialog([NotNull] string message)
         {
-            var header = $"[{nameof(SerializedList<T>)}<{typeof(T).Name}>]";
+            var header = $"[{nameof(ObjectList<T>)}<{typeof(T).Name}>]";
             Debug.LogWarning($"{header} {message}");
             EditorUtility.DisplayDialog(header, message, "Confirm");
         }
@@ -68,12 +68,7 @@ namespace RekornTools.Avatar
 #endregion // UnityObject
 
 #region Selection
-        public void SelectComponents()
-        {
-            if (TryGetSelections(out var selections)) Selection.objects = selections;
-        }
-
-        public bool TryGetSelections([NotNull] out Object[] selections)
+        public override bool TryGetSelections(out Object[] selections)
         {
             selections = this.Select(x => x == null ? null : x.gameObject as Object).ToArray();
             return selections.Length != 0;
