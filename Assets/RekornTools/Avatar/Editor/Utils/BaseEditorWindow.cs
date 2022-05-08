@@ -46,7 +46,11 @@ namespace RekornTools.Avatar.Editor
         {
             _scrollPosition = GUILayout.BeginScrollView(_scrollPosition);
             {
-                if (_isSerializedFieldsReady) Draw();
+                Undo.RecordObject(this, typeof(T).Name);
+                {
+                    if (_isSerializedFieldsReady) Draw();
+                }
+                Repaint();
             }
             GUILayout.EndScrollView();
         }
