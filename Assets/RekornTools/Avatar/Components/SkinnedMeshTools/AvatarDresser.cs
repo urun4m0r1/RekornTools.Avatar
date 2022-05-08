@@ -13,7 +13,7 @@ namespace RekornTools.Avatar
     }
 
     [ExecuteInEditMode]
-    public sealed class AutoDresser : MonoBehaviour
+    public sealed class AvatarDresser : MonoBehaviour
     {
         [Header("Rig Settings")]
         [SerializeField] AnimatorRig _avatar;
