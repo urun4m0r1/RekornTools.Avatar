@@ -13,9 +13,9 @@ namespace RekornTools.Avatar.Editor
             var rig    = property.ResolveProperty(nameof(AvatarRig.Rig));
             var naming = property.ResolveProperty(nameof(AvatarRig.Naming));
 
-            rect.AppendHeight(EditorGUIExtensions.SingleItemHeight);
+            rect.AppendHeight(rig);
             rig.PropertyField(rect, $"{title?.text} Parent");
-            rect.AppendHeight(EditorGUIExtensions.SingleItemHeight);
+            rect.AppendHeight(naming);
             naming.PropertyField(rect);
         }
     }

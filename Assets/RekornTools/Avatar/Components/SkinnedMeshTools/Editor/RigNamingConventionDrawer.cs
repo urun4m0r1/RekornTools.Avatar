@@ -54,6 +54,6 @@ namespace RekornTools.Avatar.Editor
         }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent _) =>
-            EditorGUIExtensions.SingleItemHeight * 2 + EditorGUIUtility.standardVerticalSpacing;
+            EditorGUIExtensions.SingleItemHeight * 2;
     }
 }
