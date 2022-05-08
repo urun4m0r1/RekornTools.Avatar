@@ -40,7 +40,7 @@ namespace RekornTools
             var textAsset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
             if (textAsset == null)
             {
-                Debug.LogError("VersionChecker: Could not find server file.");
+                Debug.LogError("VersionChecker: Could not find local version file.");
                 return default;
             }
 
