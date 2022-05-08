@@ -21,10 +21,10 @@ namespace RekornTools.Avatar.Editor
             var left     = property.ResolveProperty(nameof(RigNamingConvention.ModifierLeft));
             var right    = property.ResolveProperty(nameof(RigNamingConvention.ModifierRight));
 
-            DrawElement(0.2f, type);
-            DrawElement(0.2f, splitter);
             DrawElement(0.3f, left);
             DrawElement(0.3f, right);
+            DrawElement(0.2f, type);
+            DrawElement(0.2f, splitter);
 
             rect.x     = x;
             rect.width = fullWidth;
