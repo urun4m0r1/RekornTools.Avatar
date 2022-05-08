@@ -16,14 +16,14 @@ namespace RekornTools.Avatar
     public sealed class AutoDresser : MonoBehaviour
     {
         [Header("Rig Settings")]
-        [SerializeField] AvatarRig _avatar;
+        [SerializeField] AnimatorRig _avatar;
 
-        [SerializeField] string    _clothPrefix;
-        [SerializeField] string    _clothSuffix;
-        [SerializeField] AvatarRig _cloth;
+        [SerializeField] string       _clothPrefix;
+        [SerializeField] string       _clothSuffix;
+        [SerializeField] TransformRig _cloth;
 
         [Header("Exclusion Settings")]
-        [SerializeField] RigNamePairs _rigNameExceptions = new RigNamePairs();
+        [SerializeField] [ItemNotSpan] RigNamePairs _rigNameExceptions = new RigNamePairs();
 
         [Header("Advanced Settings")]
         [SerializeField] bool _backupCloth = false;
@@ -114,7 +114,7 @@ namespace RekornTools.Avatar
                 var disableParenting = false;
                 convertedName = ConvertNameExceptions(convertedName, ref disableParenting);
 
-                var newParent = FindRecursive(_avatar.Rig, convertedName);
+                var newParent = FindRecursive(_avatar.Rig.transform, convertedName);
                 if (newParent == null) newParent     = child.parent;
                 else if (disableParenting) newParent = child.parent.parent;
 
@@ -129,11 +129,11 @@ namespace RekornTools.Avatar
             var clothMeshes = _cloth.Rig.GetComponentsInChildren<SkinnedMeshRenderer>();
             //clothManager.ClothMeshes.AddRange(clothMeshes);
 
-            Undo.SetTransformParent(_cloth.Rig, _avatar.Rig, "Parenting");
+            Undo.SetTransformParent(_cloth.Rig, _avatar.Rig.transform, "Parenting");
 
             if (_unpackClothMeshes)
                 foreach (var clothMesh in clothMeshes)
-                    Undo.SetTransformParent(clothMesh.gameObject.transform, _avatar.Rig, "Parenting");
+                    Undo.SetTransformParent(clothMesh.gameObject.transform, _avatar.Rig.transform, "Parenting");
 
             if (_deleteLeftover)
             {
