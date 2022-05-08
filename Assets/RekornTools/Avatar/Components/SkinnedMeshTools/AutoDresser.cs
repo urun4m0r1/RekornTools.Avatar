@@ -1,38 +1,28 @@
 ﻿#if UNITY_EDITOR
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
 namespace RekornTools.Avatar
 {
-    [Serializable]
-    public struct RigNamePair
-    {
-        [SerializeField] public bool   DisableParenting;
-        [SerializeField] public string AvatarBoneName;
-        [SerializeField] public string ClothBoneName;
-    }
-
     [ExecuteInEditMode]
     public sealed class AutoDresser : MonoBehaviour
     {
         [Header("Rig Settings")]
-        [SerializeField]
-        AvatarRig _avatar;
+        [SerializeField] AvatarRig _avatar;
 
+        [SerializeField] string    _clothPrefix;
+        [SerializeField] string    _clothSuffix;
         [SerializeField] AvatarRig _cloth;
 
-        [Header("Dress Settings")]
-        [SerializeField]
-        bool _backupCloth = false;
+        [Header("Transform Settings")]
+        [SerializeField] RigNamePairs _rigNameExceptions = new RigNamePairs();
 
-        [SerializeField] bool              _unpackClothMeshes = false;
-        [SerializeField] bool              _deleteLeftover    = true;
-        [SerializeField] string            _clothPrefix;
-        [SerializeField] string            _clothSuffix;
-        [SerializeField] List<RigNamePair> _rigNameExceptions;
+        [Header("Advanced Settings")]
+        [SerializeField] bool _backupCloth = false;
+        [SerializeField] bool _unpackClothMeshes = false;
+        [SerializeField] bool _deleteLeftover    = true;
 
         static string ConvertNamingConvention(string name, RigNamingConvention src, RigNamingConvention dst)
         {

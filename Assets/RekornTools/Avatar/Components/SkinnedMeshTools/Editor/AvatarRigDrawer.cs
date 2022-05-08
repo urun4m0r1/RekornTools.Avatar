@@ -8,8 +8,6 @@ namespace RekornTools.Avatar.Editor
     {
         protected override void DrawProperty(Rect rect, SerializedProperty property, GUIContent title, int indent)
         {
-            rect.ApplyIndent(++indent);
-
             rect.height = 0f;
 
             var rig    = property.ResolveProperty(nameof(AvatarRig.Rig));

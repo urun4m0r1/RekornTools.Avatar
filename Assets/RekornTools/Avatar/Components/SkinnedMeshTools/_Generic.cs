@@ -7,5 +7,7 @@ namespace RekornTools.Avatar
     [Serializable] public sealed class SkinnedMeshRenderers : ComponentList<SkinnedMeshRenderer> { }
 
     [Serializable] public sealed class Transforms : ComponentList<Transform> { }
+
+    [Serializable] public sealed class RigNamePairs : SerializedList<RigNamePair> { }
 #endregion // List
 }

@@ -4,9 +4,9 @@ using UnityEngine;
 namespace RekornTools.Avatar
 {
     [Serializable]
-    public struct AvatarRig
+    public class AvatarRig
     {
         [SerializeField] public Transform           Rig;
-        [SerializeField] public RigNamingConvention Naming;
+        [SerializeField] public RigNamingConvention Naming = new RigNamingConvention();
     }
 }
