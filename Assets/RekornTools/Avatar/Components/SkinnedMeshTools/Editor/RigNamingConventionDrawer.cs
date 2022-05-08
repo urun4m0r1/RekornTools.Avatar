@@ -48,8 +48,8 @@ namespace RekornTools.Avatar.Editor
                 var r = right?.stringValue;
 
                 return t == (int)ModifierType.Front
-                    ? $"{l}{s}Arm / {r}{s}Leg"
-                    : $"Arm{s}{l} / Leg{s}{r}";
+                    ? $"Head / {l}{s}Arm / {r}{s}Leg / {r}{s}Leg.001"
+                    : $"Head / Arm{s}{l} / Leg{s}{r} / Leg{s}{r}.001";
             }
         }
 
