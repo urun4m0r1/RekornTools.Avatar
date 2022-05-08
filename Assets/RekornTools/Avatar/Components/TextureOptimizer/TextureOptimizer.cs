@@ -29,7 +29,8 @@ namespace RekornTools.Avatar
         {
             if (_prevParent != _parent || _prevTable != _propertiesTable) Refresh();
         }
-
+        
+        [Button]
         void Refresh()
         {
             _prevParent = _parent;

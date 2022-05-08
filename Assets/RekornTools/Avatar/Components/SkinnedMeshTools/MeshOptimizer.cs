@@ -21,7 +21,8 @@ namespace RekornTools.Avatar
         {
             if (_prevParent != parent) Refresh();
         }
-
+        
+        [Button]
         void Refresh()
         {
             _prevParent = parent;
