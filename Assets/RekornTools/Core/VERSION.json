@@ -1,6 +1,7 @@
 ﻿{
-  "version": "1.0.0",
+  "version": "1.0.1",
   "server": "https://raw.githubusercontent.com/urun4m0r1/RekornTools.Avatar/master/VERSION.json",
   "github": null,
-  "booth": null
+  "booth": null,
+  "store": null
 }

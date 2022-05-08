@@ -1,5 +1,7 @@
-﻿using System;
-using System.Threading;
+﻿#if UNITY_EDITOR
+using System;
+using System.Text;
+using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -13,25 +15,41 @@ namespace RekornTools
         [SerializeField] public string server;
         [SerializeField] public string github;
         [SerializeField] public string booth;
+        [SerializeField] public string store;
     }
 
     [InitializeOnLoad]
     public class VersionChecker
     {
+        [NotNull] static string PrefPath => $"{Application.identifier}/{nameof(VersionChecker)}";
+
         static VersionChecker() => CheckNewVersion();
 
         static void CheckNewVersion()
         {
-            var textAsset = AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/RekornTools/Core/VERSION.json");
+            var local = ParseLocalVersion("Assets/RekornTools/Core/VERSION.json");
+
+            var skipVersion = EditorPrefs.GetString(PrefPath);
+            if (skipVersion == local.version) return;
+
+            GetRemoteVersion(local.server, remote => CheckVersion(local, remote));
+        }
+
+        static VersionInfo ParseLocalVersion([NotNull] string path)
+        {
+            var textAsset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
             if (textAsset == null)
             {
                 Debug.LogError("VersionChecker: Could not find server file.");
-                return;
+                return default;
             }
 
-            var localVersion = JsonUtility.FromJson<VersionInfo>(textAsset.text);
+            return JsonUtility.FromJson<VersionInfo>(textAsset.text);
+        }
 
-            var www = UnityWebRequest.Get(localVersion.server);
+        static void GetRemoteVersion([NotNull] string server, [CanBeNull] Action<VersionInfo> callback)
+        {
+            var www = UnityWebRequest.Get(server);
 
             var request = www?.SendWebRequest();
             if (request == null)
@@ -44,25 +62,68 @@ namespace RekornTools
             {
                 if (www.isNetworkError || www.isHttpError)
                 {
-                    Debug.Log($"VersionChecker: {www.error}");
+                    Debug.LogError($"VersionChecker: {www.error}");
                 }
                 else
                 {
-                    Debug.Log(www.downloadHandler?.text);
-                    var remoteVersion = JsonUtility.FromJson<VersionInfo>(www.downloadHandler?.text?.Trim());
-                    if (remoteVersion.version != localVersion.version)
+                    var rawData = www.downloadHandler?.data;
+                    if (rawData == null)
                     {
-                        EditorUtility.DisplayDialog("New version available"
-                                                  , $"New version {remoteVersion.version} is available.\n"
-                                                  + $"You can download it from here.\n"
-                                                  + $"Github: {remoteVersion.github}\n"
-                                                  + $"Booth: {remoteVersion.booth}"
-                                                  , "OK");
+                        Debug.LogError("VersionChecker: Could not get data from server.");
+                        return;
                     }
+
+                    var jsonString = Encoding.UTF8.GetString(rawData, 3, rawData.Length - 3);
+                    var remote     = JsonUtility.FromJson<VersionInfo>(jsonString);
+
+                    callback?.Invoke(remote);
                 }
 
                 www.Dispose();
             };
         }
+
+        static void CheckVersion(VersionInfo local, VersionInfo remote)
+        {
+            if (remote.version == local.version) return;
+
+
+            var response = EditorUtility.DisplayDialogComplex(
+                $"RekornTools {local.version}"
+              , $"New version {remote.version} is available.\n"
+              + $"You can download it with button below."
+              , "Download", "Close", "Skip this version");
+
+            switch (response)
+            {
+                case 0:
+                    var link = GetDownloadLink(remote);
+                    if (!string.IsNullOrWhiteSpace(link)) Application.OpenURL(link);
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    EditorPrefs.SetString(PrefPath, local.version);
+                    break;
+            }
+        }
+
+        static string GetDownloadLink(VersionInfo remote)
+        {
+            var response = EditorUtility.DisplayDialogComplex(
+                $"RekornTools {remote.version}"
+              , $"Choose where to download the new version."
+              , "Github", "Booth", "Asset Store");
+
+            switch (response)
+            {
+                case 0: return remote.github;
+                case 1: return remote.booth;
+                case 2: return remote.store;
+            }
+
+            return null;
+        }
     }
 }
+#endif
