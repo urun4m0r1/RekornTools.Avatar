@@ -1,6 +1,7 @@
 ﻿#if UNITY_EDITOR
-using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
+using UnityEditor;
 using UnityEngine;
 
 namespace RekornTools.Avatar
@@ -8,56 +9,61 @@ namespace RekornTools.Avatar
     [ExecuteInEditMode]
     public sealed class AssetManager : MonoBehaviour
     {
-        [SerializeField] List<GameObject> gameObjects;
-        [SerializeField] List<Renderer>   renderers;
-        [SerializeField] List<Material>   materials;
-        [SerializeField] List<Shader>     shaders;
+        [Header("Target")]
+        [SerializeField] Transform _parent;
 
-        [Button]
-        void UpdateShaders()
+        [Header("Renderers")]
+        [SerializeField] [ReadOnlyList] [NotNull] Renderers _renderers = new Renderers();
+
+        [Header("Materials")]
+        [SerializeField] [ReadOnlyList] [NotNull] Materials _materials = new Materials();
+
+        [Header("Shaders")]
+        [SerializeField] [ReadOnlyList] [NotNull] Shaders _shaders = new Shaders();
+
+        [Header("Textures")]
+        [SerializeField] [ReadOnlyList] [NotNull] Textures _textures = new Textures();
+
+        [SerializeField] [HideInInspector] Transform _prevParent;
+
+        void Awake() => _renderers.Initialize(_parent);
+
+        void OnValidate()
         {
-            InitFields();
-
-            gameObjects = GameObjectExtensions.GetAllGameObjectsInScene.ToList();
-            if (gameObjects.Count < 1)
-            {
-                Debug.LogError("No GameObjects in scene!");
-                return;
-            }
-
-            foreach (var result in
-                     from g in gameObjects
-                     from r in g.GetComponents<Renderer>()
-                     where !renderers.Contains(r)
-                     select r) renderers.Add(result);
-            if (renderers.Count < 1)
-            {
-                Debug.LogError("No Renderer in scene!");
-                return;
-            }
-
-            foreach (var result in
-                     from r in renderers
-                     from m in r.sharedMaterials
-                     where !materials.Contains(m)
-                     select m) materials.Add(result);
-            if (materials.Count < 1)
-            {
-                Debug.LogError("No Material in scene!");
-                return;
-            }
-
-            foreach (var result in
-                     from r in materials
-                     select r.shader) shaders.Add(result);
+            if (_prevParent != _parent) Refresh();
         }
 
-        void InitFields()
+        [Button]
+        void Refresh()
         {
-            gameObjects = null;
-            renderers   = new List<Renderer>();
-            materials   = new List<Material>();
-            shaders     = new List<Shader>();
+            _prevParent = _parent;
+            _renderers.Initialize(_parent);
+
+            _materials.Clear();
+            _shaders.Clear();
+            _textures.Clear();
+
+            foreach (var (material, shader) in
+                     from r in _renderers
+                     from material in r.sharedMaterials
+                     select (material, material.shader))
+            {
+                if (!_materials.Contains(material)) _materials.Add(material);
+                if (!_shaders.Contains(shader)) _shaders.Add(shader);
+
+                AppendTexturesList(material, shader);
+            }
+        }
+
+        void AppendTexturesList([CanBeNull] Material material, [CanBeNull] Shader shader)
+        {
+            if (material == null || shader == null) return;
+            for (var i = 0; i < ShaderUtil.GetPropertyCount(shader); i++)
+            {
+                if (ShaderUtil.GetPropertyType(shader, i) != ShaderUtil.ShaderPropertyType.TexEnv) continue;
+                var texture = material.GetTexture(ShaderUtil.GetPropertyName(shader, i));
+                if (texture != null && !_textures.Contains(texture)) _textures.Add(texture);
+            }
         }
     }
 }
