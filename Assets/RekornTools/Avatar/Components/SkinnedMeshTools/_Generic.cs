@@ -8,7 +8,7 @@ namespace RekornTools.Avatar
 
     [Serializable] public sealed class Transforms : ComponentList<Transform> { }
 
-    [Serializable] public sealed class RigNamePairs : SerializedList<RigExclusion> { }
+    [Serializable] public sealed class RigPairs : SerializedList<RigPair> { }
 #endregion // List
 
 #region AvatarRig
