@@ -33,59 +33,6 @@ namespace RekornTools.Avatar
         [SerializeField] bool        _deleteLeftover    = true;
         [SerializeField] DresserMode _dresserMode       = DresserMode.DirectTransform;
 
-        [NotNull]
-        static string ConvertNamingConvention([NotNull] string name, RigNamingConvention src, RigNamingConvention dst)
-        {
-            var newName = name;
-
-            if (src.ModifierType == ModifierType.Front)
-            {
-                if (!ReplaceAndRenameIfExist(src.LeftFront, RenameLeft))
-                    ReplaceAndRenameIfExist(src.RightFront, RenameRight);
-            }
-            else
-            {
-                if (!ReplaceAndRenameIfExist(src.LeftEnd, RenameLeft))
-                    ReplaceAndRenameIfExist(src.RightEnd, RenameRight);
-            }
-
-            return newName;
-
-            bool ReplaceAndRenameIfExist(string str, Action renameAction)
-            {
-                if (newName.Contains(str))
-                {
-                    Rename(ref newName, str, "");
-                    renameAction();
-                    return true;
-                }
-
-                return false;
-            }
-
-            void RenameLeft()
-            {
-                var avatarLeftFront = dst.LeftFront;
-                var avatarLeftEnd   = dst.LeftEnd;
-                SetNewName(avatarLeftFront, avatarLeftEnd);
-            }
-
-            void RenameRight()
-            {
-                var avatarRightFront = dst.RightFront;
-                var avatarRightEnd   = dst.RightEnd;
-                SetNewName(avatarRightFront, avatarRightEnd);
-            }
-
-            void SetNewName(string avatarFront, string avatarEnd)
-            {
-                if (dst.ModifierType == ModifierType.Front)
-                    newName = $"{avatarFront}{newName}";
-                else
-                    newName = $"{newName}{avatarEnd}";
-            }
-        }
-
         [Button]
         public void Apply()
         {
@@ -112,7 +59,7 @@ namespace RekornTools.Avatar
 
                 var childName = child.name;
                 var convertedName =
-                    ConvertNamingConvention(childName, _cloth.Naming, _avatar.Naming);
+                    RigNamingConvention.Convert(childName, _cloth.Naming, _avatar.Naming);
 
                 var disableParenting = false;
                 convertedName = ConvertNameExceptions(convertedName, ref disableParenting);
@@ -187,12 +134,6 @@ namespace RekornTools.Avatar
             }
 
             return null;
-        }
-
-        static void Rename(ref string str, string a, string b)
-        {
-            if (a == b) return;
-            str = str.Replace(a, b);
         }
     }
 }

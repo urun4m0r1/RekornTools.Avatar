@@ -15,7 +15,7 @@ namespace RekornTools.Avatar.Editor
             rect.height = 0f;
             rect.AppendHeight(EditorGUIExtensions.SingleItemHeight);
 
-            var type     = property.ResolveProperty(nameof(RigNamingConvention.ModifierType));
+            var type     = property.ResolveProperty(nameof(RigNamingConvention.ModifierPosition));
             var splitter = property.ResolveProperty(nameof(RigNamingConvention.Splitter));
             var left     = property.ResolveProperty(nameof(RigNamingConvention.ModifierLeft));
             var right    = property.ResolveProperty(nameof(RigNamingConvention.ModifierRight));
@@ -46,7 +46,7 @@ namespace RekornTools.Avatar.Editor
                 var l = left?.stringValue;
                 var r = right?.stringValue;
 
-                return t == (int)ModifierType.Front
+                return t == (int)ModifierPosition.Front
                     ? $"Head / {l}{s}Arm / {r}{s}Leg / {r}{s}Leg.001"
                     : $"Head / Arm{s}{l} / Leg{s}{r} / Leg{s}{r}.001";
             }
