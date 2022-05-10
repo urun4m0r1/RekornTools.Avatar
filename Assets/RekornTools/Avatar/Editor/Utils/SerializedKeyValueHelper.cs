@@ -10,8 +10,8 @@ namespace RekornTools.Avatar.Editor
         [CanBeNull] public SerializedProperty Key   { get; private set; }
         [CanBeNull] public SerializedProperty Value { get; private set; }
 
-        [NotNull] readonly string _keyName   = ResolveFieldName(SerializedKeyValue.KeyFieldName);
-        [NotNull] readonly string _valueName = ResolveFieldName(SerializedKeyValue.ValueFieldName);
+        [NotNull] readonly string _keyName   = ResolveFieldName(nameof(SerializedKeyValue.Key));
+        [NotNull] readonly string _valueName = ResolveFieldName(nameof(SerializedKeyValue.Value));
 
         [CanBeNull] SerializedProperty _container;
 

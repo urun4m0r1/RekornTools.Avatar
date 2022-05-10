@@ -4,11 +4,7 @@ using JetBrains.Annotations;
 
 namespace RekornTools.Avatar
 {
-    public sealed class SerializedKeyValue : SerializedKeyValue<object, object>
-    {
-        [NotNull] public static string KeyFieldName   => nameof(Key);
-        [NotNull] public static string ValueFieldName => nameof(Value);
-    }
+    public sealed class SerializedKeyValue : SerializedKeyValue<object, object> { }
 
     [Serializable] public class HorizontalKeyValue<K, V> : SerializedKeyValue<K, V> { }
 
