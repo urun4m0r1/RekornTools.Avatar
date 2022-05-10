@@ -11,11 +11,18 @@ namespace RekornTools.Avatar
 {
     public static class GameObjectExtensions
     {
+        public static void UnpackPrefab([CanBeNull] this GameObject prefab)
+        {
+            if (PrefabUtility.GetPrefabInstanceStatus(prefab) == PrefabInstanceStatus.Connected)
+                PrefabUtility.UnpackPrefabInstance(prefab, PrefabUnpackMode.OutermostRoot, InteractionMode.UserAction);
+        }
+
         [CanBeNull]
-        static IEnumerable<GameObject> AllGameObjectsInProject =>
+        public static IEnumerable<GameObject> AllGameObjectsInProject =>
             Resources.FindObjectsOfTypeAll(typeof(GameObject)) as GameObject[];
 
-        [CanBeNull] public static IEnumerable<GameObject> GetAllGameObjectsInScene =>
+        [CanBeNull]
+        public static IEnumerable<GameObject> GetAllGameObjectsInScene =>
             AllGameObjectsInProject?.Where(IsEditableSceneObject);
 
         static bool IsEditableSceneObject([CanBeNull] GameObject go)

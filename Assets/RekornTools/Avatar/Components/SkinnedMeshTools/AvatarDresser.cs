@@ -31,10 +31,10 @@ namespace RekornTools.Avatar
         [SerializeField] [ItemNotSpan] BonePairs _boneExclusions = new BonePairs();
 
         [Header("Advanced Settings")]
-        [SerializeField] bool _backupCloth = false;
-        [SerializeField] bool        _unpackClothMeshes = false;
-        [SerializeField] bool        _deleteLeftover    = true;
-        [SerializeField] DresserMode _dresserMode       = DresserMode.DirectTransform;
+        [SerializeField] DresserMode _dresserMode = DresserMode.DirectTransform;
+        [SerializeField] bool _backupCloth       = false;
+        [SerializeField] bool _unpackClothMeshes = false;
+        [SerializeField] bool _deleteLeftover    = true;
 
         [Button]
         public void Apply()
@@ -47,7 +47,7 @@ namespace RekornTools.Avatar
             }
 
             if (_backupCloth) BackupComponent(_cloth.Rig);
-            else UnpackPrefab(_cloth.Rig.gameObject);
+            else _cloth.Rig.gameObject.UnpackPrefab();
 
             var clothManagerGameObject = new GameObject($"{_cloth.Rig.name} Manager");
             Undo.RegisterCreatedObjectUndo(clothManagerGameObject, "Apply Cloth");
@@ -64,12 +64,8 @@ namespace RekornTools.Avatar
                 var convertedName =
                     RigNamingConvention.Convert(childName, _cloth.Naming, _avatar.Naming);
 
-                var disableParenting = false;
-                convertedName = ConvertNameExceptions(convertedName, ref disableParenting);
-
-                var newParent = FindRecursive(_avatar.Rig.transform, convertedName);
-                if (newParent == null) newParent     = child.parent;
-                else if (disableParenting) newParent = child.parent.parent;
+                var newParent                    = FindRecursive(_avatar.Rig.transform, convertedName);
+                if (newParent == null) newParent = child.parent;
 
                 Undo.RecordObject(child.gameObject, "Apply Cloth");
                 child.name = $"{_clothPrefix}{convertedName}{_clothSuffix}";
@@ -99,28 +95,11 @@ namespace RekornTools.Avatar
             }
         }
 
-        string ConvertNameExceptions(string str, ref bool disableParenting)
-        {
-            // foreach (var exception in _rigNameExceptions.Where(exception => str.Contains(exception.ClothBoneName)))
-            // {
-            //     Rename(ref str, exception.ClothBoneName, exception.AvatarBoneName);
-            //     disableParenting = exception.DisableParenting;
-            // }
-
-            return str;
-        }
-
         void BackupComponent<T>(T component) where T : Component
         {
             var backup = Instantiate(component.gameObject);
             Undo.RegisterCreatedObjectUndo(backup, "Backup Cloth");
             Undo.RecordObject(this, "Assign Backup Cloth");
-        }
-
-        static void UnpackPrefab(GameObject prefab)
-        {
-            if (PrefabUtility.GetPrefabInstanceStatus(prefab) == PrefabInstanceStatus.Connected)
-                PrefabUtility.UnpackPrefabInstance(prefab, PrefabUnpackMode.OutermostRoot, InteractionMode.UserAction);
         }
 
         static Transform FindRecursive(Transform root, string name)
