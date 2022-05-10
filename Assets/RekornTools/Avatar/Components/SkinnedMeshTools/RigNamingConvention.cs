@@ -96,9 +96,30 @@ namespace RekornTools.Avatar
                 case ModifierType.Right:
                     var from = src.GetModifier(type) ?? throw new ArgumentException("Unknown modifier type.");
                     var to   = dst.GetModifier(type) ?? throw new ArgumentException("Unknown modifier type.");
-                    return name.Replace(from, to);
+                    return ReplaceModifier(name, from, to, src.ModifierPosition, dst.ModifierPosition);
                 default:
                     throw new ArgumentException("Unknown modifier type.");
+            }
+        }
+
+
+        [NotNull]
+        static string ReplaceModifier([NotNull] string name, [NotNull] string from, [NotNull] string to, ModifierPosition srcPosition, ModifierPosition dstPosition)
+        {
+            if (srcPosition == dstPosition)
+            {
+                return name.Replace(from, to);
+            }
+            else
+            {
+                if (srcPosition == ModifierPosition.Front)
+                {
+                    return name.Replace(from, null) + to;
+                }
+                else
+                {
+                    return to + name.Replace(from, null);
+                }
             }
         }
     }
