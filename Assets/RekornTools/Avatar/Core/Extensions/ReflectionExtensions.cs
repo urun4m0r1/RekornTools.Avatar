@@ -35,6 +35,17 @@ namespace RekornTools.Avatar
          && name.EndsWith(AutoPropertyFooter, StringComparison.Ordinal);
 
         [NotNull]
+        public static string ResolveDisplayName([NotNull] string name)
+        {
+            if (!IsAutoProperty(name)) return name;
+
+            name = name.Remove(0,                                       AutoPropertyHeader.Length);
+            name = name.Remove(name.Length - AutoPropertyFooter.Length, AutoPropertyFooter.Length);
+
+            return name;
+        }
+
+        [NotNull]
         public static string ResolveFieldName([NotNull] string name)
         {
             if (IsAutoProperty(name)) return name;
