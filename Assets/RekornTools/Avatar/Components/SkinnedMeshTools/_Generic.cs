@@ -16,10 +16,4 @@ namespace RekornTools.Avatar
 
     [Serializable] public sealed class NamePair : RigPair<string> { }
 #endregion // List
-
-#region AvatarRig
-    [Serializable] public sealed class AnimatorRig : AvatarRig<Animator> { }
-
-    [Serializable] public sealed class TransformRig : AvatarRig<Transform> { }
-#endregion // AvatarRig
 }

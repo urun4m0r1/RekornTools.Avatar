@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2282721658063701435}
+  - component: {fileID: 6521384754866022732}
   - component: {fileID: 1284315707096903102}
   m_Layer: 0
   m_Name: Avatar Dresser
@@ -31,6 +32,33 @@ Transform:
   m_Father: {fileID: 6641233036261945921}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6521384754866022732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3527896265422754665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01a7cdc3de5c42298b1b7fab6d20dd23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _parent: {fileID: 0}
+  _sourceNaming:
+    <ModifierPosition>k__BackingField: 1
+    <Splitter>k__BackingField: .
+    <ModifierLeft>k__BackingField: L
+    <ModifierRight>k__BackingField: R
+  _targetNaming:
+    <ModifierPosition>k__BackingField: 1
+    <Splitter>k__BackingField: .
+    <ModifierLeft>k__BackingField: L
+    <ModifierRight>k__BackingField: R
+  _renameToken:
+    Items: []
+  _exclusions:
+    Items: []
 --- !u!114 &1284315707096903102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43,28 +71,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1736ac66ad9eb1445bbad42ac0db8a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _avatar:
-    Rig: {fileID: 0}
-    Naming:
-      <ModifierType>k__BackingField: 1
-      <Splitter>k__BackingField: .
-      <ModifierLeft>k__BackingField: L
-      <ModifierRight>k__BackingField: R
+  _avatar: {fileID: 0}
   _clothPrefix: 
   _clothSuffix: 
-  _cloth:
-    Rig: {fileID: 0}
-    Naming:
-      <ModifierType>k__BackingField: 1
-      <Splitter>k__BackingField: .
-      <ModifierLeft>k__BackingField: L
-      <ModifierRight>k__BackingField: R
-  _rigNameExceptions:
+  _cloth: {fileID: 0}
+  _boneExclusions:
     Items: []
+  _dresserMode: 0
   _backupCloth: 0
   _unpackClothMeshes: 0
   _deleteLeftover: 1
-  _dresserMode: 0
 --- !u!1 &6641233035632871741
 GameObject:
   m_ObjectHideFlags: 0

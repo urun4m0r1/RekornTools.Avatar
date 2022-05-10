@@ -20,13 +20,13 @@ namespace RekornTools.Avatar.Editor
             rect.width = 0f;
 
             rect.AppendWidth(width * 0.45f);
-            avatarBoneName.PropertyField(rect);
+            clothBoneName.PropertyField(rect);
 
             rect.AppendWidth(width * 0.1f);
-            EditorGUI.LabelField(rect, "◀", new GUIStyle(EditorStyles.label) { alignment = TextAnchor.MiddleCenter });
+            EditorGUI.LabelField(rect, "▶", new GUIStyle(EditorStyles.label) { alignment = TextAnchor.MiddleCenter });
 
             rect.AppendWidth(width * 0.45f);
-            clothBoneName.PropertyField(rect);
+            avatarBoneName.PropertyField(rect);
 
             rect.x     = x;
             rect.width = width;
