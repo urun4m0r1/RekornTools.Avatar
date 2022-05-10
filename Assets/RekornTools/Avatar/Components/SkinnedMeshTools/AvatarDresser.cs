@@ -24,8 +24,11 @@ namespace RekornTools.Avatar
         [SerializeField] string       _clothSuffix;
         [SerializeField] TransformRig _cloth;
 
-        [Header("Exclusion Settings")]
-        [SerializeField] [ItemNotSpan] RigPairs _rigExclusions = new RigPairs();
+        [Header("Rename Token")]
+        [SerializeField] [ItemNotSpan] NamePairs _nameExclusions = new NamePairs();
+
+        [Header("Bone Exclusions")]
+        [SerializeField] [ItemNotSpan] BonePairs _boneExclusions = new BonePairs();
 
         [Header("Advanced Settings")]
         [SerializeField] bool _backupCloth = false;

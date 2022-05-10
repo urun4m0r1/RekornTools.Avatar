@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace RekornTools.Avatar.Editor
 {
-    [CustomPropertyDrawer(typeof(RigPair))]
+    [CustomPropertyDrawer(typeof(RigPair<>), true)]
     public sealed class RigExclusionDrawer : BasePropertyDrawer
     {
         protected override void DrawProperty(Rect rect, SerializedProperty property, GUIContent title, int indent)
