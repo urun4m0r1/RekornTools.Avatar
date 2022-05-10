@@ -13,7 +13,7 @@ namespace RekornTools.Avatar
     [Serializable]
     public class AvatarRig<T> where T : Component
     {
-        [SerializeField] public T                   Rig;
-        [SerializeField] public RigNamingConvention Naming = new RigNamingConvention();
+        [field: SerializeField] public T                   Rig    { get; private set; }
+        [field: SerializeField] public RigNamingConvention Naming { get; private set; } = RigNamingConvention.Default;
     }
 }

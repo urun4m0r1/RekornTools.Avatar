@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using System;
+using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
 
@@ -32,7 +33,8 @@ namespace RekornTools.Avatar
         [SerializeField] bool        _deleteLeftover    = true;
         [SerializeField] DresserMode _dresserMode       = DresserMode.DirectTransform;
 
-        static string ConvertNamingConvention(string name, RigNamingConvention src, RigNamingConvention dst)
+        [NotNull]
+        static string ConvertNamingConvention([NotNull] string name, RigNamingConvention src, RigNamingConvention dst)
         {
             var newName = name;
 
@@ -94,7 +96,7 @@ namespace RekornTools.Avatar
                 return;
             }
 
-            if (_backupCloth) BackupComponent(ref _cloth.Rig);
+            if (_backupCloth) BackupComponent(_cloth.Rig);
             else UnpackPrefab(_cloth.Rig.gameObject);
 
             var clothManagerGameObject = new GameObject($"{_cloth.Rig.name} Manager");
@@ -158,12 +160,11 @@ namespace RekornTools.Avatar
             return str;
         }
 
-        void BackupComponent<T>(ref T component) where T : Component
+        void BackupComponent<T>(T component) where T : Component
         {
             var backup = Instantiate(component.gameObject);
             Undo.RegisterCreatedObjectUndo(backup, "Backup Cloth");
             Undo.RecordObject(this, "Assign Backup Cloth");
-            component = backup.GetComponent<T>();
         }
 
         static void UnpackPrefab(GameObject prefab)
