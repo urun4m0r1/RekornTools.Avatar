@@ -1,4 +1,5 @@
 ﻿#if UNITY_EDITOR
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace RekornTools.Avatar
@@ -14,48 +15,31 @@ namespace RekornTools.Avatar
         [SerializeField] RigNamingConvention _targetNaming = RigNamingConvention.Default;
 
         [Header("Rename Token")]
-        [SerializeField] NamePairs _renameToken = new NamePairs();
+        [SerializeField] [NotNull] NamePairs _renameToken = new NamePairs();
 
         [Header("Rename Exclusions")]
-        [SerializeField] Transforms _exclusions = new Transforms();
+        [SerializeField] [NotNull] Transforms _exclusions = new Transforms();
 
         [Button]
-        public void Apply()
+        public void Rename()
         {
-            var armature = _parent.Find("Armature");
-            if (armature == null)
+            if (_parent == null) return;
+            _parent.InvokeRecursive(x =>
             {
-                Debug.LogError("Can't find Armature in " + _parent.name);
-                return;
-            }
+                if (x == null || _exclusions.Contains(x)) return;
 
-            var children = armature.GetComponentsInChildren<Transform>();
-            foreach (var child in children)
-            {
-                if (child == armature) continue;
+                var newName = x.name;
 
-                var childName     = child.name;
-                var convertedName = childName;
+                foreach (var token in _renameToken)
+                {
+                    if (string.IsNullOrWhiteSpace(token?.Source)) continue;
+                    newName = newName.Replace(token.Source, token.Target);
+                }
 
-                var newParent                    = FindRecursive(_parent, convertedName);
-                if (newParent == null) newParent = child.parent;
-            }
-        }
+                newName = RigNamingConvention.Convert(newName, _sourceNaming, _targetNaming);
 
-        static Transform FindRecursive(Transform root, string name)
-        {
-            if (root.name == name)
-            {
-                return root;
-            }
-
-            foreach (Transform child in root)
-            {
-                var result = FindRecursive(child, name);
-                if (result != null) return result;
-            }
-
-            return null;
+                x.name = newName;
+            });
         }
     }
 }

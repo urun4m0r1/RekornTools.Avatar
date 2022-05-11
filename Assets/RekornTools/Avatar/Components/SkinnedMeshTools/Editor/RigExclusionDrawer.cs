@@ -10,8 +10,8 @@ namespace RekornTools.Avatar.Editor
         {
             rect.height = 0f;
 
-            var avatarBoneName = property.ResolveProperty(nameof(RigPair.Avatar));
-            var clothBoneName  = property.ResolveProperty(nameof(RigPair.Cloth));
+            var avatarBoneName = property.ResolveProperty(nameof(RigPair.Target));
+            var clothBoneName  = property.ResolveProperty(nameof(RigPair.Source));
 
             rect.AppendHeight(avatarBoneName);
 

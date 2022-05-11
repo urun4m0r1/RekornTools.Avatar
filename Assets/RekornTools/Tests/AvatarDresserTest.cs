@@ -67,5 +67,26 @@ namespace Tests
             Assert.AreEqual(name3B, RigNamingConvention.Convert(name3A, src, dst));
             Assert.AreEqual(name4B, RigNamingConvention.Convert(name4A, src, dst));
         }
+
+        [Test]
+        public void TestNamingConverterD()
+        {
+            var src = new RigNamingConvention(ModifierPosition.End,   ".", "L", "R");
+            var dst = new RigNamingConvention(ModifierPosition.Front, "_", "l", "r");
+
+            var name1A = "L_Arm_R";
+            var name1B = "L_Arm_R";
+            var name2A = "L.Leg.L";
+            var name2B = "l_Leg";
+            var name3A = "Head.L.R";
+            var name3B = "Head.L.R";
+            var name4A = "Torso.R.L";
+            var name4B = "Torso.R.L";
+
+            Assert.AreEqual(name1B, RigNamingConvention.Convert(name1A, src, dst));
+            Assert.AreEqual(name2B, RigNamingConvention.Convert(name2A, src, dst));
+            Assert.AreEqual(name3B, RigNamingConvention.Convert(name3A, src, dst));
+            Assert.AreEqual(name4B, RigNamingConvention.Convert(name4A, src, dst));
+        }
     }
 }

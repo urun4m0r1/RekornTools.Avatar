@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2282721658063701435}
-  - component: {fileID: 6521384754866022732}
   - component: {fileID: 1284315707096903102}
   m_Layer: 0
   m_Name: Avatar Dresser
@@ -32,33 +31,6 @@ Transform:
   m_Father: {fileID: 6641233036261945921}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6521384754866022732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3527896265422754665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a7cdc3de5c42298b1b7fab6d20dd23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _parent: {fileID: 0}
-  _sourceNaming:
-    <ModifierPosition>k__BackingField: 1
-    <Splitter>k__BackingField: .
-    <ModifierLeft>k__BackingField: L
-    <ModifierRight>k__BackingField: R
-  _targetNaming:
-    <ModifierPosition>k__BackingField: 1
-    <Splitter>k__BackingField: .
-    <ModifierLeft>k__BackingField: L
-    <ModifierRight>k__BackingField: R
-  _renameToken:
-    Items: []
-  _exclusions:
-    Items: []
 --- !u!114 &1284315707096903102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,6 +53,64 @@ MonoBehaviour:
   _backupCloth: 0
   _unpackClothMeshes: 0
   _deleteLeftover: 1
+--- !u!1 &3881004597226245365
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4149305995053685114}
+  - component: {fileID: 6832864429439564148}
+  m_Layer: 0
+  m_Name: Cloth Renamer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4149305995053685114
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3881004597226245365}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6641233036261945921}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6832864429439564148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3881004597226245365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01a7cdc3de5c42298b1b7fab6d20dd23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _parent: {fileID: 6641233036261945921}
+  _sourceNaming:
+    <ModifierPosition>k__BackingField: 1
+    <Splitter>k__BackingField: .
+    <ModifierLeft>k__BackingField: L
+    <ModifierRight>k__BackingField: R
+  _targetNaming:
+    <ModifierPosition>k__BackingField: 1
+    <Splitter>k__BackingField: .
+    <ModifierLeft>k__BackingField: L
+    <ModifierRight>k__BackingField: R
+  _renameToken:
+    Items: []
+  _exclusions:
+    Items: []
 --- !u!1 &6641233035632871741
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,7 +141,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6641233036261945921}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6641233035632871713
 MonoBehaviour:
@@ -174,7 +204,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6641233036261945921}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6641233035737980006
 MonoBehaviour:
@@ -323,7 +353,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6641233036261945921}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6641233036143860346
 MonoBehaviour:
@@ -425,7 +455,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6641233036261945921}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6641233036212931387
 MonoBehaviour:
@@ -500,6 +530,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2282721658063701435}
+  - {fileID: 4149305995053685114}
   - {fileID: 6641233035632871743}
   - {fileID: 6641233036212931386}
   - {fileID: 6641233036143860344}

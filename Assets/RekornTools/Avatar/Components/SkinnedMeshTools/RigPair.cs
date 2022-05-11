@@ -8,7 +8,7 @@ namespace RekornTools.Avatar
     [Serializable]
     public class RigPair<T>
     {
-        [field: SerializeField] public T Avatar { get; private set; }
-        [field: SerializeField] public T Cloth  { get; private set; }
+        [field: SerializeField] public T Target { get; private set; }
+        [field: SerializeField] public T Source  { get; private set; }
     }
 }
