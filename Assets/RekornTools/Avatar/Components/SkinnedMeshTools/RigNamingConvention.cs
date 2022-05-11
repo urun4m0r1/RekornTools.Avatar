@@ -87,7 +87,6 @@ namespace RekornTools.Avatar
             switch (type)
             {
                 case ModifierType.None:
-                    Debug.Log($"Skipping bone {name}.");
                     return name;
                 case ModifierType.Both:
                     Debug.LogWarning($"Bone name {name} contains both left and right modifiers. Skipping.");
