@@ -43,16 +43,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1736ac66ad9eb1445bbad42ac0db8a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _dresserMode: 0
   _avatar: {fileID: 0}
   _clothPrefix: 
   _clothSuffix: 
-  _cloth: {fileID: 0}
+  _clothRoot: {fileID: 0}
+  _clothArmature: {fileID: 0}
   _boneExclusions:
     Items: []
-  _dresserMode: 0
-  _backupCloth: 0
-  _unpackClothMeshes: 0
-  _deleteLeftover: 1
 --- !u!1 &6123033526789892994
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,109 +218,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Parent: {fileID: 0}
   Renderers:
-    Items:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    Items: []
   Materials:
-    Items:
-    - {fileID: 2100000, guid: e5fce3f663764ea4d9513f6ba5fd82b9, type: 2}
-    - {fileID: 2100000, guid: c796bbbf476b432419dec69a4cf29191, type: 2}
-    - {fileID: 2100000, guid: d6feca039d1d4124e884dd49e387af78, type: 2}
-    - {fileID: 2100000, guid: d9b280ca78bad564b98ef565fd157bd0, type: 2}
-    - {fileID: 2100000, guid: a27aace1de15504418aa9f76f5b79513, type: 2}
-    - {fileID: 2100000, guid: a5fdd439ba25bce4ea31b82ca43a5d1f, type: 2}
-    - {fileID: 2100000, guid: f25f0530efb55864c949e49a0304cce1, type: 2}
-    - {fileID: 2100000, guid: 521eb652bb166b648a5979eb3027e38c, type: 2}
-    - {fileID: 2100000, guid: 8651f08a2083cc641a15746e9fb53e93, type: 2}
-    - {fileID: 2100000, guid: 2932c3740752f3b438973caf397845bb, type: 2}
-    - {fileID: 2100000, guid: decf10ef0ea497245a5a8652e4ab4283, type: 2}
-    - {fileID: 2100000, guid: ab4576a254d5efa4abc441fa2b00cc8c, type: 2}
-    - {fileID: 2100000, guid: b22834d9223f3404b8bac567105b4c1a, type: 2}
-    - {fileID: 2100000, guid: 6d3ec4f300a88fb4d845c21224854784, type: 2}
+    Items: []
   Shaders:
-    Items:
-    - {fileID: 4800000, guid: 0962f7b93c5ff444885d8aa8b539e6de, type: 3}
-    - {fileID: 211, guid: 0000000000000000f000000000000000, type: 0}
-    - {fileID: 4800000, guid: 9baf30ce95c751649b14d96da3a4b4d5, type: 3}
-    - {fileID: 4800000, guid: aebd33b74ef849a4882b4a8d55f0f0c9, type: 3}
-    - {fileID: 4800000, guid: cd7e85b59edbb7740841003baeb510b5, type: 3}
-    - {fileID: 4800000, guid: df12117ecd77c31469c224178886498e, type: 3}
-    - {fileID: 4800000, guid: 85d6126cae43b6847aff4b13f4adb8ec, type: 3}
+    Items: []
   Textures:
-    Items:
-    - {fileID: 2800000, guid: e5f0c56cb42c22c469f6ce91e22a6e53, type: 3}
-    - {fileID: 2800000, guid: 3e0199a47ed99bf418195f0e9b81ddfb, type: 3}
-    - {fileID: 2800000, guid: 0fde13867fd44cb4481c20946033ca3f, type: 3}
-    - {fileID: 2800000, guid: faeba76990c2ea14ca14288017c33245, type: 3}
-    - {fileID: 2800000, guid: 67711444dda9b884486713856237fdaa, type: 3}
-    - {fileID: 2800000, guid: 32e0c7deb7e653940b8d3089a5a00e27, type: 3}
-    - {fileID: 2800000, guid: 7bdfb6976f6a9c94886b335dff152cc8, type: 3}
-    - {fileID: 2800000, guid: 31e9a5219ae56d94d81427c17ff47fce, type: 3}
-    - {fileID: 2800000, guid: 1ce77729f83dc944f9ccea666f617d3b, type: 3}
-    - {fileID: 2800000, guid: fc7b2ddd29fe6af41bf36a5f99b032dc, type: 3}
-    - {fileID: 2800000, guid: fd1ffc6ff0372384bb100d7b4f2ac975, type: 3}
-    - {fileID: 2800000, guid: 63b515703aab7c943ae026d6859856ee, type: 3}
-    - {fileID: 2800000, guid: f13f8bc070454714e8affb2df37d90c6, type: 3}
-    - {fileID: 2800000, guid: 1583efcbfea755844ad5797e973fcfa8, type: 3}
-    - {fileID: 2800000, guid: d567286f020cfb24aa342b92b88af0f4, type: 3}
-    - {fileID: 2800000, guid: 5222bb74af638f04d9029322855dc855, type: 3}
-    - {fileID: 2800000, guid: 08fa159d995be7c43b71711be1bf0c13, type: 3}
-    - {fileID: 2800000, guid: d03b36d3d502dd44982cbb0efc66bd6e, type: 3}
-    - {fileID: 2800000, guid: 0d9c13db7300c414c8ce27046b6f6546, type: 3}
-    - {fileID: 2800000, guid: b2f5a4afc63f74f489b88bfa1e3aca3c, type: 3}
-    - {fileID: 2800000, guid: 2c61308dbef672240a9fe39fdbc068b3, type: 3}
-    - {fileID: 2800000, guid: f378034f96fb6e1489dc135f2f2a4425, type: 3}
-    - {fileID: 2800000, guid: 8bcdb68c04b001545b301ea6cc09ed0d, type: 3}
-    - {fileID: 2800000, guid: 24291997aaf61754bb6cbb9d482af7e6, type: 3}
-    - {fileID: 2800000, guid: 82e8f89a0b413c449aaf4120120a5b30, type: 3}
+    Items: []
   _prevParent: {fileID: 0}
 --- !u!1 &6641233036143860345
 GameObject:
@@ -369,57 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parent: {fileID: 0}
   _meshes:
-    Items:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    Items: []
   _propertiesTable: {fileID: 0}
   _texturesMap:
     Items: []
@@ -471,32 +323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
   meshes:
-    Items:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
+    Items: []
   anchorOverride: {fileID: 0}
   boundingBox:
     m_Center: {x: 0, y: 0, z: 0}

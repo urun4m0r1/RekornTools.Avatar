@@ -8,7 +8,7 @@ namespace RekornTools.Avatar
     {
         public static void InvokeRecursive([NotNull] this Transform parent, [NotNull] Action<Transform> action)
         {
-            parent.gameObject.UndoableAction(() => action.Invoke(parent));
+            action.Invoke(parent);
 
             foreach (Transform child in parent)
             {

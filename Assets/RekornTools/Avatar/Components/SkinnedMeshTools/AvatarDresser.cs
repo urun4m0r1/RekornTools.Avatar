@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEditor;
 using UnityEngine;
@@ -16,86 +17,137 @@ namespace RekornTools.Avatar
     [ExecuteInEditMode]
     public sealed class AvatarDresser : MonoBehaviour
     {
+        [SerializeField] DresserMode _dresserMode = DresserMode.DirectTransform;
+
         [Header("Avatar Settings")]
         [SerializeField] Animator _avatar;
 
         [Header("Cloth Settings")]
         [SerializeField] string _clothPrefix;
-        [SerializeField] string       _clothSuffix;
-        [SerializeField] Transform _cloth;
+        [SerializeField] string    _clothSuffix;
+        [SerializeField] Transform _clothRoot;
+        [SerializeField] Transform _clothArmature;
 
         [Header("Bone Exclusions")]
-        [SerializeField] BonePairs _boneExclusions = new BonePairs();
+        [SerializeField] [NotNull] BonePairs _boneExclusions = new BonePairs();
 
-        [Header("Advanced Settings")]
-        [SerializeField] DresserMode _dresserMode = DresserMode.DirectTransform;
-        [SerializeField] bool _backupCloth       = false;
-        [SerializeField] bool _unpackClothMeshes = false;
-        [SerializeField] bool _deleteLeftover    = true;
+        void OnValidate()
+        {
+            if (_clothRoot != null && _clothArmature == null) _clothArmature = _clothRoot.Find("Armature");
+        }
 
         [Button]
         public void Apply()
         {
-            var armature = _cloth.Find("Armature");
-            if (armature == null)
+            switch (_dresserMode)
             {
-                Debug.LogError("Can't find Armature in " + _cloth.name);
-                return;
-            }
-
-            if (_backupCloth) BackupComponent(_cloth);
-            else _cloth.gameObject.UnpackPrefab();
-
-            var clothManagerGameObject = new GameObject($"{_cloth.name} Manager");
-            Undo.RegisterCreatedObjectUndo(clothManagerGameObject, "Apply Cloth");
-            Undo.SetTransformParent(clothManagerGameObject.transform, transform, "Cloth Manager");
-            //var clothManager = Undo.AddComponent<ClothManager>(clothManagerGameObject);
-            //clothManager.IsClothUnpacked = _unpackClothMeshes;
-
-            var children = armature.GetComponentsInChildren<Transform>();
-            foreach (var child in children)
-            {
-                if (child == armature) continue;
-
-                var childName     = child.name;
-                var convertedName = childName;
-
-                var newParent                    = _avatar.transform.FindRecursive(convertedName);
-                if (newParent == null) newParent = child.parent;
-
-                Undo.RecordObject(child.gameObject, "Apply Cloth");
-                child.name = $"{_clothPrefix}{convertedName}{_clothSuffix}";
-
-                Undo.SetTransformParent(child, newParent, "Parenting");
-
-                //clothManager.ClothBones.Add(child);
-            }
-
-            var clothMeshes = _cloth.GetComponentsInChildren<SkinnedMeshRenderer>();
-            //clothManager.ClothMeshes.AddRange(clothMeshes);
-
-            Undo.SetTransformParent(_cloth, _avatar.transform, "Parenting");
-
-            if (_unpackClothMeshes)
-                foreach (var clothMesh in clothMeshes)
-                    Undo.SetTransformParent(clothMesh.gameObject.transform, _avatar.transform, "Parenting");
-
-            if (_deleteLeftover)
-            {
-                Undo.DestroyObjectImmediate(armature.gameObject);
-
-                if (_unpackClothMeshes)
-                    Undo.DestroyObjectImmediate(_cloth.gameObject);
-                else
-                    Undo.DestroyObjectImmediate(_cloth);
+                case DresserMode.DirectTransform:
+                    ApplyDirectTransform();
+                    break;
+                case DresserMode.ParentConstraint:
+                    ApplyParentConstraint();
+                    break;
+                case DresserMode.WeightTransfer:
+                    ApplyWeightTransfer();
+                    break;
             }
         }
 
-        void BackupComponent<T>(T component) where T : Component
+        void ApplyDirectTransform()
         {
-            var backup = Instantiate(component.gameObject);
-            Undo.RegisterCreatedObjectUndo(backup, "Backup Cloth");
-            Undo.RecordObject(this, "Assign Backup Cloth");
+            if (_avatar == null || _clothRoot == null)
+            {
+                this.ShowConfirmDialog("Avatar or cloth is not set.");
+                return;
+            }
+
+            if (_clothArmature == null)
+            {
+                this.ShowConfirmDialog("Cloth armature is not set.");
+                return;
+            }
+
+            _clothRoot.gameObject.UnpackPrefab();
+
+            var bones  = _clothArmature.GetComponentsInChildren<Transform>();
+            var meshes = _clothRoot.GetComponentsInChildren<SkinnedMeshRenderer>();
+
+            if (bones == null || meshes == null)
+            {
+                this.ShowConfirmDialog("No bones or meshes found.");
+                Undo.PerformUndo();
+                return;
+            }
+
+            var result = CreateMeshBonePairs(_clothRoot.name, transform);
+            result.Bones.AddRange(bones);
+            result.Meshes.AddRange(meshes);
+
+            TransferBones(bones, _avatar.transform);
+            TransferExcludedBones(_boneExclusions);
+            RenameBones(bones, _clothPrefix, _clothSuffix);
+            TransferMeshes(_clothRoot, _avatar.transform);
+        }
+
+        void ApplyParentConstraint()
+        {
+            this.ShowConfirmDialog("ParentConstraint is not implemented yet.");
+        }
+
+
+        void ApplyWeightTransfer()
+        {
+            this.ShowConfirmDialog("WeightTransfer is not implemented yet.");
+        }
+
+        [NotNull]
+        static MeshBonePairs CreateMeshBonePairs([NotNull] string title, [CanBeNull] Transform parent)
+        {
+            var undo = "CreateMeshBonePairs";
+            {
+                var go = new GameObject($"[{title}]");
+                Undo.RegisterCreatedObjectUndo(go, undo);
+                Undo.SetTransformParent(go.transform, parent, undo);
+                return Undo.AddComponent<MeshBonePairs>(go) ?? throw new NullReferenceException(undo);
+            }
+        }
+
+        static void TransferBones([NotNull] IEnumerable<Transform> bones, [NotNull] Transform targetParent)
+        {
+            var undo = "TransferBones";
+            foreach (var bone in bones)
+            {
+                if (bone == null) continue;
+
+                var avatarBone = targetParent.FindRecursive(bone.name);
+                if (avatarBone != null) Undo.SetTransformParent(bone, avatarBone, undo);
+            }
+        }
+
+        static void TransferExcludedBones([NotNull] BonePairs boneExclusions)
+        {
+            var undo = "TransferExcludedBones";
+            foreach (var exclusion in boneExclusions)
+            {
+                if (exclusion == null || exclusion.Source == null) continue;
+                Undo.SetTransformParent(exclusion.Source, exclusion.Target, undo);
+            }
+        }
+
+        static void RenameBones([NotNull] IEnumerable<Transform> bones, [CanBeNull] string prefix, [CanBeNull] string suffix)
+        {
+            var undo = "RenameBones";
+            foreach (var bone in bones)
+            {
+                if (bone == null) continue;
+                bone.UndoableAction(undo, () => bone.name = $"{prefix}{bone.name}{suffix}");
+            }
+        }
+
+        static void TransferMeshes([NotNull] Transform source, [CanBeNull] Transform parent)
+        {
+            var undo = "TransferMeshes";
+            Undo.SetTransformParent(source, parent, undo);
         }
     }
 }

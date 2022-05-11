@@ -39,7 +39,7 @@ namespace RekornTools.Avatar
 
                 newName = RigNamingConvention.Convert(newName, _sourceNaming, _targetNaming);
 
-                x.name = newName;
+                x.gameObject.UndoableAction(() => x.name = newName);
             });
         }
     }

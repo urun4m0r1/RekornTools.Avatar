@@ -11,10 +11,17 @@ namespace RekornTools.Avatar
 {
     public static class GameObjectExtensions
     {
+        public static void BackupGameObject([NotNull] this Object obj)
+        {
+            var backup = Object.Instantiate(obj);
+            Undo.RegisterCreatedObjectUndo(backup, "Backup Cloth");
+        }
+
         public static void UnpackPrefab([CanBeNull] this GameObject prefab)
         {
-            if (PrefabUtility.GetPrefabInstanceStatus(prefab) == PrefabInstanceStatus.Connected)
-                PrefabUtility.UnpackPrefabInstance(prefab, PrefabUnpackMode.OutermostRoot, InteractionMode.UserAction);
+            if (PrefabUtility.GetPrefabInstanceStatus(prefab) != PrefabInstanceStatus.Connected) return;
+            var target = PrefabUtility.GetOutermostPrefabInstanceRoot(prefab);
+            PrefabUtility.UnpackPrefabInstance(target, PrefabUnpackMode.OutermostRoot, InteractionMode.UserAction);
         }
 
         [CanBeNull]
