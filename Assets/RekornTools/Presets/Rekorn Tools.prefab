@@ -53,7 +53,7 @@ MonoBehaviour:
   _backupCloth: 0
   _unpackClothMeshes: 0
   _deleteLeftover: 1
---- !u!1 &3881004597226245365
+--- !u!1 &6123033526789892994
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -61,42 +61,42 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4149305995053685114}
-  - component: {fileID: 6832864429439564148}
+  - component: {fileID: 5903845703858136240}
+  - component: {fileID: 7454582641523592409}
   m_Layer: 0
-  m_Name: Cloth Renamer
-  m_TagString: Untagged
+  m_Name: Bone Renamer
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &4149305995053685114
+--- !u!4 &5903845703858136240
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3881004597226245365}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_GameObject: {fileID: 6123033526789892994}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6641233036261945921}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6832864429439564148
+--- !u!114 &7454582641523592409
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3881004597226245365}
+  m_GameObject: {fileID: 6123033526789892994}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01a7cdc3de5c42298b1b7fab6d20dd23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _parent: {fileID: 6641233036261945921}
+  _parent: {fileID: 0}
   _sourceNaming:
     <ModifierPosition>k__BackingField: 1
     <Splitter>k__BackingField: .
@@ -530,7 +530,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2282721658063701435}
-  - {fileID: 4149305995053685114}
+  - {fileID: 5903845703858136240}
   - {fileID: 6641233035632871743}
   - {fileID: 6641233036212931386}
   - {fileID: 6641233036143860344}

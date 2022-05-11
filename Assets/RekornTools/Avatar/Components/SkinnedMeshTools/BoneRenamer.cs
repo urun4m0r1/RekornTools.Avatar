@@ -5,7 +5,7 @@ using UnityEngine;
 namespace RekornTools.Avatar
 {
     [ExecuteInEditMode]
-    public sealed class ClothRenamer : MonoBehaviour
+    public sealed class BoneRenamer : MonoBehaviour
     {
         [Header("Source")]
         [SerializeField] Transform _parent;
