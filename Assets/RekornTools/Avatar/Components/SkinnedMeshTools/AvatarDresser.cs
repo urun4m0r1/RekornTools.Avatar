@@ -60,7 +60,7 @@ namespace RekornTools.Avatar
                 var childName     = child.name;
                 var convertedName = childName;
 
-                var newParent                    = FindRecursive(_avatar.transform, convertedName);
+                var newParent                    = _avatar.transform.FindRecursive(convertedName);
                 if (newParent == null) newParent = child.parent;
 
                 Undo.RecordObject(child.gameObject, "Apply Cloth");
@@ -96,22 +96,6 @@ namespace RekornTools.Avatar
             var backup = Instantiate(component.gameObject);
             Undo.RegisterCreatedObjectUndo(backup, "Backup Cloth");
             Undo.RecordObject(this, "Assign Backup Cloth");
-        }
-
-        static Transform FindRecursive(Transform root, string name)
-        {
-            if (root.name == name)
-            {
-                return root;
-            }
-
-            foreach (Transform child in root)
-            {
-                var result = FindRecursive(child, name);
-                if (result != null) return result;
-            }
-
-            return null;
         }
     }
 }

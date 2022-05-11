@@ -24,6 +24,7 @@ namespace RekornTools.Avatar
         public void Rename()
         {
             if (_parent == null) return;
+
             _parent.InvokeRecursive(x =>
             {
                 if (x == null || _exclusions.Contains(x)) return;
