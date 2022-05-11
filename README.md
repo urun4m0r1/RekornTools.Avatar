@@ -1,5 +1,5 @@
 ﻿# RekornTools.Avatar
 
-Useful tools for working with VRChat avatars.
+Useful sets of unity editor tools for VRChat SDK 3.0
 
-See also: https://rekorn.booth.pm/
+See also: https://rekorn.booth.pm/items/3860932
