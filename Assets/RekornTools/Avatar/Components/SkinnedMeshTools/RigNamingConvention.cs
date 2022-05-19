@@ -24,7 +24,7 @@ namespace RekornTools.Avatar
         public static RigNamingConvention Default = new RigNamingConvention
         {
             ModifierPosition = ModifierPosition.End,
-            Splitter         = ".",
+            Splitter         = "_",
             ModifierLeft     = "L",
             ModifierRight    = "R",
         };

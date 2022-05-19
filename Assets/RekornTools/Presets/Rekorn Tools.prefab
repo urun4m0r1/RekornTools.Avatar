@@ -97,12 +97,12 @@ MonoBehaviour:
   _parent: {fileID: 0}
   _sourceNaming:
     <ModifierPosition>k__BackingField: 1
-    <Splitter>k__BackingField: .
+    <Splitter>k__BackingField: _
     <ModifierLeft>k__BackingField: L
     <ModifierRight>k__BackingField: R
   _targetNaming:
     <ModifierPosition>k__BackingField: 1
-    <Splitter>k__BackingField: .
+    <Splitter>k__BackingField: _
     <ModifierLeft>k__BackingField: L
     <ModifierRight>k__BackingField: R
   _renameToken:
@@ -202,7 +202,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6641233036261945921}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6641233035737980006
 MonoBehaviour:
@@ -255,7 +255,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6641233036261945921}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6641233036143860346
 MonoBehaviour:
@@ -272,12 +272,36 @@ MonoBehaviour:
   _parent: {fileID: 0}
   _meshes:
     Items: []
-  _propertiesTable: {fileID: 0}
+  _propertiesTable: {fileID: 11400000, guid: 41244db2fc7ec854eaf855c1d646a05e, type: 2}
   _texturesMap:
-    Items: []
-  _optimizerSettings: {fileID: 0}
+    Items:
+    - <Key>k__BackingField: 1
+      <Value>k__BackingField:
+        Items: []
+    - <Key>k__BackingField: 2
+      <Value>k__BackingField:
+        Items: []
+    - <Key>k__BackingField: 3
+      <Value>k__BackingField:
+        Items: []
+    - <Key>k__BackingField: 4
+      <Value>k__BackingField:
+        Items: []
+    - <Key>k__BackingField: 5
+      <Value>k__BackingField:
+        Items: []
+    - <Key>k__BackingField: 6
+      <Value>k__BackingField:
+        Items: []
+    - <Key>k__BackingField: 7
+      <Value>k__BackingField:
+        Items: []
+    - <Key>k__BackingField: 8
+      <Value>k__BackingField:
+        Items: []
+  _optimizerSettings: {fileID: 11400000, guid: 37322b49eed470842bf7eaf696f64c46, type: 2}
   _prevParent: {fileID: 0}
-  _prevTable: {fileID: 0}
+  _prevTable: {fileID: 11400000, guid: 41244db2fc7ec854eaf855c1d646a05e, type: 2}
 --- !u!1 &6641233036212931384
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,7 +351,7 @@ MonoBehaviour:
   anchorOverride: {fileID: 0}
   boundingBox:
     m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 1, y: 1, z: 1}
   _prevParent: {fileID: 0}
 --- !u!1 &6641233036261945950
 GameObject:
@@ -360,8 +384,8 @@ Transform:
   - {fileID: 5903845703858136240}
   - {fileID: 6641233035632871743}
   - {fileID: 6641233036212931386}
-  - {fileID: 6641233036143860344}
   - {fileID: 6641233035737980007}
+  - {fileID: 6641233036143860344}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

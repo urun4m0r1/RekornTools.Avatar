@@ -11,7 +11,7 @@ namespace RekornTools.Avatar
         [SerializeField] Transform            parent;
         [SerializeField] SkinnedMeshRenderers meshes = new SkinnedMeshRenderers();
         [SerializeField] Transform            anchorOverride;
-        [SerializeField] Bounds               boundingBox;
+        [SerializeField] Bounds               boundingBox = new Bounds(Vector3.zero, Vector3.one * 2);
 
         [SerializeField] [HideInInspector] Transform _prevParent;
 
@@ -21,7 +21,7 @@ namespace RekornTools.Avatar
         {
             if (_prevParent != parent) Refresh();
         }
-        
+
         [Button]
         void Refresh()
         {
