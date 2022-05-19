@@ -15,6 +15,12 @@ namespace RekornTools
         [SerializeField] public string server;
         [SerializeField] public string github;
         [SerializeField] public string booth;
+
+        public bool IsEmpty() =>
+            string.IsNullOrWhiteSpace(version)
+         || string.IsNullOrWhiteSpace(server)
+         || string.IsNullOrWhiteSpace(github)
+         || string.IsNullOrWhiteSpace(booth);
     }
 
     [InitializeOnLoad]
@@ -27,6 +33,12 @@ namespace RekornTools
         static void CheckNewVersion()
         {
             var local = ParseLocalVersion("Assets/RekornTools/Core/VERSION.json");
+
+            if (local.IsEmpty())
+            {
+                Debug.LogError("Failed to parse update server info.");
+                return;
+            }
 
             var skipVersion = EditorPrefs.GetString(PrefPath);
             if (skipVersion == local.version) return;
