@@ -18,9 +18,9 @@ namespace RekornTools
 
         public bool IsEmpty() =>
             string.IsNullOrWhiteSpace(version)
-         || string.IsNullOrWhiteSpace(server)
-         || string.IsNullOrWhiteSpace(github)
-         || string.IsNullOrWhiteSpace(booth);
+         && string.IsNullOrWhiteSpace(server)
+         && string.IsNullOrWhiteSpace(github)
+         && string.IsNullOrWhiteSpace(booth);
     }
 
     [InitializeOnLoad]
