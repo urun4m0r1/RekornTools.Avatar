@@ -1,7 +1,6 @@
 ﻿{
   "version": "1.0.0",
-  "server": null,
+  "server": "https://raw.githubusercontent.com/urun4m0r1/RekornTools.Avatar/master/VERSION.json",
   "github": "https://github.com/urun4m0r1/RekornTools.Avatar",
-  "booth": "https://rekorn.booth.pm/items/3860932",
-  "store": null
+  "booth": "https://rekorn.booth.pm/items/3860932"
 }

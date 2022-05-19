@@ -15,7 +15,6 @@ namespace RekornTools
         [SerializeField] public string server;
         [SerializeField] public string github;
         [SerializeField] public string booth;
-        [SerializeField] public string store;
     }
 
     [InitializeOnLoad]
@@ -32,7 +31,10 @@ namespace RekornTools
             var skipVersion = EditorPrefs.GetString(PrefPath);
             if (skipVersion == local.version) return;
 
-            GetRemoteVersion(local.server, remote => CheckVersion(local, remote));
+            GetRemoteVersion(
+                local.server
+              , remote => CheckVersion(local, remote)
+              , message => CheckNetwork(local, message ?? "Unknown"));
         }
 
         static VersionInfo ParseLocalVersion([NotNull] string path)
@@ -47,14 +49,14 @@ namespace RekornTools
             return JsonUtility.FromJson<VersionInfo>(textAsset.text);
         }
 
-        static void GetRemoteVersion([NotNull] string server, [CanBeNull] Action<VersionInfo> callback)
+        static void GetRemoteVersion([NotNull] string server, [CanBeNull] Action<VersionInfo> onSuccess, [CanBeNull] Action<string> onError)
         {
             var www = UnityWebRequest.Get(server);
 
             var request = www?.SendWebRequest();
             if (request == null)
             {
-                Debug.LogError("VersionChecker: Can't reach server.");
+                onError?.Invoke("Can't reach server.");
                 return;
             }
 
@@ -62,22 +64,21 @@ namespace RekornTools
             {
                 if (www.isNetworkError || www.isHttpError)
                 {
-                    Debug.LogError($"VersionChecker: {www.error}");
+                    onError?.Invoke(www.error);
+                    return;
                 }
-                else
+
+                var rawData = www.downloadHandler?.data;
+                if (rawData == null)
                 {
-                    var rawData = www.downloadHandler?.data;
-                    if (rawData == null)
-                    {
-                        Debug.LogError("VersionChecker: Could not get data from server.");
-                        return;
-                    }
-
-                    var jsonString = Encoding.UTF8.GetString(rawData, 3, rawData.Length - 3);
-                    var remote     = JsonUtility.FromJson<VersionInfo>(jsonString);
-
-                    callback?.Invoke(remote);
+                    onError?.Invoke("Failed to get data from server.");
+                    return;
                 }
+
+                var jsonString = Encoding.UTF8.GetString(rawData, 3, rawData.Length - 3);
+                var remote     = JsonUtility.FromJson<VersionInfo>(jsonString);
+
+                onSuccess?.Invoke(remote);
 
                 www.Dispose();
             };
@@ -87,39 +88,55 @@ namespace RekornTools
         {
             if (remote.version == local.version) return;
 
-
             var response = EditorUtility.DisplayDialogComplex(
                 $"RekornTools {local.version}"
               , $"New version {remote.version} is available.\n"
-              + $"You can download it with button below."
+              + $"You can download it with buttons below."
               , "Download", "Close", "Skip this version");
 
+            ShowDownloadDialog(remote, response);
+        }
+
+        static void CheckNetwork(VersionInfo local, [NotNull] string message)
+        {
+            var response = EditorUtility.DisplayDialogComplex(
+                $"RekornTools {local.version}"
+              , $"Update server unreachable. ({message})\n"
+              + $"Maybe you are offline or server is down.\n"
+              + $"You can try download latest version with buttons below."
+              , "Download", "Close", "Skip this version");
+
+            ShowDownloadDialog(local, response);
+        }
+
+        static void ShowDownloadDialog(VersionInfo info, int response)
+        {
             switch (response)
             {
                 case 0:
-                    var link = GetDownloadLink(remote);
+                    var link = GetDownloadLink(info);
                     if (!string.IsNullOrWhiteSpace(link)) Application.OpenURL(link);
                     break;
                 case 1:
                     break;
                 case 2:
-                    EditorPrefs.SetString(PrefPath, local.version);
+                    EditorPrefs.SetString(PrefPath, info.version);
                     break;
             }
         }
 
-        static string GetDownloadLink(VersionInfo remote)
+        static string GetDownloadLink(VersionInfo info)
         {
             var response = EditorUtility.DisplayDialogComplex(
-                $"RekornTools {remote.version}"
+                $"RekornTools {info.version}"
               , $"Choose where to download the new version."
-              , "Github", "Booth", "Asset Store");
+              , "Github", "Close", "Booth");
 
             switch (response)
             {
-                case 0: return remote.github;
-                case 1: return remote.booth;
-                case 2: return remote.store;
+                case 0: return info.github;
+                case 1: return null;
+                case 2: return info.booth;
             }
 
             return null;
