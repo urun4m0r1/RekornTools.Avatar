@@ -16,7 +16,7 @@ namespace RekornTools.Avatar.Editor
             DrawMeshFinder(t);
             HorizontalLine();
 
-            if (t.Meshes.Count > 0)
+            if (t.Meshes?.Count > 0)
             {
                 DrawBoneFinder(t);
                 HorizontalLine();

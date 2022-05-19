@@ -16,36 +16,40 @@ namespace RekornTools.Avatar
         [field: SerializeField] [CanBeNull] public string MeshKeyword { get; set; }
         [field: SerializeField] [CanBeNull] public string BoneKeyword { get; set; }
 
-        [NotNull] public SkinnedMeshRenderers Meshes => _meshBonePairs.Meshes;
-        [NotNull] public Transforms           Bones  => _meshBonePairs.Bones;
+        [CanBeNull] public SkinnedMeshRenderers Meshes => _meshBonePairs ? _meshBonePairs.Meshes : null;
+        [CanBeNull] public Transforms           Bones  => _meshBonePairs ? _meshBonePairs.Bones : null;
 
-        // ReSharper disable once NotNullMemberIsNotInitialized
-        [NotNull] MeshBonePairs _meshBonePairs;
+        [CanBeNull] MeshBonePairs _meshBonePairs;
 
-        // ReSharper disable once AssignNullToNotNullAttribute
         void Awake() => _meshBonePairs = GetComponent<MeshBonePairs>();
 
         public void FindMeshesFromTargetWithKeyword()
         {
-            _meshBonePairs.UndoableAction(() => Meshes.Initialize(MeshParent, MeshKeyword));
-            if (Meshes.Count == 0) this.ShowConfirmDialog("No objects found");
+            if (_meshBonePairs == null) return;
+
+            _meshBonePairs.UndoableAction(() => Meshes?.Initialize(MeshParent, MeshKeyword));
+            if (Meshes?.Count == 0) this.ShowConfirmDialog("No objects found");
         }
 
         public void FindBonesFromTargetWithKeyword()
         {
+            if (_meshBonePairs == null) return;
+
             _meshBonePairs.UndoableAction(() =>
             {
-                Bones.Initialize(BoneParent, BoneKeyword);
-                Bones.RemoveRange(Meshes.Select(x => x == null ? null : x.transform));
-                Bones.Remove(BoneParent);
+                Bones?.Initialize(BoneParent, BoneKeyword);
+                Bones?.RemoveRange(Meshes?.Select(x => x == null ? null : x.transform));
+                Bones?.Remove(BoneParent);
             });
 
-            if (Bones.Count == 0) this.ShowConfirmDialog("No objects found");
+            if (Bones?.Count == 0) this.ShowConfirmDialog("No objects found");
         }
 
         public void FindBonesFromWeights()
         {
-            if (Meshes.Count == 0)
+            if (_meshBonePairs == null) return;
+
+            if (Meshes?.Count == 0)
             {
                 this.ShowConfirmDialog("There are no meshes to find bones from.");
                 return;
@@ -63,9 +67,9 @@ namespace RekornTools.Avatar
                 bones.Add(bone);
             }
 
-            _meshBonePairs.UndoableAction(() => Bones.Initialize(bones));
+            _meshBonePairs.UndoableAction(() => Bones?.Initialize(bones));
 
-            if (Bones.Count == 0)
+            if (Bones?.Count == 0)
                 this.ShowConfirmDialog("Failed to find any bones from meshes.\n" +
                                        "You might need to check meshes is valid or bone weights are not set to zero.");
         }
@@ -73,6 +77,8 @@ namespace RekornTools.Avatar
         public void FindBonesFromWeightsRecursive()
         {
             FindBonesFromWeights();
+
+            if (_meshBonePairs == null || Bones == null) return;
 
             var children = GetChildrenRecursive(Bones);
             _meshBonePairs.UndoableAction(() => Bones.AddRange(children));
