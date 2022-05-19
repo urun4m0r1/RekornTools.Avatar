@@ -58,7 +58,7 @@ namespace RekornTools.Avatar
         {
             var objects = parent == null
                 ? GameObjectExtensions.GetAllGameObjectsInScene?.SelectMany(x => x == null ? null : x.GetComponents<T>())
-                : parent.GetComponentsInChildren<T>();
+                : parent.GetComponentsInChildren<T>(true);
 
             if (keyword != null && !string.IsNullOrWhiteSpace(keyword))
                 objects = objects?.Where(x => x != null && x.name.Contains(keyword));
