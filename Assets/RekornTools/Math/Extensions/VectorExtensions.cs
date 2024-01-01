@@ -31,7 +31,7 @@ namespace RekornTools.Math
         }
 
         [SuppressMessage("ReSharper", "Unity.InefficientPropertyAccess")]
-        public static Vector3 GetNormal([NotNull] this Transform vector, NormalAxis axis)
+        public static Vector3 GetNormal([System.Diagnostics.CodeAnalysis.NotNull] this Transform vector, NormalAxis axis)
         {
             switch (axis)
             {

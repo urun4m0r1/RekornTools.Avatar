@@ -49,7 +49,7 @@ namespace RekornTools.Avatar
             }
         }
 
-        static void DrawBounds([NotNull] Renderer renderer, Color color)
+        static void DrawBounds([System.Diagnostics.CodeAnalysis.NotNull] Renderer renderer, Color color)
         {
             var rotation = renderer.transform.rotation;
             if (renderer is SkinnedMeshRenderer)
@@ -67,7 +67,7 @@ namespace RekornTools.Avatar
         }
 
         [SuppressMessage("ReSharper", "Unity.InefficientPropertyAccess")]
-        static void RepaintRenderer([NotNull] Renderer renderer)
+        static void RepaintRenderer([System.Diagnostics.CodeAnalysis.NotNull] Renderer renderer)
         {
             renderer.enabled = false;
             renderer.enabled = true;
