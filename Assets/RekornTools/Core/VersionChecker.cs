@@ -33,7 +33,7 @@ namespace RekornTools
 
         static void CheckNewVersion()
         {
-            var regex = new System.Text.RegularExpressions.Regex(@"(?<=/RekornTools/)\w+/.+\.json");
+            var regex = new System.Text.RegularExpressions.Regex(@"(?:.*/|.*\\)?Core/(VERSION\.json)");
             var path  = AssetDatabase.FindAssets("VERSION t:TextAsset")
                                      .Select(AssetDatabase.GUIDToAssetPath)
                                      .FirstOrDefault(x => regex.IsMatch(x));
