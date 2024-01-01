@@ -36,7 +36,7 @@ namespace RekornTools
 
             if (local.IsEmpty())
             {
-                Debug.LogError("Failed to parse update server info.");
+                Debug.LogWarning("Failed to parse update server info.");
                 return;
             }
 
@@ -54,7 +54,7 @@ namespace RekornTools
             var textAsset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
             if (textAsset == null)
             {
-                Debug.LogError("VersionChecker: Could not find local version file.");
+                Debug.LogWarning("VersionChecker: Could not find local version file.");
                 return default;
             }
 
