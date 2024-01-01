@@ -1,5 +1,6 @@
 ﻿#if UNITY_EDITOR
 using System;
+using System.Linq;
 using System.Text;
 using JetBrains.Annotations;
 using UnityEditor;
@@ -32,7 +33,12 @@ namespace RekornTools
 
         static void CheckNewVersion()
         {
-            var local = ParseLocalVersion("Assets/RekornTools/Core/VERSION.json");
+            var regex = new System.Text.RegularExpressions.Regex(@"(?<=/RekornTools/)\w+/.+\.json");
+            var path  = AssetDatabase.FindAssets("VERSION t:TextAsset")
+                                     .Select(AssetDatabase.GUIDToAssetPath)
+                                     .FirstOrDefault(x => regex.IsMatch(x));
+
+            var local = ParseLocalVersion(path);
 
             if (local.IsEmpty())
             {
@@ -49,8 +55,14 @@ namespace RekornTools
               , message => CheckNetwork(local, message ?? "Unknown"));
         }
 
-        static VersionInfo ParseLocalVersion([NotNull] string path)
+        static VersionInfo ParseLocalVersion([CanBeNull] string path)
         {
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                Debug.LogWarning("VersionChecker: Could not find local version file.");
+                return default;
+            }
+
             var textAsset = AssetDatabase.LoadAssetAtPath<TextAsset>(path);
             if (textAsset == null)
             {
