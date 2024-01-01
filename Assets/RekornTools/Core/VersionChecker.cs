@@ -86,7 +86,7 @@ namespace RekornTools
 
             request.completed += x =>
             {
-                if (www.isNetworkError || www.isHttpError)
+                if (www.result is UnityWebRequest.Result.ConnectionError or UnityWebRequest.Result.ProtocolError)
                 {
                     onError?.Invoke(www.error);
                     return;
