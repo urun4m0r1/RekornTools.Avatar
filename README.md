@@ -22,11 +22,13 @@ English: https://bit.ly/3FXDUIb
 
 ---
 
-Unity 2019.4.31f1+
+Unity 2022.3.6f1+
 
 # Changelog
 
 ---
+
+[2024-01-01: v1.1.0] Migrate to Unity 2022.3.6f1
 
 [2022-05-20: v1.0.0] Released
 
